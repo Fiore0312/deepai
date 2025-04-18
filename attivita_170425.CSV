@@ -1,0 +1,461 @@
+Contratto;Id Ticket;Iniziata il;Conclusa il;Azienda;Linea di Contratto;Descrizione;Durata;Quantità Linea Contratto;Creato da
+;39594;17/04/2025 13:25;17/04/2025 14:25;ELECTRALINE 3PMARK SPA;;Creazione utente richiesto + settaggio impostazioni rds;1:00;;Gabriele De Palma
+;39596;17/04/2025 09:00;17/04/2025 14:00;SILANOS SRL;;Finalizzazione server silanosmoss + settaggio impostazioni di rete e dominio hosting;5:00;;Gabriele De Palma
+;39330;17/04/2025 09:00;17/04/2025 13:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Tommaso Ambrosone
+;39580;17/04/2025 11:26;17/04/2025 11:26;COMUNE DI LENTATE SUL SEVESO;;mandate istruzioni via email per resettare la password di Civilia Next;0:00;;Matteo Signo
+;39587;17/04/2025 11:01;17/04/2025 11:01;COMUNE DI LENTATE SUL SEVESO;;chiarito con il cliente, procedo con la chiusura del ticket;0:00;;Matteo Signo
+;39590;17/04/2025 10:00;17/04/2025 11:00;WITTMANN BATTENFELD ITALIA S.r.l.;;Analisi;1:00;;Gabriele De Palma
+;39054;17/04/2025 10:00;17/04/2025 10:00;COMUNE DI LENTATE SUL SEVESO;;parlato con Cristina sull'attività da fare, spiegato cosa ci serve per procedere, sono rimasto che ci farà sapere lei via email appena ha le info richieste;0:00;;Matteo Signo
+;39558;17/04/2025 09:15;17/04/2025 09:15;COMUNE DI LENTATE SUL SEVESO;;cambiato porta e driver delle stampanti richieste + test funzionamento, ok;0:00;;Matteo Signo
+;39574;17/04/2025 09:00;17/04/2025 09:00;COMUNE DI LENTATE SUL SEVESO;;consegnato 3 toner a Roberta come richiesto, gli altri 3 toner rimangono al CED;0:00;;Matteo Signo
+;39347;16/04/2025 07:00;16/04/2025 20:00;CLEAN ROOM ITALIA SRL;;"Attività svolte durante il trasferimento e l’allestimento della nuova sede:
+Smontaggio e spostamento di PC, ...";13:00;;Franco Fiorellino
+;39347;16/04/2025 07:00;16/04/2025 20:00;CLEAN ROOM ITALIA SRL;;"Attività svolte durante il trasferimento e l’allestimento della nuova sede:
+Smontaggio e spostamento di PC, ...";13:00;;Matteo Signo
+;39347;16/04/2025 07:00;16/04/2025 20:00;CLEAN ROOM ITALIA SRL;;"Attività svolte durante il trasferimento e l’allestimento della nuova sede:
+Smontaggio e spostamento di PC, ...";13:00;;Matteo Di Salvo
+;39314;16/04/2025 15:00;16/04/2025 18:00;ITX ITALIA SRL;;presidio zara;3:00;;Lorenzo Serratore
+;39330;16/04/2025 14:00;16/04/2025 18:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Morris Detering
+;39330;16/04/2025 14:00;16/04/2025 18:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Tommaso Ambrosone
+;39314;16/04/2025 15:00;16/04/2025 18:00;ITX ITALIA SRL;;presidio zara on side;3:00;;Arlind Hoxha
+;39330;16/04/2025 14:00;16/04/2025 17:00;ITX ITALIA SRL;;Presidio zara;3:00;;Niccolò Ragusa
+;39576;16/04/2025 15:20;16/04/2025 15:50;ISOTERMA SRL;;software installato;0:30;;Lorenzo Serratore
+;39314;16/04/2025 09:00;16/04/2025 14:00;ITX ITALIA SRL;;presidio zara;5:00;;Lorenzo Serratore
+;39314;16/04/2025 09:00;16/04/2025 14:00;ITX ITALIA SRL;;presidio zara on side;5:00;;Arlind Hoxha
+16;39522;16/04/2025 11:30;16/04/2025 13:00;ASPEX ARL;"System Engineer Mago Remote ""C""";"Comunicato al cliente che non si possono associare due dichiarazioni d'intento su un'unica riga di merce ma bisogna splittare le righe e associare per ogni riga la dichiarazione di riferimento.
+Spiegato come abilitare e utilizzare la nu...";1:30;;Nicole Caiola
+;39330;16/04/2025 08:00;16/04/2025 13:00;ITX ITALIA SRL;;Presidio zara;5:00;;Niccolò Ragusa
+;39330;16/04/2025 09:00;16/04/2025 13:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Morris Detering
+;39330;16/04/2025 09:00;16/04/2025 13:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Tommaso Ambrosone
+;39585;16/04/2025 11:50;16/04/2025 12:05;GENERALFRIGO SRL;;supporto PC Stage generlafrigo per problemi con PDF;0:15;;Lorenzo Serratore
+7;39577;16/04/2025 09:00;16/04/2025 12:00;TECNINOX S.R.L;"Sys. Eng. Jr. on-site ""S4""";"Supporto attivazione cassetto ottico e catalyst fibra retelit. Nessuna attività necessaria.
+Verifica problematiche di rete e telefoni su sala cielo, ufficio contabilità.
+Verifiche punti rete, tratte, effettuata separazione ...";3:00;;Roberto Birocchi
+7;39577;16/04/2025 10:20;16/04/2025 12:00;TECNINOX S.R.L;"Sys. Eng. Jr. on-site ""S4""";Attività a supporto di Roberto per verifiche punti rete pc e telefoni.;1:40;;Cristian La Bella
+;39330;15/04/2025 14:00;15/04/2025 19:00;ITX ITALIA SRL;;presidio zara da remoto;5:00;;Arlind Hoxha
+9;39557;15/04/2025 17:30;15/04/2025 18:30;HYOSUNG EUROPE SRL;"Sys. Eng. remote ""C""";"Configurato 3CX App Chae su Smartphone e PC
+Configurato da zero telefono Maria Cristina ma problematica persiste
+Sistemato alcuni interni";1:00;;Marco Birocchi
+;39330;15/04/2025 14:00;15/04/2025 18:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Tommaso Ambrosone
+;39330;15/04/2025 14:00;15/04/2025 18:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Morris Detering
+75;39470;15/04/2025 13:30;15/04/2025 18:00;MSA SAFETY SERVICES Gmbh;;MSA Manutenzione ordinaria;4:30;;Lorenzo Serratore
+;39565;15/04/2025 15:00;15/04/2025 18:00;BAIT Service S.r.l.;;Controllo dei dispositivi con conto dei totali in riparazione + relativo seriale e controllo di tutto l'inventario e componenti totali con Mariangela;3:00;;Matteo Di Salvo
+;39548;15/04/2025 16:30;15/04/2025 17:30;SPOLIDORO STUDIO AVVOCATO;;terminato update Windows e ottimizzazione;1:00;;Matteo Signo
+;39101;15/04/2025 16:30;15/04/2025 17:30;DELTA 2000 SRL;;Effettuato sistemazione report ed aggiunto colonne 'richieste da Camilla;1:00;;Marco Birocchi
+;39389;15/04/2025 14:30;15/04/2025 16:00;GRUPPO TORO;;consegnato notebook + creazione utenza in AD copiando permessi da utenza acquisti come confermato da Luca Maritato + messo utente AD local admin come confermato da Luca Maritato + join a dominio + installazione stampante + software richiesti + con...;1:30;;Matteo Signo
+;39560;15/04/2025 14:00;15/04/2025 14:30;TECNINOX S.R.L;;COLLEGAMENTO ACCOUNT, SALVATAGGIO FILE IN PDF;0:30;;Arlind Hoxha
+;39330;15/04/2025 09:00;15/04/2025 13:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Morris Detering
+;39330;15/04/2025 09:00;15/04/2025 13:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Tommaso Ambrosone
+;39404;15/04/2025 09:00;15/04/2025 13:00;BAIT Service S.r.l.;;Continuazione sito con tentativi di implementazione prezzi nelle stampanti e bug fixes;4:00;;Matteo Di Salvo
+;39330;15/04/2025 08:00;15/04/2025 13:00;ITX ITALIA SRL;;Presidio zara;5:00;;Niccolò Ragusa
+75;39470;15/04/2025 09:00;15/04/2025 12:30;MSA SAFETY SERVICES Gmbh;;MSA Manutenzione ordinaria;3:30;;Lorenzo Serratore
+;39314;15/04/2025 09:00;15/04/2025 12:20;ITX ITALIA SRL;;presidio zara onside;3:20;;Arlind Hoxha
+;39511;15/04/2025 11:15;15/04/2025 11:45;COMUNE DI LENTATE SUL SEVESO;;fatta creare utenza dall'assistenza + indicato modifiche da apportare + mandata comunicazione via email alla Dott.ssa Torretta con le credenziali d'accesso;0:30;;Matteo Signo
+;39407;15/04/2025 11:00;15/04/2025 11:30;SPOLIDORO STUDIO AVVOCATO;;istruzioni a Marianna per l'utilizzo del plugin di Outlook + aperto ticket con l'assistenza Libraesva per corrispondenza posta in arrivo per la mailbox spolex@spolex.it;0:30;;Matteo Signo
+55;39545;15/04/2025 11:00;15/04/2025 11:30;BAIT Service S.r.l.;Supporto Interno;Creazione fincato offertaroberto_eng per ordini in inglese;0:30;;Marco Birocchi
+;39555;15/04/2025 10:30;15/04/2025 11:15;COMUNE DI LENTATE SUL SEVESO;;fatto collegare assistenza al notebook con Win7;0:45;;Matteo Signo
+;39548;15/04/2025 09:00;15/04/2025 10:30;SPOLIDORO STUDIO AVVOCATO;;manutenzione sul notebook del Professore, update database di Office + lanciato upgrade all'ultima build di Win11, in fase d'aggiornamento;1:30;;Matteo Signo
+2;39556;15/04/2025 10:00;15/04/2025 10:15;RPO ELECTRONIC SRL;"Sys. Eng. remote ""S1""";Effettuato modifica risposta automatica [cristiana@rpoelectronic.com](mailto:cristiana@rpoelectronic.comn) e aggiunto in delega Federica;0:15;;Marco Birocchi
+;39550;15/04/2025 09:00;15/04/2025 09:15;BAIT Service S.r.l.;;nessun errore riscontrato dalla pagina web, stato attuale ups, ok;0:15;;Matteo Signo
+;39547;14/04/2025 14:00;14/04/2025 18:00;COMUNE DI LENTATE SUL SEVESO;;Comune di Lentate - presidio;4:00;;Matteo Signo
+;39330;14/04/2025 14:00;14/04/2025 18:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Morris Detering
+;39330;14/04/2025 14:00;14/04/2025 18:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Tommaso Ambrosone
+;39314;14/04/2025 15:00;14/04/2025 18:00;ITX ITALIA SRL;;presidio zara;3:00;;Arlind Hoxha
+;39564;14/04/2025 16:00;14/04/2025 18:00;BAIT Service S.r.l.;;Cambio cpu da i3 9300f a i5 9600f con aggiunta di un banco di ram 8gb(complessivi 16gb)+ aggiornamenti computer;2:00;;Matteo Di Salvo
+;39330;14/04/2025 14:00;14/04/2025 17:00;ITX ITALIA SRL;;Presidio zara;3:00;;Niccolò Ragusa
+;39335;14/04/2025 15:00;14/04/2025 17:00;HYOSUNG EUROPE SRL;;Riconfigurazione PC Sig. Chae;2:00;;Lorenzo Serratore
+;39546;14/04/2025 16:30;14/04/2025 16:45;TECNINOX S.R.L;;Ripristino file richiesto all 01/04/2025;0:15;;Gabriele De Palma
+;39404;14/04/2025 14:00;14/04/2025 16:00;BAIT Service S.r.l.;;Sistemazione pagina admin con relativo form nel db per poter visualizzare le richieste fatte dai clienti;2:00;;Matteo Di Salvo
+;39314;14/04/2025 09:00;14/04/2025 14:00;ITX ITALIA SRL;;presidio zara;5:00;;Arlind Hoxha
+;39335;14/04/2025 09:00;14/04/2025 14:00;HYOSUNG EUROPE SRL;;Riconfigurazione PC Sig. Chae e supporto su due PC per Kaspersky ed Excel;5:00;;Lorenzo Serratore
+;39243;14/04/2025 12:54;14/04/2025 13:54;BAIT Service S.r.l.;;"Notebook lavorati : 1 pz
+Formattazione e reinstallazione sistema operativo Windows 10 Professional (sistema originario presente nel notebook)
+Installazione e configurazione periferiche
+test e collaudo -> ok";1:00;;Franco Fiorellino
+;39547;14/04/2025 09:00;14/04/2025 13:00;COMUNE DI LENTATE SUL SEVESO;;Comune di Lentate - presidio;4:00;;Matteo Signo
+;37689;14/04/2025 12:45;14/04/2025 13:00;EVA ODV;;come d'accordi con Stefania, mandato link via email a info@centroantiviolenzaeva.it per poter scaricare i 2 file PST delle caselle email info@evaonlus.it e [direzione@evao...](mailto:direzione@evaonlus.it);0:15;;Matteo Signo
+;39330;14/04/2025 09:00;14/04/2025 13:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Tommaso Ambrosone
+;39330;14/04/2025 09:00;14/04/2025 13:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Morris Detering
+;39330;14/04/2025 08:00;14/04/2025 13:00;ITX ITALIA SRL;;Presidio zara;5:00;;Niccolò Ragusa
+;39404;14/04/2025 09:00;14/04/2025 13:00;BAIT Service S.r.l.;;Implementazione pagina admin;4:00;;Matteo Di Salvo
+;39501;14/04/2025 09:00;14/04/2025 12:00;GARIBALDINA SRL;;Eseguito rifacimento regole di navigazione casse nei punti vendita con le indicazioni date anche dalla società del gestionale Moda;3:00;;Gabriele De Palma
+;39544;14/04/2025 11:49;14/04/2025 11:49;COMUNE DI LENTATE SUL SEVESO;;risolto;0:00;;Matteo Signo
+;39511;14/04/2025 11:39;14/04/2025 11:39;COMUNE DI LENTATE SUL SEVESO;;aperto ticket in Deda per creazione/abilitazione utenza in Civilia: [CC-15696](https://deda-next.atlassian.net/servicedesk/customer/portal/1/CC-15696);0:00;;Matteo Signo
+;37689;14/04/2025 11:00;14/04/2025 11:15;EVA ODV;;"comunicato a Stefania che il dominio evaonlus.it scade il 15 Maggio e il rinnovo non è automatico quindi se non si procede con il pagamento, il dominio non sarà più attivo
+Per quanto riguarda invece la posta delle email e...";0:15;;Matteo Signo
+;39506;14/04/2025 10:28;14/04/2025 10:28;COMUNE DI LENTATE SUL SEVESO;;abilitato MFA su nuovo smartphone e eliminato MFA dal vecchio + test funzionamento con Roberta, ok;0:00;;Matteo Signo
+;39330;12/04/2025 14:00;12/04/2025 16:00;ITX ITALIA SRL;;Presidio zara;2:00;;Niccolò Ragusa
+;39530;12/04/2025 12:30;12/04/2025 13:40;SILANOS SRL;;Installazione update windows host hyper v;1:10;;Gabriele De Palma
+;39330;12/04/2025 09:00;12/04/2025 12:00;ITX ITALIA SRL;;Presidio zara;3:00;;Niccolò Ragusa
+;39330;11/04/2025 14:00;11/04/2025 18:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Tommaso Ambrosone
+;39330;11/04/2025 14:00;11/04/2025 18:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Morris Detering
+;39526;11/04/2025 14:00;11/04/2025 18:00;SILANOS SRL;;Preparazione log + report richiesti da Silanos per la Cyber Security;4:00;;Gabriele De Palma
+;39521;11/04/2025 17:00;11/04/2025 18:00;BAIT Service S.r.l.;;aggiornamento attività;1:00;;Lorenzo Serratore
+;39504;11/04/2025 18:00;11/04/2025 18:00;COMUNE DI LENTATE SUL SEVESO;;risolto + fatto fare le verifiche alle 3 utenze, ok;0:00;;Matteo Signo
+;39407;11/04/2025 17:00;11/04/2025 18:00;SPOLIDORO STUDIO AVVOCATO;;call con l'assistenza + risolto problematica plugin in Outlook tramite comando di powershell;1:00;;Matteo Signo
+;39314;11/04/2025 15:00;11/04/2025 18:00;ITX ITALIA SRL;;presidio zara onside;3:00;;Arlind Hoxha
+;38920;11/04/2025 14:00;11/04/2025 18:00;BAIT Service S.r.l.;;Creazione sito con risoluzione pdf,pptx e ricreazione del pdf con riassunto creata, in attesa di debug.;4:00;;Matteo Di Salvo
+;39516;11/04/2025 17:45;11/04/2025 17:45;COMUNE DI LENTATE SUL SEVESO;;dopo le prove fatte fare, funziona tutto, procedo con la chiusura del ticket;0:00;;Matteo Signo
+;39528;11/04/2025 14:30;11/04/2025 17:00;ARTLANTIS SRL;;Controllato e sistemato PC Artlantis3D, tolto utente locale Artlantis_3D da local admin e attivato utente Bait, installato Kaspersky, messo a dominio, creato utente di dominio Artlantis3D, fatto accesso con utente di dominio, migrato i dati e test...;2:30;;Lorenzo Serratore
+;39511;11/04/2025 16:00;11/04/2025 16:30;COMUNE DI LENTATE SUL SEVESO;;"creazione da GSuite le 2 email richieste:
+- g.frigo@comune.lentatesulseveso.mb.it
+- e.grasso@comune.lentatesulseveso.mb.it";0:30;;Matteo Signo
+;39330;11/04/2025 14:00;11/04/2025 16:15;ITX ITALIA SRL;;Presidio zara;2:15;;Niccolò Ragusa
+;39516;11/04/2025 15:30;11/04/2025 16:00;COMUNE DI LENTATE SUL SEVESO;;mandata email a Betty per farle fare delle verifiche comunicate dall'assistenza Deda, in attesa di risposta;0:30;;Matteo Signo
+;39514;11/04/2025 15:00;11/04/2025 15:30;BAIT Service S.r.l.;;sistemato anche sull'altro Veeam di Bait;0:30;;Matteo Signo
+;39527;11/04/2025 15:10;11/04/2025 15:25;AMROP - G&P CONSULTANTS SRL;;supporto Laura per controllo dati persi da profilo eliminato da Chrome, dopo verifiche il profilo non si può recuperareperchè era locale, configurato account gmail lavoro così da poter sincronizzare tutto;0:15;;Lorenzo Serratore
+;37689;11/04/2025 15:00;11/04/2025 15:15;EVA ODV;;Stefania non mi ha saputo dare altre info, mi ha chiamato Stefano (stexsterim@gmail.com) comunicandomi che non è più in gestione sua, mandata email al commercia...;0:15;;Matteo Signo
+;39514;11/04/2025 14:30;11/04/2025 15:00;BAIT Service S.r.l.;;"aggiunto le seguenti chiavi di registro sotto: HKEY_LOCAL_MACHINE\SOFTWARE\Veeam\Veeam Backup and Replication
+- TcpConnectTimeoutSec = 60s
+- SessionTimeoutSec = 1800s
+- AgentConnectTimeoutSec = 60s
+- AgentReconnectTimeoutSec = ...";0:30;;Matteo Signo
+;39521;11/04/2025 14:30;11/04/2025 14:50;BAIT Service S.r.l.;;Chiamata Elena per ticket 39286-39324-39333 e confermato che tutti i problemi sono stati risolti durante l'ultima manutenzione fatta da Alex;0:20;;Lorenzo Serratore
+;39333;11/04/2025 14:44;11/04/2025 14:44;TECNINOX S.R.L;;Chiamata Elena e confermato che il problema è stato risolto durante l'ultima manutenzione fatta da Alex;0:00;;Lorenzo Serratore
+;39521;11/04/2025 14:00;11/04/2025 14:30;BAIT Service S.r.l.;;gestione ticket interni e supporto Arlind per problemi in Zara;0:30;;Lorenzo Serratore
+;39314;11/04/2025 09:00;11/04/2025 14:00;ITX ITALIA SRL;;presdio zara onside;5:00;;Arlind Hoxha
+;39330;11/04/2025 09:00;11/04/2025 13:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Tommaso Ambrosone
+;39330;11/04/2025 09:00;11/04/2025 13:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Morris Detering
+;39513;11/04/2025 12:30;11/04/2025 13:00;COMUNE DI LENTATE SUL SEVESO;;verificato con il cliente ma sia la cartella che il file all'interno della stessa, sono stati creati stamattina, non è possibile recuperare il file;0:30;;Matteo Signo
+;39508;11/04/2025 12:45;11/04/2025 13:00;ISOTERMA SRL;;mandata email a Valentina per capire se potrebbe essere disponibile andare on site Martedì o Venerdì, in attesa di risposta;0:15;;Matteo Signo
+;39521;11/04/2025 12:45;11/04/2025 13:00;BAIT Service S.r.l.;;Supporto Arlind per problemi in Zara;0:15;;Lorenzo Serratore
+;39330;11/04/2025 08:00;11/04/2025 13:00;ITX ITALIA SRL;;Presidio zara;5:00;;Niccolò Ragusa
+75;39470;11/04/2025 12:30;11/04/2025 12:45;MSA SAFETY SERVICES Gmbh;;aperta chiamata a Dell per intervento sostituzione scheda madre PC Dell S/N 27R47M3;0:15;;Lorenzo Serratore
+;39515;11/04/2025 12:00;11/04/2025 12:30;BAIT Service S.r.l.;;Installazione Agent Datto su Host HPE ProLiant DL380 Gen10 (172.12.1.50) + creato policy di monitoring;0:30;;Matteo Signo
+16;39512;11/04/2025 12:20;11/04/2025 12:30;ASPEX ARL;;call con Alessia per organizzazione intervento di giovedì 17;0:10;;Lorenzo Serratore
+;39521;11/04/2025 12:00;11/04/2025 12:20;BAIT Service S.r.l.;;Supporto Arlind per problemi in Zara;0:20;;Lorenzo Serratore
+;39407;11/04/2025 11:30;11/04/2025 12:00;SPOLIDORO STUDIO AVVOCATO;;fatto delle ulteriori prove comunicate dall'assistenza per visualizzare il plugin in Outlook però il problema persiste, scritto nuovamente all'assistenza, in attesa di risposta;0:30;;Matteo Signo
+;39404;11/04/2025 09:00;11/04/2025 12:00;BAIT Service S.r.l.;;continuazione sito per le stampanti;3:00;;Matteo Di Salvo
+;39531;11/04/2025 11:00;11/04/2025 11:30;FEDERAZIONE ITALIANA MOTONAUTICA;;Disinstallazione software pc laura;0:30;;Gabriele De Palma
+;39348;11/04/2025 11:00;11/04/2025 11:15;ISOTERMA SRL;;inserito in whitelist mittente indicato da Valentina + mandata comunicazione a Valentina;0:15;;Matteo Signo
+;37689;11/04/2025 10:00;11/04/2025 11:00;EVA ODV;;"eseguito backup delle 2 email richieste entrando nel pannello di gestione, resettando le password e configurato email in Outlook:
+- info@evaonlus.it
+[- direzione@evaonl...](mailto:direzione@evaonlus.it)";1:00;;Matteo Signo
+14;39401;11/04/2025 09:00;11/04/2025 11:00;VALENTINA BAGGIO;;Manutenzione + collegamento cavo da UPS a PC per gestione spegnimento PC;2:00;;Lorenzo Serratore
+;39500;11/04/2025 09:00;11/04/2025 10:00;GT Solutions Srl;;configurazione utente su nas + installazione ed configurazione su client;1:00;;Gabriele De Palma
+;39517;11/04/2025 09:30;11/04/2025 10:00;BAIT Service S.r.l.;;Bait - riunione operativa con Franco e Matteo per template vulnerability;0:30;;Matteo Signo
+54;39079;10/04/2025 18:30;10/04/2025 18:45;ISOTERMA SRL;"System Engineer Remote ""C""";Preparazione dichiarazione chiusura definitiva account Carlo Giacobbe;0:15;;Marco Birocchi
+9;37046;10/04/2025 18:00;10/04/2025 18:30;HYOSUNG EUROPE SRL;"Sys. Eng. remote ""C""";Effettuato aggiornamento 3CX v20 come progetto;0:30;;Marco Birocchi
+;39507;10/04/2025 14:00;10/04/2025 18:00;COMUNE DI LENTATE SUL SEVESO;;Comune di Lentate - presidio;4:00;;Matteo Signo
+;39330;10/04/2025 14:00;10/04/2025 18:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Morris Detering
+;39330;10/04/2025 14:00;10/04/2025 18:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Tommaso Ambrosone
+;39503;10/04/2025 17:30;10/04/2025 18:00;BAIT Service S.r.l.;;aggiornamento attività con Marco;0:30;;Lorenzo Serratore
+;39404;10/04/2025 14:00;10/04/2025 18:00;BAIT Service S.r.l.;;Implementazione nuove animazioni e inizio lato php serverside per il salvataggio dei form.;4:00;;Matteo Di Salvo
+;39314;10/04/2025 15:00;10/04/2025 18:00;ITX ITALIA SRL;;presidio zara onside;3:00;;Arlind Hoxha
+;39389;10/04/2025 16:30;10/04/2025 17:30;GRUPPO TORO;;instalalzione kaspersky e attivazione;1:00;;Lorenzo Serratore
+;39524;10/04/2025 14:00;10/04/2025 17:30;CLEAN ROOM ITALIA SRL;;Analisi rete + materiali + Wifi nuova magazzino Cleanroom;3:30;;Gabriele De Palma
+;39506;10/04/2025 16:46;10/04/2025 16:46;COMUNE DI LENTATE SUL SEVESO;;come d'accordi, Lunedì porterà il telefono con cui è associata l'MFA e facciamo il cambio;0:00;;Matteo Signo
+;39503;10/04/2025 15:45;10/04/2025 16:15;BAIT Service S.r.l.;;aggiornamento attività con Marco;0:30;;Lorenzo Serratore
+;39504;10/04/2025 16:08;10/04/2025 16:08;COMUNE DI LENTATE SUL SEVESO;;aperto ticket con Deda per verifica completa: [CC-15400](https://deda-next.atlassian.net/servicedesk/customer/portal/1/CC-15400);0:00;;Matteo Signo
+;39330;10/04/2025 14:00;10/04/2025 16:00;ITX ITALIA SRL;;Presidio zara;2:00;;Niccolò Ragusa
+;39324;10/04/2025 15:00;10/04/2025 15:30;TECNINOX S.R.L;;Controllato con Cristiano e sembra tutto funzionante, in attesa di conferma da Elena;0:30;;Lorenzo Serratore
+;39503;10/04/2025 14:00;10/04/2025 15:00;BAIT Service S.r.l.;;Aggiornamento ticket;1:00;;Lorenzo Serratore
+;39314;10/04/2025 09:00;10/04/2025 14:00;ITX ITALIA SRL;;presio onside zara;5:00;;Arlind Hoxha
+;39138;10/04/2025 13:45;10/04/2025 13:45;COMUNE DI LENTATE SUL SEVESO;;risolto con assistenza Deda;0:00;;Matteo Signo
+;39471;10/04/2025 13:06;10/04/2025 13:06;COMUNE DI LENTATE SUL SEVESO;;password del Wi-Fi consegnata a Donatella, pomeriggio passerò in Museo per supporto come da richiesta;0:00;;Matteo Signo
+;39491;10/04/2025 13:03;10/04/2025 13:03;COMUNE DI LENTATE SUL SEVESO;;dopo caduta da parte di una persona di Deda, la webcam non funziona piu', fato richiesta di preventivo, aperto un altro ticket;0:00;;Matteo Signo
+;39330;10/04/2025 09:00;10/04/2025 13:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Tommaso Ambrosone
+;39330;10/04/2025 09:00;10/04/2025 13:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Morris Detering
+;39507;10/04/2025 09:00;10/04/2025 13:00;COMUNE DI LENTATE SUL SEVESO;;Comune di Lentate - presidio;4:00;;Matteo Signo
+;39404;10/04/2025 09:00;10/04/2025 13:00;BAIT Service S.r.l.;;Continuazione sito, implementazione nuove card,button ed altro nella pagina home;4:00;;Matteo Di Salvo
+;39330;10/04/2025 08:00;10/04/2025 13:00;ITX ITALIA SRL;;Presidio zara;5:00;;Niccolò Ragusa
+;39138;10/04/2025 12:39;10/04/2025 12:39;COMUNE DI LENTATE SUL SEVESO;;Roberto Seregni nuovamente assente, aperto ticket con Deda [CC-15345](https://deda-next.atlassian.net/servicedesk/customer/portal/1/CC-15345) per capire chi ha il perme...;0:00;;Matteo Signo
+;39312;10/04/2025 12:33;10/04/2025 12:33;COMUNE DI LENTATE SUL SEVESO;;fatto modifiche dal portale Deda + mandata email a Giorgia, mi farà sapere domani se ha i permessi richiesti;0:00;;Matteo Signo
+;39489;10/04/2025 11:00;10/04/2025 12:00;SILANOS SRL;;Creata regola e ricreato record a sull hosting;1:00;;Gabriele De Palma
+;39525;10/04/2025 09:00;10/04/2025 12:00;OMNISINT SRL;;Aggiornamenti Windows server + installazione ruoli + update firmware;3:00;;Gabriele De Palma
+;39487;10/04/2025 10:55;10/04/2025 10:55;COMUNE DI LENTATE SUL SEVESO;;chiamato ma si era già risolto in autonomia;0:00;;Matteo Signo
+;39481;10/04/2025 10:30;10/04/2025 10:30;ELECTRALINE 3PMARK SPA;;c'è un progetto quindi chiudo questo ticket. Purtroppo non si può fare nulla finchè le VM non vengono spostate;0:00;;Matteo Signo
+;39435;10/04/2025 09:00;10/04/2025 09:00;COMUNE DI LENTATE SUL SEVESO;;"l'assistenza Deda mi ha risposto così:
+Le comunichiamo che da verifiche effettuate dal nostro laboratorio, non abbiamo riscontrato anomalie nell’invio dell’email, come attesta infatti l’accettazione che si aggancia co...";0:00;;Matteo Signo
+3;39480;09/04/2025 18:30;09/04/2025 20:30;ITALMONDO SPA;Presidio On-Site;ITALMONDO - Aggiornamento Centralini 3CX ESCLUSO PRATO E ARLUNO;2:00;;Marco Birocchi
+76;39479;09/04/2025 14:00;09/04/2025 18:45;MAX MODA SPA;"System Engineer Remote ""S1""";Cambio regole firewall e blindatura accessi IP Pubblici non ITA su store rimanenti;4:45;;Marco Birocchi
+;39391;09/04/2025 14:00;09/04/2025 18:00;ELECTRALINE 3PMARK SPA;;Manutenzione ordinaria;4:00;;Lorenzo Serratore
+;39314;09/04/2025 15:00;09/04/2025 18:00;ITX ITALIA SRL;;PRESIDIO;3:00;;Gabriele De Palma
+;39330;09/04/2025 14:00;09/04/2025 18:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Tommaso Ambrosone
+;39330;09/04/2025 15:00;09/04/2025 18:00;ITX ITALIA SRL;;Presidio Zara;3:00;;Morris Detering
+;36084;09/04/2025 14:00;09/04/2025 18:00;BAIT Service S.r.l.;;Sistemazione pagina problematiche poichè zara richiede anche le foto, sistemata pagina riparazione. Ancora in attesa per feedback sulla parte ODL;4:00;;Matteo Di Salvo
+;39476;09/04/2025 16:34;09/04/2025 17:34;SILANOS SRL;;risolto il problema agendo sul dns server;1:00;;Gabriele De Palma
+;39438;09/04/2025 14:00;09/04/2025 17:30;OMNISINT SRL;;configurazione raid + installazione Win Server 2022 Standard;3:30;;Matteo Signo
+;39425;09/04/2025 14:22;09/04/2025 17:22;ISOTERMA SRL;;"collegata utenza aggiornato windows update, aggiornato bios schedavideo, collegato stampanti, cancellazione profili vecchi.
+dato supporto anche a un utente con il suo pc perchè diceva che andava a rileno, cancellando i file temporanei ...";3:00;;Arlind Hoxha
+;39318;09/04/2025 15:30;09/04/2025 16:00;ELECTRALINE CBB;;installata dutante la manutenzione del 09/04/2025;0:30;;Lorenzo Serratore
+;39330;09/04/2025 14:00;09/04/2025 16:00;ITX ITALIA SRL;;Presidio zara;2:00;;Niccolò Ragusa
+;39425;09/04/2025 15:00;09/04/2025 16:00;ISOTERMA SRL;;creazione nuova email + assegnazione licenza + supporto ad Arlind;1:00;;Matteo Signo
+;39389;09/04/2025 14:00;09/04/2025 15:00;GRUPPO TORO;;"Download e aggiornamento: Office 365, 7zip, Adobe Acrobat Reader,
+Controllo aggiornamenti Windows
+Accesso outlook";1:00;;Morris Detering
+2;39469;09/04/2025 14:00;09/04/2025 14:30;RPO ELECTRONIC SRL;"Sys. Eng. remote ""S1""";"Effettuato ripristino connessione Basetta Yealink successiva a spostamento postazione che causava interruzione linea ad interno Produzione.
+Occorrerà pianificare con RPO un'uscita con Elettricista o a nostra gestione per cablaggio nuov...";0:30;;Marco Birocchi
+;39314;09/04/2025 09:00;09/04/2025 14:00;ITX ITALIA SRL;;PRESIDIO;5:00;;Gabriele De Palma
+;39361;09/04/2025 14:00;09/04/2025 14:00;ISOTERMA SRL;;doppione del ticket 39459;0:00;;Matteo Signo
+;39391;09/04/2025 09:00;09/04/2025 13:00;ELECTRALINE 3PMARK SPA;;Manutenzione ordinaria;4:00;;Lorenzo Serratore
+;39330;09/04/2025 09:00;09/04/2025 13:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Tommaso Ambrosone
+;39475;09/04/2025 11:00;09/04/2025 13:00;BAIT Service S.r.l.;;"-Smistamento dispositivi
+-Inserimento Ipod file excel";2:00;;Morris Detering
+;39478;09/04/2025 10:00;09/04/2025 13:00;BAIT Service S.r.l.;;effettuato tutti gli aggiornamenti + messa a dominio + installazioni app neccessarie di utilizzo lavorativo;3:00;;Arlind Hoxha
+;39404;09/04/2025 09:00;09/04/2025 13:00;BAIT Service S.r.l.;;Continuazione del sito con aggiunta layout generale anche per le pagine stampe con relativa descrizione. Mancante ancora la modifica del titolo iniziale della pagina nella home(non conforme). Sistemato il form per i contatti con tabelle db, non an...;4:00;;Matteo Di Salvo
+20;39360;09/04/2025 11:00;09/04/2025 13:00;EVA ODV;"System Engineer JR on-site ""S2""";"Effettuato uscita Centro EVA per problemi sincronizzazione file.
+Individuato problema in lunghezza MAX percorso di rete in 247 caratteri imposta da Synology, forzata a 550 ed effettuato re-sync su tutti i client presenti.
+Aggiornato Syno...";2:00;;Marco Birocchi
+;39330;09/04/2025 08:00;09/04/2025 13:00;ITX ITALIA SRL;;Presidio zara;5:00;;Niccolò Ragusa
+;39330;09/04/2025 09:00;09/04/2025 11:00;ITX ITALIA SRL;;Presidio Zara;2:00;;Morris Detering
+;39458;09/04/2025 10:00;09/04/2025 10:30;WITTMANN BATTENFELD ITALIA S.r.l.;;collegamento da remoto, disinstallazione vecchio antivirus KES + installazione quello nuovo + deployato;0:30;;Matteo Signo
+;39509;09/04/2025 09:00;09/04/2025 10:30;BAIT Service S.r.l.;;pianificazione attività + supporto per installazione notebook Arlind + supporto per installazione NB Toro + sistemazione policy di monitoring di Datto;1:30;;Matteo Signo
+;39473;09/04/2025 09:30;09/04/2025 09:50;ARTLANTIS SRL;;Controllo collegamento PC Mattia a plotter, il tecnico del plotter diceva esere un problema di Kaspersky però appena collegato funzionava tutto, ho guardato mentrce facevano un po di verifiche e non ha mai dato problemi. se ci saranno probl...;0:20;;Lorenzo Serratore
+;39324;09/04/2025 09:30;09/04/2025 09:45;TECNINOX S.R.L;;mandata email a Cristiano Restelli per capire se ha problemi o se è già stato risolto come gli altri;0:15;;Matteo Signo
+;39348;09/04/2025 09:15;09/04/2025 09:30;ISOTERMA SRL;;mandata email a Valentina per chiarimenti, in attesa di risposta;0:15;;Matteo Signo
+;39458;09/04/2025 09:00;09/04/2025 09:15;WITTMANN BATTENFELD ITALIA S.r.l.;;chiamato 2 volte ma c'è la segreteria telefonica, mandata email per capire disponibilità;0:15;;Matteo Signo
+;38543;08/04/2025 14:00;08/04/2025 19:00;BAIT Service S.r.l.;;continuato nelle seguenti pagine (andato a rilento perchè continuava a crashare visual studio essendo nella macchina 18.1.33) clienti_overwie.php aggiungendo la possibilità di avere più contatti e di aggiungere anche da li una...;5:00;;Arlind Hoxha
+;39389;08/04/2025 17:00;08/04/2025 18:00;GRUPPO TORO;;Conclusione installazione aggiornamenti windows.;1:00;;Matteo Di Salvo
+;39330;08/04/2025 14:00;08/04/2025 18:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Morris Detering
+;39330;08/04/2025 14:00;08/04/2025 18:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Tommaso Ambrosone
+;39314;08/04/2025 15:00;08/04/2025 18:00;ITX ITALIA SRL;;PRESIDIO;3:00;;Gabriele De Palma
+;39446;08/04/2025 15:00;08/04/2025 18:00;BAIT Service S.r.l.;;Inizio fase penetration test con installazione di librerie e accesso alla vpn, tempi di attesa lunghi per test (65635 porte da controllare). Passato tutto a Marco Birocchi per il proseguimento.;3:00;;Matteo Di Salvo
+;39459;08/04/2025 17:00;08/04/2025 18:00;ISOTERMA SRL;;upg drivers + bios + pulizia temp + test fubnzionamento con Gabriele, ok;1:00;;Matteo Signo
+;39417;08/04/2025 18:00;08/04/2025 18:00;ISOTERMA SRL;;risolto in altro ticket facendo tutti gli aggiornamenti disponibili, procedo con la chiusura del ticket, vediamo nei prossimi giorni se uscirà ancora l'alert;0:00;;Matteo Signo
+;39318;08/04/2025 17:30;08/04/2025 18:00;ELECTRALINE CBB;;entrato su una VM di Electraline CBB + scansione rete + comunicato via email configurazione da impostare sulla stampante, in attesa di risposta;0:30;;Matteo Signo
+;39404;08/04/2025 14:00;08/04/2025 17:00;BAIT Service S.r.l.;;Implementazione della pagina delle stampe con relativi dettagli inerenti ai modelli e visualizzazione 3D personalizzata;3:00;;Matteo Di Salvo
+;39245;08/04/2025 14:30;08/04/2025 17:00;REALE SAS;;Finta configurazione PC, spostati i dati, sistemata configurazione stampante e scanner, test funzionamento;2:30;;Lorenzo Serratore
+55;39019;08/04/2025 09:00;08/04/2025 17:00;BAIT Service S.r.l.;Supporto Interno;ISO 27001 con Ing. Como e Paolo Giostra;8:00;;Marco Birocchi
+;39455;08/04/2025 16:34;08/04/2025 16:49;TECNINOX S.R.L;;contattato Gabriele Leccese e verificato la licenza che si anche funzionante;0:15;;Arlind Hoxha
+;39447;08/04/2025 15:33;08/04/2025 16:33;S.C.A.I. SRL;;"Uscita del tecnico Darsilio per sostituzione rullini prese carta.
+Per il rapportino di attività mi pare di capire da Elwert che non sia strettamente necessario.
+dovesse esserlo, lo recuperiamo.
+
+Grazie";1:00;;Franco Fiorellino
+;39440;08/04/2025 16:15;08/04/2025 16:30;BAIT Service S.r.l.;;nessun errore riscontrato, modificato policy su Datto RMM;0:15;;Matteo Signo
+;39436;08/04/2025 16:00;08/04/2025 16:30;AMROP - G&P CONSULTANTS SRL;;autenticazione + configurazione fatta + test con la cliente, ok;0:30;;Matteo Signo
+;39330;08/04/2025 14:00;08/04/2025 16:00;ITX ITALIA SRL;;Presidio zara;2:00;;Niccolò Ragusa
+;39456;08/04/2025 15:45;08/04/2025 16:00;AMROP - G&P CONSULTANTS SRL;;disinstallato e reinstallato Teams + aggiornamento + test funzionamento, ok;0:15;;Matteo Signo
+;39460;08/04/2025 15:00;08/04/2025 16:00;BAIT Service S.r.l.;;supporto ad Arlind per installazione notebook + richieste di Veronica;1:00;;Matteo Signo
+;39453;08/04/2025 15:00;08/04/2025 15:15;GARIBALDINA SRL;;provato connessione con la sua connessione sul mio computer e funziona correttamente, disinstallato e installata un'altra versione di SSL VPN + messo in hotspot + test connessione con Luca, funzionamento ok;0:15;;Matteo Signo
+;39450;08/04/2025 15:15;08/04/2025 15:15;ISOTERMA SRL;;installazione e aggiornamento andato a buon fine, procedo con la chiusura del ticket;0:00;;Matteo Signo
+;39450;08/04/2025 14:15;08/04/2025 14:30;ISOTERMA SRL;;fatto partire installazione inserendo password di local admin, chiamerò più tardi per capire se è andato a buon fine;0:15;;Matteo Signo
+;39324;08/04/2025 14:00;08/04/2025 14:15;TECNINOX S.R.L;;chiamato Federica (info) e Tabit e mi hanno confermato che la problematica era già stata risolta in fase dell'ultima manutenzione, Cristiano Restelli era occupato, riproverò domani a chiamarlo;0:15;;Matteo Signo
+;39314;08/04/2025 09:00;08/04/2025 14:00;ITX ITALIA SRL;;PRESIDIO;5:00;;Gabriele De Palma
+;39330;08/04/2025 08:00;08/04/2025 13:00;ITX ITALIA SRL;;Presidio zara;5:00;;Niccolò Ragusa
+;39404;08/04/2025 09:00;08/04/2025 13:00;BAIT Service S.r.l.;;Continuazione sito, con implementazione della pagina dei contatti con suo relativo form, sistemate le animazione. Mancanti ancora le immagini sull'azienda;4:00;;Matteo Di Salvo
+;38543;08/04/2025 10:00;08/04/2025 13:00;BAIT Service S.r.l.;;continuato nelle seguenti pagine (andato a rilento perchè continuava a crashare visual studio essendo nella macchina 18.1.33) clienti_overwie.php aggiungendo la possibilità di avere più contatti e di aggiungere anche da li una...;3:00;;Arlind Hoxha
+76;39479;08/04/2025 11:00;08/04/2025 13:00;MAX MODA SPA;"System Engineer Remote ""S1""";Cambio regole firewall e blindatura accessi IP Pubblici non ITA su Somma, Magenta e Sede;2:00;;Marco Birocchi
+;39330;08/04/2025 09:00;08/04/2025 13:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Morris Detering
+;39330;08/04/2025 09:00;08/04/2025 13:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Tommaso Ambrosone
+;39451;08/04/2025 12:00;08/04/2025 13:00;SILANOS SRL;;supporto Silanos per sistemazione VPN, Outlook e cartelle di rete PC in Inghilterra;1:00;;Lorenzo Serratore
+;39448;08/04/2025 11:45;08/04/2025 12:00;ARTLANTIS SRL;;Utente e mail create e comunicate a Francesco;0:15;;Lorenzo Serratore
+;39202;08/04/2025 10:30;08/04/2025 12:00;COMUNE DI LENTATE SUL SEVESO;;call da remoto;1:30;;Matteo Signo
+;39389;08/04/2025 10:00;08/04/2025 11:30;GRUPPO TORO;;Formattazione + aggiornamenti windows;1:30;;Matteo Di Salvo
+;39407;08/04/2025 10:00;08/04/2025 11:30;SPOLIDORO STUDIO AVVOCATO;;scritto all'assistenza per capire se è possibile modificare le visualizzazioni dall'Archiver Libraesva ma mi hanno comunicato che attualmente il sistema è preimpostato senza poter effettuare modifiche, in futuro forse implementeranno...;1:30;;Matteo Signo
+;39402;08/04/2025 09:00;08/04/2025 11:00;RPO ELECTRONIC SRL;;manutenzione ordinaria;2:00;;Lorenzo Serratore
+;39433;08/04/2025 10:00;08/04/2025 10:30;EVA ODV;;fatta acquistare la licenza + associata alla mailbox info + avvisato Stefania;0:30;;Matteo Signo
+;39442;08/04/2025 10:15;08/04/2025 10:30;GARIBALDINA SRL;;è 2 giorni che arrivano alert su questo PC che funge da Server, mandata email a Dario come segnalazione e per capire se ci sono problemi lato linea o corrente, indicato anche giorno e ora delle problematica, farà una verifica con il ...;0:15;;Matteo Signo
+;39443;08/04/2025 09:00;08/04/2025 09:45;COMUNE DI LENTATE SUL SEVESO;;risolto problematica, modificato script di logon + riscontrato che l'utente che aveva inserito per accedere al Server file era errata, modificato + riavviato 2 volte il computer, il problema non si presenta piu';0:45;;Matteo Signo
+55;39019;07/04/2025 14:00;08/04/2025 00:00;BAIT Service S.r.l.;Supporto Interno;Sistemazione Non conformitá, penetration test con report x ISO 27001 con supporto ragazzi ufficio;10:00;;Marco Birocchi
+;38543;07/04/2025 15:00;07/04/2025 20:00;BAIT Service S.r.l.;;sistemato le seguenti pagine con le grafiche nuove e nuove funzioni. dashboard_webmark.php clienti_overview.php e ins_soc_client.php aggiunta grafico con le date di quante chiamate sono programmate per le date;5:00;;Arlind Hoxha
+;39437;07/04/2025 18:17;07/04/2025 18:17;COMUNE DI LENTATE SUL SEVESO;;è un doppione;0:00;;Matteo Signo
+27;39132;07/04/2025 16:30;07/04/2025 18:00;OMNISINT SRL;"System Engineer Remote ""S1""";Prima installazione Server Fisico HPE DL 380 Gen 11 + Installazione Dischi e collaudo Server;1:30;;Lorenzo Serratore
+;39404;07/04/2025 14:00;07/04/2025 18:00;BAIT Service S.r.l.;;Continuazione sito;4:00;;Matteo Di Salvo
+;39330;07/04/2025 14:00;07/04/2025 18:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Tommaso Ambrosone
+;39330;07/04/2025 14:00;07/04/2025 18:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Morris Detering
+;39438;07/04/2025 16:30;07/04/2025 18:00;OMNISINT SRL;;Montaggio e preparazione nuovo Server;1:30;;Lorenzo Serratore
+;39439;07/04/2025 14:00;07/04/2025 18:00;COMUNE DI LENTATE SUL SEVESO;;Comune di Lentate - presidio;4:00;;Matteo Signo
+;39314;07/04/2025 15:00;07/04/2025 18:00;ITX ITALIA SRL;;PRESIDIO;3:00;;Gabriele De Palma
+;39435;07/04/2025 17:23;07/04/2025 17:23;COMUNE DI LENTATE SUL SEVESO;;aperto segnalazione con Deda: [CC-14835](https://deda-next.atlassian.net/servicedesk/customer/portal/1/CC-14835);0:00;;Matteo Signo
+55;39019;07/04/2025 09:00;07/04/2025 17:00;BAIT Service S.r.l.;Supporto Interno;ISO 9001 in Teams con Ing. Como;8:00;;Nicole Caiola
+;39410;07/04/2025 16:45;07/04/2025 16:45;COMUNE DI LENTATE SUL SEVESO;;risolto da parte dell'assistenza Deda;0:00;;Matteo Signo
+;39346;07/04/2025 16:44;07/04/2025 16:44;COMUNE DI LENTATE SUL SEVESO;;tramite un altro ticket, c'è stato riferito dalla Dott.ssa Torretta che l'interruzione di corrente è saltata, procedo con la chiusura del ticket;0:00;;Matteo Signo
+;39430;07/04/2025 16:43;07/04/2025 16:43;COMUNE DI LENTATE SUL SEVESO;;era una comunicazione, riacceso tutto + risolto problematiche varie;0:00;;Matteo Signo
+;39432;07/04/2025 16:42;07/04/2025 16:42;COMUNE DI LENTATE SUL SEVESO;;risolto + test funzionamento con l'utente, ok;0:00;;Matteo Signo
+;39502;07/04/2025 16:00;07/04/2025 16:30;TECNINOX S.R.L;;Instalalzione Aobe PRO PC Lovati;0:30;;Arlind Hoxha
+;39421;07/04/2025 15:15;07/04/2025 16:30;BAIT Service S.r.l.;;Controlli con Veronica per licenze Tecninox;1:15;;Lorenzo Serratore
+;39330;07/04/2025 14:00;07/04/2025 16:00;ITX ITALIA SRL;;Presidio zara;2:00;;Niccolò Ragusa
+;39431;07/04/2025 14:10;07/04/2025 15:10;GENERALFRIGO SRL;;supporto Penati per sistemazione Office, disinstallazione vecchio non funzionante, instalalzione Office 2021, attivazione e test funzionamento;1:00;;Lorenzo Serratore
+;39404;07/04/2025 14:00;07/04/2025 15:00;BAIT Service S.r.l.;;Continuazione grafica del sito e modifica alla pagina Chi_siamo.php;1:00;;Matteo Di Salvo
+;39314;07/04/2025 09:00;07/04/2025 14:00;ITX ITALIA SRL;;PRESIDIO;5:00;;Gabriele De Palma
+;39330;07/04/2025 09:00;07/04/2025 13:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Morris Detering
+;39330;07/04/2025 09:00;07/04/2025 13:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Tommaso Ambrosone
+;39330;07/04/2025 08:00;07/04/2025 13:00;ITX ITALIA SRL;;Presidio zara;5:00;;Niccolò Ragusa
+;39439;07/04/2025 09:00;07/04/2025 13:00;COMUNE DI LENTATE SUL SEVESO;;Comune di Lentate - presidio;4:00;;Matteo Signo
+;39404;07/04/2025 09:00;07/04/2025 13:00;BAIT Service S.r.l.;;Inizio modifica grafica sito.;4:00;;Matteo Di Salvo
+;38543;07/04/2025 10:00;07/04/2025 13:00;BAIT Service S.r.l.;;sistemato le seguenti pagine con le grafiche nuove e nuove funzioni. dashboard_webmark.php clienti_overview.php e ins_soc_client.php aggiunta grafico con le date di quante chiamate sono programmate per le date;3:00;;Arlind Hoxha
+;39422;07/04/2025 12:00;07/04/2025 12:45;ISOTERMA SRL;;mail collegata prima a Marco Toppi e poi a Valentina Volontè, fatto test via web e funzionanate. ci farà sapere quando togliere delega;0:45;;Lorenzo Serratore
+;39425;07/04/2025 12:00;07/04/2025 12:00;ISOTERMA SRL;;mandata email interna a Roberto per capire come procedere se da remoto oppure on site, in attesa di risposta;0:00;;Matteo Signo
+;39422;07/04/2025 11:10;07/04/2025 11:30;ISOTERMA SRL;;controlli su tenant ed Exchange isoterma;0:20;;Lorenzo Serratore
+;39400;07/04/2025 11:15;07/04/2025 11:15;COMUNE DI LENTATE SUL SEVESO;;verificato con Nicoletta Cassina e da parte della PEC del Comune, non ci sono anomalie in quanto l'email è stata mandata e consegnata correttamente, consigliato di sentire il destinatario per capire se ha lui problemi lato PEC. Nicoletta Ca...;0:00;;Matteo Signo
+;39424;07/04/2025 11:00;07/04/2025 11:05;RUGGIERI AVV. ROBERTO;;supporto Avvocato Ruggeri per stampante che non va, quando mi sono collegato il problema era rientrato;0:05;;Lorenzo Serratore
+;39421;07/04/2025 09:30;07/04/2025 11:00;BAIT Service S.r.l.;;aggiornamenti con Gabriele per Zara, controlli Datto, verifiche con ragazzi per zara;1:30;;Lorenzo Serratore
+;39312;07/04/2025 11:00;07/04/2025 11:00;COMUNE DI LENTATE SUL SEVESO;;mandato email per capire da chi copiare i permessi che servono a Giorgio, in attesa di risposta;0:00;;Matteo Signo
+;39283;07/04/2025 10:30;07/04/2025 10:30;COMUNE DI LENTATE SUL SEVESO;;probabile doppione di altri ticket già risolti, Eleonora non ha più richiesto abilitazioni, procedo con la chiusura del ticket;0:00;;Matteo Signo
+;39309;07/04/2025 10:15;07/04/2025 10:15;COMUNE DI LENTATE SUL SEVESO;;installazione software streamlabs + istruzioni sull'uso, ok;0:00;;Matteo Signo
+;39054;07/04/2025 10:00;07/04/2025 10:00;COMUNE DI LENTATE SUL SEVESO;;sollecitato richiesta, in attesa di risposta;0:00;;Matteo Signo
+;39387;07/04/2025 09:45;07/04/2025 09:45;COMUNE DI LENTATE SUL SEVESO;;fatto + mandata email alla Dott.ssa Torretta come comunicazione;0:00;;Matteo Signo
+;39420;07/04/2025 09:15;07/04/2025 09:30;HYOSUNG EUROPE SRL;;creato utente e comunicata password;0:15;;Lorenzo Serratore
+;39418;07/04/2025 09:30;07/04/2025 09:30;COMUNE DI LENTATE SUL SEVESO;;si tratta di un doppione;0:00;;Matteo Signo
+;39367;07/04/2025 09:30;07/04/2025 09:30;COMUNE DI LENTATE SUL SEVESO;;fatto + test con Eleonora, ok;0:00;;Matteo Signo
+;39416;07/04/2025 09:15;07/04/2025 09:15;COMUNE DI LENTATE SUL SEVESO;;si tratta di un doppione;0:00;;Matteo Signo
+;39410;07/04/2025 09:00;07/04/2025 09:00;COMUNE DI LENTATE SUL SEVESO;;Barbara aveva già aperto una segnalazione con Deda Sabato 05/04, chiamato per sollecitare ma non mi hanno risposto + visionata problematica ma si tratta probabilmente di un errore da parte del portale Deda, allegato screen al ticket:;0:00;;Matteo Signo
+;39406;04/04/2025 20:00;04/04/2025 23:00;SILANOS SRL;;effettuato tutti gli Update Windows + studiata soluzione per installare la Console di Hyper-V tramite GUI, dopo diversi tenantivi, si è installato tutto ma non permette di avviarsi il comando mmc perchè non riconosciuto da Hyper-V Co...;3:00;;Matteo Signo
+;39426;04/04/2025 14:00;04/04/2025 19:00;SILANOS SRL;;Installazione SO + configurazione raid;5:00;;Gabriele De Palma
+76;39340;04/04/2025 18:00;04/04/2025 18:25;MAX MODA SPA;"System Engineer Remote ""S1""";Verificato funzionamento repliche e backup, tutto risulta ok, probabile bad retention policy non applicata per errore su Veeam;0:25;;Marco Birocchi
+;39330;04/04/2025 14:00;04/04/2025 18:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Morris Detering
+;39330;04/04/2025 14:00;04/04/2025 18:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Tommaso Ambrosone
+22;39205;04/04/2025 14:00;04/04/2025 18:00;DELTA 2000 SRL;"Sys. Eng. remote + Monitoring Server/Firewall ""C""";Effettuato aggiornamento Veeam B&R a preventivo;4:00;;Marco Birocchi
+15;39225;04/04/2025 14:00;04/04/2025 18:00;GARIBALDINA SRL;"System Engineer Remote ""S1""";Effettuato aggiornamento Veeam B&R come da preventivo e progetto;4:00;;Marco Birocchi
+76;39239;04/04/2025 14:00;04/04/2025 18:00;MAX MODA SPA;"System Engineer Remote ""S1""";Effettuato aggiornamento Veeam B&R come da preventivo e progetto;4:00;;Marco Birocchi
+;39404;04/04/2025 14:00;04/04/2025 18:00;BAIT Service S.r.l.;;Inizio creazione sito web in locale con creazione di tutte le pagine;4:00;;Matteo Di Salvo
+7;39217;04/04/2025 14:00;04/04/2025 18:00;TECNINOX S.R.L;"Sys. Eng. remote ""C5""";Aggiornamento Veeam B&R ad ultima release come da preventivo e progetto;4:00;;Marco Birocchi
+18;39229;04/04/2025 14:00;04/04/2025 18:00;TEMAC Srl;"System Engineer Remote ""S1""";Effettuato aggiornamento Veeam B&R ad ultima release come preventivo e progetto.;4:00;;Marco Birocchi
+6;39210;04/04/2025 14:00;04/04/2025 18:00;GENERALFRIGO SRL;"Sys. Eng. remote ""S1""";Effettuato aggiornamento Veeam B&R ad ultima release come da preventivo e progetto;4:00;;Marco Birocchi
+;39406;04/04/2025 15:00;04/04/2025 18:00;SILANOS SRL;;diversi errori in fase di installazione, da chiavetta il boot non partiva + per avviarsi il Server ci mette circa 15min. Tramite Intelligent Provisioning rifacendo l'array, l'OS è partito;3:00;;Matteo Signo
+;39419;04/04/2025 14:00;04/04/2025 18:00;ITALMONDO SPA;;Presidio Italmondo Arluno;4:00;;Lorenzo Serratore
+;39314;04/04/2025 15:00;04/04/2025 18:00;ITX ITALIA SRL;;presidio on side zara;3:00;;Arlind Hoxha
+;39529;04/04/2025 14:00;04/04/2025 18:00;ITALMONDO SPA;;Presidio Italmondo - Sostituzione Ghiringhelli;4:00;;Alex Ferrario
+;38719;04/04/2025 17:37;04/04/2025 17:37;SOMO PRODUZIONE;;è un doppione di altri ticket già presenti;0:00;;Matteo Signo
+;39330;04/04/2025 14:00;04/04/2025 17:00;ITX ITALIA SRL;;Presidio zara;3:00;;Niccolò Ragusa
+;39243;04/04/2025 14:40;04/04/2025 16:40;BAIT Service S.r.l.;;"Notebook lavorati : 2 pz
+Formattazione e reinstallazione sistema operativo Windows 10 Professional (sistema originario presente nel notebook)
+Installazione e configurazione periferiche
+test e collaudo -> ok";2:00;;Franco Fiorellino
+;39164;04/04/2025 16:00;04/04/2025 16:15;CLEAN ROOM ITALIA SRL;;Renato non ha mai risposto, controllo da Datto, l'Host risulta online;0:15;;Matteo Signo
+;39371;04/04/2025 15:00;04/04/2025 16:00;AMROP - G&P CONSULTANTS SRL;;Configurazione mail su iphone;1:00;;Gabriele De Palma
+;39409;04/04/2025 14:00;04/04/2025 15:00;BAIT Service S.r.l.;;Bait - pianificazione + risposto e sollecitato ticket che ho assegnato;1:00;;Matteo Signo
+;39314;04/04/2025 09:00;04/04/2025 14:00;ITX ITALIA SRL;;presidio on side zara;5:00;;Arlind Hoxha
+;39247;04/04/2025 13:09;04/04/2025 13:39;ISOTERMA SRL;;tolta licenza dal Tenant di O365 + convertita in shared + fatto delega come da richiesta;0:30;;Matteo Signo
+;39330;04/04/2025 09:00;04/04/2025 13:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Morris Detering
+;39330;04/04/2025 09:00;04/04/2025 13:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Tommaso Ambrosone
+;39359;04/04/2025 09:00;04/04/2025 13:00;BAIT Service S.r.l.;;Continuazione sito, implementazioni etichette e stampa delle etichette per i dispositivi. Controllo generale, mancante ancora computer, monitor e phone ipv4 di Roberto Birocchi;4:00;;Matteo Di Salvo
+;39330;04/04/2025 08:00;04/04/2025 13:00;ITX ITALIA SRL;;Presidio zara;5:00;;Niccolò Ragusa
+7;39358;04/04/2025 09:00;04/04/2025 13:00;TECNINOX S.R.L;;Manutenzione ordinaria: Pc magazzino/sofia aggiornamento gestionale, Tecninox guest eseguiti controlli su antenna e porta a cui è collegata e distribusce corrttamente vlan, test con portatile e ricezione ok test connessione a guest funziona...;4:00;;Alex Ferrario
+;39419;04/04/2025 08:30;04/04/2025 12:30;ITALMONDO SPA;;Presidio Italmondo Arluno;4:00;;Lorenzo Serratore
+;39005;04/04/2025 11:00;04/04/2025 12:00;SPOLIDORO STUDIO AVVOCATO;;sentito Marianna e definito le ultime richieste, istruzioni su come usare Archiver Libraesva e come accedere alle 2 PEC + mi hanno fatto delle richieste di visualizzazione e se era possibile visualizzare la mailbox mailto:spolex@spolex.it...</body>;1:00;;Matteo Signo
+;39359;04/04/2025 09:00;04/04/2025 11:00;BAIT Service S.r.l.;;Continuazione assets controllo dei dispositivi assegnati.;2:00;;Matteo Di Salvo
+;39408;04/04/2025 10:00;04/04/2025 10:45;DUECI SOLUZIONI SRL;;briefing con Franco per capire quello che è stato fatto ieri + preso chiamata e comunicato a Luca Di Gioia che non è possibile intervenire da remoto ma che bisogna fissare un'uscita. Mandata email interna per far pianificare uscita;0:45;;Matteo Signo
+25;39413;03/04/2025 16:00;03/04/2025 21:00;SILANOS SRL;"System Engineer Remote ""S1""";"Effettuato riconfigurazione e reinstallazione Veeam B&R Ultima release successivo all'attacco.
+Creazione tenant S3 immutable + configurazione Job
+Test Job
+Installazione nuovo update Watchguard ed analisi problematica su WAN2 seg...";5:00;;Marco Birocchi
+;39359;03/04/2025 14:00;03/04/2025 18:00;BAIT Service S.r.l.;;Continuazione sito assets con implementazione di ricerca per assegnatario, migliorie agli assets e aggiunta seleziona assets multipli;4:00;;Matteo Di Salvo
+;39419;03/04/2025 14:00;03/04/2025 18:00;ITALMONDO SPA;;Presidio Italmondo Arluno;4:00;;Lorenzo Serratore
+;39314;03/04/2025 15:00;03/04/2025 18:00;ITX ITALIA SRL;;presidio on side zara;3:00;;Arlind Hoxha
+16;39379;03/04/2025 14:00;03/04/2025 18:00;ASPEX ARL;"System Engineer Remote ""C""";Effettuato attivitá a progetto.;4:00;;Marco Birocchi
+77;39230;03/04/2025 14:00;03/04/2025 18:00;BERTOCCO AIR TRUCK TECHNOLOGY SRL;"System Engineer Remote ""C""";Effettuato attivitá a progetto;4:00;;Marco Birocchi
+;39380;03/04/2025 18:00;03/04/2025 18:00;COMUNE DI LENTATE SUL SEVESO;;doppione del 39346;0:00;;Matteo Signo
+8;39224;03/04/2025 14:00;03/04/2025 18:00;CLEAN ROOM ITALIA SRL;"Sys. Eng. remote ""C""";Effettuato aggiornamento Veeam a progetto.;4:00;;Marco Birocchi
+;39395;03/04/2025 14:00;03/04/2025 18:00;BAIT Service S.r.l.;;Inserimento dispositivi Asset Management;4:00;;Morris Detering
+;39395;03/04/2025 14:00;03/04/2025 18:00;BAIT Service S.r.l.;;Inserimento dispositivi Asset Management;4:00;;Tommaso Ambrosone
+;39005;03/04/2025 17:15;03/04/2025 17:45;SPOLIDORO STUDIO AVVOCATO;;terminato import posta della mailbox spolex@spolex.it;0:30;;Matteo Signo
+;39355;03/04/2025 17:00;03/04/2025 17:15;DELTA 2000 SRL;;messo eccezione su Datto in quanto più volte è stato segnalato il problema e non hanno mai voluto risolvere la problematica;0:15;;Matteo Signo
+;39357;03/04/2025 13:30;03/04/2025 17:00;BAIT Service S.r.l.;;Corso Avanzato 3CX + Test Certificazione;3:30;;Alex Ferrario
+;39330;03/04/2025 14:00;03/04/2025 17:00;ITX ITALIA SRL;;Presidio zara;3:00;;Niccolò Ragusa
+;39396;03/04/2025 16:40;03/04/2025 16:45;SILANOS SRL;;"Ritiro HD esterno dopo conclusione copia VM da PC Veeam:
+
+VM Documentale
+VM Sito Web";0:05;;Franco Fiorellino
+;39349;03/04/2025 12:08;03/04/2025 16:28;DUECI SOLUZIONI SRL;;"Quadro Situazionale
+
+In seguito all’installazione del nuovo router Vodafone in sostituzione del precedente dispositivo Iridium, sono emerse criticità legate alla compatibilità con l’infrastrut...";4:20;;Franco Fiorellino
+;39378;03/04/2025 16:00;03/04/2025 16:15;ELECTRALINE 3PMARK SPA;;Electraline - reset password email lfrf + mandata email a Dario con le credenziali;0:15;;Matteo Signo
+;39292;03/04/2025 16:00;03/04/2025 16:15;BAIT Service S.r.l.;;disattivato risparmio d'energia della scheda di rete + impostato prestazioni elevate;0:15;;Matteo Signo
+;39219;03/04/2025 15:00;03/04/2025 16:00;BAIT Service S.r.l.;;analizzato errori e potrebbe essere la scheda di rete del Server, tolto risparmio energetico sia dal sistema che dalla scheda di rete;1:00;;Matteo Signo
+;39371;03/04/2025 14:30;03/04/2025 14:45;AMROP - G&P CONSULTANTS SRL;;mandata email comunicando che la Dott.ssa Donalisio verrà chiamata domani verso le 10:00;0:15;;Matteo Signo
+;39390;03/04/2025 14:23;03/04/2025 14:43;CLEAN ROOM ITALIA SRL;;"Patrizia mi ha chiesto se su Mago è presente una stampa della scrittura contabile delle fatture attive e passive e della scrittura di contabilità pura.
+Spiegato che andando sulla scrittura contabile pura, nei documenti ricevuti ...";0:20;;Mariangela Zizzamia
+;39346;03/04/2025 14:00;03/04/2025 14:30;COMUNE DI LENTATE SUL SEVESO;;parlato con l'elettricista Roberto Banfi e mandata email di comunicazione alla Dott.ssa Torretta comunicando che i Server e gli apparati di rete verranno spenti dalle 13:15 alle 16:30, nel frattempo controlleremo lo stato dele batterie dell'UPS;0:30;;Matteo Signo
+;39314;03/04/2025 09:00;03/04/2025 14:00;ITX ITALIA SRL;;presidio on side zara;5:00;;Arlind Hoxha
+;39328;03/04/2025 13:00;03/04/2025 13:30;COMUNE DI LENTATE SUL SEVESO;;non si riusciva più a accedere al Veeam, reset password + impostata una nuova + controllo backup di tutti i job, ok;0:30;;Matteo Signo
+;39359;03/04/2025 09:00;03/04/2025 13:00;BAIT Service S.r.l.;;Continuazione sito con implementazione degli utenti assegnatari e menu di selezionamento per gli assets, aggiunti anche i dispositivi e controllati quelli gia esistenti se nono corretti ed assegnati, non ancora completata tutta la verifica dei dis...;4:00;;Matteo Di Salvo
+;39374;03/04/2025 09:00;03/04/2025 13:00;COMUNE DI LENTATE SUL SEVESO;;Comune di Lentate - presidio;4:00;;Matteo Signo
+;39330;03/04/2025 08:00;03/04/2025 13:00;ITX ITALIA SRL;;Presidio zara;5:00;;Niccolò Ragusa
+;39330;03/04/2025 09:00;03/04/2025 13:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Tommaso Ambrosone
+;39330;03/04/2025 09:00;03/04/2025 13:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Morris Detering
+;39419;03/04/2025 08:30;03/04/2025 12:30;ITALMONDO SPA;;Presidio Italmondo Arluno;4:00;;Lorenzo Serratore
+;39357;03/04/2025 08:30;03/04/2025 12:30;BAIT Service S.r.l.;;Corso Avanzato 3CX;4:00;;Alex Ferrario
+;39396;03/04/2025 11:00;03/04/2025 11:45;SILANOS SRL;;"Avviata copia da pc Veaam delle VM:
+
+VM Documentale
+VM Sito web";0:45;;Franco Fiorellino
+;39138;03/04/2025 11:30;03/04/2025 11:30;COMUNE DI LENTATE SUL SEVESO;;Roberto Seregni non presente, mi hanno comunicato che ci sarà Lunedì;0:00;;Matteo Signo
+15;39365;03/04/2025 10:30;03/04/2025 10:45;GARIBALDINA SRL;"System Engineer Remote ""S1""";Effettuato rimozione OpenVpn tramite BCUninstaller per inutilizzo;0:15;;Marco Birocchi
+;39201;03/04/2025 09:45;03/04/2025 09:45;COMUNE DI LENTATE SUL SEVESO;;alimentatore per notebook Dell arrivato + montata postazione + istruzioni, ok;0:00;;Matteo Signo
+;39342;03/04/2025 09:30;03/04/2025 09:30;COMUNE DI LENTATE SUL SEVESO;;permesso aggiunto dal portale Deda + mandata email alla Dottssa Torretta per avvisarla;0:00;;Matteo Signo
+;39188;03/04/2025 09:15;03/04/2025 09:15;COMUNE DI LENTATE SUL SEVESO;;risolto;0:00;;Matteo Signo
+;39356;03/04/2025 09:00;03/04/2025 09:00;COMUNE DI LENTATE SUL SEVESO;;"la casella PEC suap ha solamente il servizio d’archiviazione pieno ma non la casella principale.
+L’archiviazione avviene automaticamente tramite Mailstore abilitato 2 mesi fa all’incirca. Ho fatto comunque un controllo ed &e...";0:00;;Matteo Signo
+;39354;02/04/2025 17:00;02/04/2025 19:00;GARIBALDINA SRL;;Installato Agent Datto sui 4 Firewall Watchguard + creazione policy dai Firewall per omunicazione tramite protocollo SNMP + test funzionamento, ok;2:00;;Matteo Signo
+25;39334;02/04/2025 15:00;02/04/2025 19:00;SILANOS SRL;"System Engineer Remote ""S1""";Creazione 2 VM Windows 11 Pro + Configurazione ed installazione KES Cloud come richiesta;4:00;;Marco Birocchi
+;39330;02/04/2025 14:00;02/04/2025 18:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Morris Detering
+;39419;02/04/2025 14:00;02/04/2025 18:00;ITALMONDO SPA;;Presidio Italmondo Arluno;4:00;;Lorenzo Serratore
+;39330;02/04/2025 14:00;02/04/2025 18:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Tommaso Ambrosone
+;39346;02/04/2025 17:55;02/04/2025 18:00;COMUNE DI LENTATE SUL SEVESO;;Visto avviso interruzione energia elettrica. Girato ticket a Matteo per Lunedi.;0:05;;Alex Ferrario
+;39359;02/04/2025 14:00;02/04/2025 18:00;BAIT Service S.r.l.;;Creazione sito con successiva implementazione dei dispositivi.;4:00;;Matteo Di Salvo
+;39314;02/04/2025 15:00;02/04/2025 18:00;ITX ITALIA SRL;;presidio on side zara;3:00;;Arlind Hoxha
+;39312;02/04/2025 17:35;02/04/2025 17:55;COMUNE DI LENTATE SUL SEVESO;;"Connesso in VPN e accesso a server DC, verificato nome utente dominio dell'utente, abilitato permessi alla share richiesta.
+Verificato stato ticket aperto con deda per civilia che risulta preso in carico. Connesso alla stampante per verifica ...";0:20;;Alex Ferrario
+;39243;02/04/2025 14:48;02/04/2025 17:48;BAIT Service S.r.l.;;"Notebook lavorati : 3 pz
+Formattazione e reinstallazione sistema operativo Windows 10 Professional (sistema originario presente nel notebook)
+Installazione e configurazione periferiche
+test e collaudo -> ok";3:00;;Franco Fiorellino
+;39383;02/04/2025 17:00;02/04/2025 17:30;ELECTRALINE 3PMARK SPA;;Controllo + test riuscito;0:30;;Gabriele De Palma
+;38850;02/04/2025 16:30;02/04/2025 17:00;GARIBALDINA SRL;;eseguito rearm + riavviato Server + segnato in calendario che tra 180 giorni bisogna far acquistare la licenza di Win Server 2022 Standard;0:30;;Matteo Signo
+;39330;02/04/2025 14:00;02/04/2025 17:00;ITX ITALIA SRL;;Presidio zara;3:00;;Niccolò Ragusa
+;39353;02/04/2025 14:00;02/04/2025 16:30;BAIT Service S.r.l.;;Continuato corso base 3CX + test di certificazione.;2:30;;Alex Ferrario
+;39349;02/04/2025 16:00;02/04/2025 16:30;DUECI SOLUZIONI SRL;;provato da remoto ma non è fattibile in quanto bisognerà intervenire anche fisicamente con i cavi di rete, domani si interverrà on site;0:30;;Matteo Signo
+54;39220;02/04/2025 16:10;02/04/2025 16:25;ISOTERMA SRL;"Operatore HelpDesk II liv. ""C""";"Effettuato quanto richiesto, impostato notifica al 18/04 per messaggio automatico su Colantuono (ultimo step).
+
+Grazie,";0:15;;Marco Birocchi
+;39223;02/04/2025 14:30;02/04/2025 15:45;AMROP - G&P CONSULTANTS SRL;;configurazioni mancanti sul notebook abilitanto MFA VPN + lasciato tutte le password a Cinzia + istruzioni, funzionamento generale ok;1:15;;Matteo Signo
+8;39331;02/04/2025 14:00;02/04/2025 15:00;CLEAN ROOM ITALIA SRL;"Sys. Eng. remote ""C""";Effettuato installazione su Server nuova Stampante HP + riconfigurazione 6 Utenti per scan to network folder.;1:00;;Marco Birocchi
+;39284;02/04/2025 14:00;02/04/2025 14:30;AMROP - G&P CONSULTANTS SRL;;sull'Iphone di Walter, Whatsapp chiede codice di autenticazione a 2 fattori che il cliente non sa quale sia, verificato backup e l'ultimo era stato fatto il 25/03, resettato l'account + ripristinato dati dal Cloud + associata email aziendale su Wh...;0:30;;Matteo Signo
+;39244;02/04/2025 13:01;02/04/2025 14:01;REALE SAS;;"Formattaziome ed installazione Windows 11 Pro completo di Kaspersky
+test e collaudo ok";1:00;;Franco Fiorellino
+;39314;02/04/2025 09:00;02/04/2025 14:00;ITX ITALIA SRL;;presidio on side zara;5:00;;Arlind Hoxha
+;39018;02/04/2025 09:00;02/04/2025 13:00;AMROP - G&P CONSULTANTS SRL;;"Manutenzione ordinaria
+Bruno Pastore: utilizzava un alimentatore Dell da 45W anzichè 65W e ad ogni accensione usciva il messaggio d'errore + riscontrato che con il cavo di rete andava a 100MB anziche a 1GB, cambiato punnto di rete + te...";4:00;;Matteo Signo
+;39330;02/04/2025 09:00;02/04/2025 13:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Tommaso Ambrosone
+;39352;02/04/2025 09:00;02/04/2025 13:00;BAIT Service S.r.l.;;"Formattazione PC
+Installazione windows 10 pro / 11 pro";4:00;;Morris Detering
+;39353;02/04/2025 08:30;02/04/2025 13:00;BAIT Service S.r.l.;;Registrazione + Corso Base 3CX, attivazione account 3CX e trial 3CX.;4:30;;Alex Ferrario
+;39330;02/04/2025 08:00;02/04/2025 13:00;ITX ITALIA SRL;;Presidio zara;5:00;;Niccolò Ragusa
+;36084;02/04/2025 09:00;02/04/2025 13:00;BAIT Service S.r.l.;;Continuazione pagina ODL;4:00;;Matteo Di Salvo
+15;39325;02/04/2025 12:15;02/04/2025 12:30;GARIBALDINA SRL;"System Engineer Remote ""S1""";Creazione e configurazione VPN Luca Malgrati e test con Luca;0:15;;Marco Birocchi
+16;39339;02/04/2025 12:15;02/04/2025 12:30;ASPEX ARL;"System Engineer Remote ""C""";Reinserito Gianluca in Coda Commerciale;0:15;;Marco Birocchi
+;39419;02/04/2025 08:30;02/04/2025 12:30;ITALMONDO SPA;;Presidio Italmondo Arluno;4:00;;Lorenzo Serratore
+22;39343;02/04/2025 11:00;02/04/2025 11:15;DELTA 2000 SRL;"HD II Liv. remote + Monitoring PC ""C""";Effettuato reset credenziali come richeisto da Ilaria Parolini;0:15;;Marco Birocchi
+;36084;01/04/2025 14:00;01/04/2025 18:00;BAIT Service S.r.l.;;Continuazione creazione pagina ODL con suddivisione dispositivi non ancora fatturati ma riparati.;4:00;;Matteo Di Salvo
+;39312;01/04/2025 17:50;01/04/2025 18:00;COMUNE DI LENTATE SUL SEVESO;;"Aperto ticket con deda per abilitazioni civilia richieste dall'utente.
+https://deda-next.atlassian.net/servicedesk/customer/portal/1/CC-14002?created=true";0:10;;Alex Ferrario
+;39223;01/04/2025 17:00;01/04/2025 18:00;AMROP - G&P CONSULTANTS SRL;;preparazione PC;1:00;;Lorenzo Serratore
+;39314;01/04/2025 15:00;01/04/2025 18:00;ITX ITALIA SRL;;presidio on side zara;3:00;;Arlind Hoxha
+;39330;01/04/2025 14:00;01/04/2025 18:00;ITX ITALIA SRL;;Presidio Zara;4:00;;Tommaso Ambrosone
+;39145;01/04/2025 14:00;01/04/2025 18:00;ITALMONDO SPA;;Italmondo - presidio;4:00;;Matteo Signo
+;39056;01/04/2025 17:40;01/04/2025 17:50;COMUNE DI LENTATE SUL SEVESO;;Contattato Dott.ssa Torretta ma non risponde, inviato mail per informarla che la mial indicata da deda è arrivata e la procedura è andata a buon fine.;0:10;;Alex Ferrario
+;39327;01/04/2025 17:20;01/04/2025 17:35;BAIT Service S.r.l.;;Info da Franco per ticket asseganti e pianificazione.;0:15;;Alex Ferrario
+;39310;01/04/2025 17:00;01/04/2025 17:15;ISOTERMA SRL;;Richiesto info a Franco per recupero elenco Acrobat o se necessario controllare sul singolo pc.;0:15;;Alex Ferrario
+;39322;01/04/2025 14:00;01/04/2025 17:00;BAIT Service S.r.l.;;Verifiche con Veronica e supporto Arlind;3:00;;Lorenzo Serratore
+;39330;01/04/2025 14:00;01/04/2025 17:00;ITX ITALIA SRL;;Presidio zara;3:00;;Niccolò Ragusa
+;39288;01/04/2025 16:40;01/04/2025 16:50;HYOSUNG EUROPE SRL;;Provato a contattare utente ma non risponde, chiamato centralino l'utente non è in ufficio. Ripianificato.;0:10;;Alex Ferrario
+;39243;01/04/2025 14:32;01/04/2025 16:32;BAIT Service S.r.l.;;"Notebook lavorati : 2 pz
+Formattazione e reinstallazione sistema operativo Windows 10 Professional (sistema originario presente nel notebook)
+Installazione e configurazione periferiche
+test e collaudo -> ok";2:00;;Franco Fiorellino
+;39326;01/04/2025 15:30;01/04/2025 15:45;GARIBALDINA SRL;;Controllo PC cassa e PC Fabio Malgrati;0:15;;Lorenzo Serratore
+;39248;01/04/2025 14:35;01/04/2025 15:35;ELECTRALINE 3PMARK SPA;;Controllo bilancia, verificato ip impostato su bilancia che corrisponde a quello impostato su programma che comunica con la bilancia, test ping bilancia non risulta raggiungibile. Controllato percorso cavi di rete, i led sulla porta di rete della ...;1:00;;Alex Ferrario
+16;39336;01/04/2025 13:30;01/04/2025 15:30;ASPEX ARL;"System Engineer JR on-site ""S4""";Effettuato sistemazioni 3CX, gestito varie problematiche Posta Mago, problemi vari su client e verificato sala riunioni con Simone ed elettricisti;2:00;;Tecnico Bait
+;39320;01/04/2025 14:00;01/04/2025 14:05;HYOSUNG EUROPE SRL;;risolto in autonomia;0:05;;Lorenzo Serratore
+;39314;01/04/2025 09:00;01/04/2025 14:00;ITX ITALIA SRL;;presidio on side zara;5:00;;Arlind Hoxha
+;39222;01/04/2025 10:40;01/04/2025 13:10;FEDERAZIONE ITALIANA MOTONAUTICA;;Primo avvio nuovo NB HP, creato account local admin Bait, aggiunto account local admin Touringcup, installazione aggiornamenti Windows, driver e bios, rimosso software di prova preinstallato, installazione KES, installazione Office + attivazione c...;2:30;;Alex Ferrario
+;39322;01/04/2025 12:30;01/04/2025 13:00;BAIT Service S.r.l.;;Attività interna, supporto Arlind per attivtà zara onsite, supporto Alex per instalalzione kaspersky;0:30;;Lorenzo Serratore
+;36084;01/04/2025 09:00;01/04/2025 13:00;BAIT Service S.r.l.;;Riuniune per ODL con successiva finalizzazione del gestionale nuovo con grafici ,statistiche e correzzione bug con inizio della creazione della nuova pagina ODL;4:00;;Matteo Di Salvo
+;39330;01/04/2025 08:00;01/04/2025 13:00;ITX ITALIA SRL;;Presidio zara;5:00;;Niccolò Ragusa
+;39330;01/04/2025 09:00;01/04/2025 13:00;ITX ITALIA SRL;;Presenza Zara;4:00;;Tommaso Ambrosone
+;39321;01/04/2025 11:00;01/04/2025 12:30;DUECI SOLUZIONI SRL;;supporto cambio linea internet, sisteamta configurazione su Router e Firewall, testato funzionamento internet e telefoni;1:30;;Lorenzo Serratore
+16;39336;01/04/2025 10:00;01/04/2025 12:30;ASPEX ARL;"System Engineer JR on-site ""S4""";"Effetuato analisi su Cordless e basette, verificato cablaggi tagliati da elettricisti e fatto punto con Simone per nuova sala riunioni.
+Identificato problema in Basetta malfunzionante che deve essere sostituita si sta occupando";2:30;;Marco Birocchi
+;39145;01/04/2025 08:30;01/04/2025 12:30;ITALMONDO SPA;;Italmondo - presidio;4:00;;Matteo Signo
+;39311;01/04/2025 11:10;01/04/2025 11:20;MANES SERVICES;;come da conversazione telefonica con Darsilio, ci informa che la problematica riguarda la waste toner box del multifunzione bizhub C360i e procederà con l'effettuare l'intervento tra il 2/04/2025 e il 3/04/2025 presso il clinete.;0:10;;Niccolò Ragusa
+;39322;01/04/2025 10:15;01/04/2025 10:45;BAIT Service S.r.l.;;Attività interna, supporto Arlind per attivtà zara onsite, supporto Alex per instalalzione kaspersky;0:30;;Lorenzo Serratore
+16;38386;01/04/2025 09:57;01/04/2025 10:17;ASPEX ARL;"System Engineer JR Mago on-site ""S4""";Durante uscita presso sede Aspex Milano verificato problematica con Monica e applicato Workaround suggerito da Zucchetti per temporanea risoluzione.;0:20;;Marco Birocchi
+;39246;01/04/2025 09:00;01/04/2025 10:10;ARTLANTIS SRL;;"Collegato il Mac a cartelle di rete Dati, amministrazione e scansioni.
+Configurata la mail";1:10;;Lorenzo Serratore
+;39316;01/04/2025 09:40;01/04/2025 09:50;HYOSUNG EUROPE SRL;;reset password Massimo Stambul;0:10;;Lorenzo Serratore
+;39315;01/04/2025 09:10;01/04/2025 09:25;TECNINOX S.R.L;;supporto Ursula per problemi con internet, adesso utilizza il WiFi perchè via cavo ha problemi, la rima volta che si passa si fa un controllo in più;0:15;;Lorenzo Serratore
+;39056;01/04/2025 09:00;01/04/2025 09:15;COMUNE DI LENTATE SUL SEVESO;;Arrivata mail deda per rinnovo certificato su mail ced. Seguito gli step indicati da deda per completamento rinnovo certificato.;0:15;;Alex Ferrario
+;39238;01/04/2025 09:00;01/04/2025 09:05;ARTLANTIS SRL;;La password del Mac la avevano loro, noi abbiamo solo agganciato cartelle di rete e mail;0:05;;Lorenzo Serratore

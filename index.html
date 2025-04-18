@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generatore Descrizioni Attività</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Generatore Descrizioni Attività</h1>
+        
+        <form id="activityForm">
+            <div class="form-section">
+                <label for="activityType">Tipo Attività:</label>
+                <select id="activityType" required>
+                    <option value="">Seleziona...</option>
+                    <option value="manutenzione">Manutenzione</option>
+                    <option value="installazione">Installazione</option>
+                    <option value="aggiornamento">Aggiornamento</option>
+                    <option value="controllo">Controllo</option>
+                </select>
+            </div>
+
+            <div class="form-section">
+                <label for="details">Dettaglio Intervento:</label>
+                <textarea id="details" required minlength="200" placeholder="Descrivi in dettaglio le operazioni svolte..."></textarea>
+            </div>
+
+            <div class="form-section">
+                <label>Software/Hardware Coinvolto:</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="software" value="Windows"> Windows</label>
+                    <label><input type="checkbox" name="software" value="Office"> Office</label>
+                    <label><input type="checkbox" name="software" value="Kaspersky"> Kaspersky</label>
+                    <label><input type="checkbox" name="software" value="Server"> Server</label>
+                </div>
+            </div>
+
+            <button type="button" onclick="generateDescription()">Genera Descrizione</button>
+        </form>
+
+        <div class="preview-section">
+            <h2>Anteprima Descrizione:</h2>
+            <div id="preview" contenteditable="true"></div>
+            <button onclick="copyToClipboard()">Copia negli Appunti</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
