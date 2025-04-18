@@ -10,17 +10,24 @@ body {
     font-family: 'Segoe UI', system-ui, sans-serif;
     line-height: 1.6;
     margin: 0;
-    padding: 20px;
+    padding: 2rem;
     background-color: var(--background-color);
+    color: var(--primary-color);
 }
 
 .container {
     max-width: 800px;
     margin: 0 auto;
     background: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 32px rgba(0,0,0,0.12);
 }
 
 h1, h2 {
@@ -64,15 +71,27 @@ button {
     background-color: var(--secondary-color);
     color: white;
     border: none;
-    padding: 12px 25px;
-    border-radius: 5px;
+    padding: 0.8rem 1.8rem;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 button:hover {
     background-color: #2980b9;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: none;
 }
 
 .preview-section {
@@ -83,11 +102,17 @@ button:hover {
 
 #preview {
     min-height: 150px;
-    border: 2px dashed #ddd;
-    padding: 15px;
-    margin: 15px 0;
-    border-radius: 5px;
+    border: 2px dashed var(--secondary-color);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 8px;
     white-space: pre-wrap;
+    background: rgba(52, 152, 219, 0.05);
+    transition: border-color 0.3s ease;
+}
+
+#preview:hover {
+    border-color: var(--secondary-color);
 }
 
 @media (max-width: 768px) {
