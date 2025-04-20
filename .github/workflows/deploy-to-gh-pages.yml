@@ -1,5 +1,3 @@
-# GitHub Pages Deployment Workflow
-
 name: Deploy to GitHub Pages
 
 on:
@@ -7,13 +5,11 @@ on:
     branches: [gh-pages]
   workflow_dispatch:
 
-# Imposta i permessi del GITHUB_TOKEN per permettere il deploy su GitHub Pages
 permissions:
   contents: write
   pages: write
   id-token: write
 
-# Consente solo un deploy alla volta
 concurrency:
   group: "pages"
   cancel-in-progress: true
@@ -29,14 +25,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "18"
-          cache: "npm"
 
       - name: Install frontend dependencies
         run: |
@@ -65,25 +58,12 @@ jobs:
 
       - name: Prepare deployment files
         run: |
-          # Crea una cartella di distribuzione pulita
           mkdir -p dist
-
-          # Copia i file compilati del frontend
           cp -r frontend-riformula/dist/* dist/
-
-          # Copia i file necessari del backend
           mkdir -p dist/api
           cp Deep-AI/riformulaDescrizione.js dist/api/
           cp Deep-AI/.env dist/api/
-
-          # Crea un file index.html placeholder per evitare errori di rendering directory
-          if [ ! -f dist/api/index.html ]; then
-            echo "<html><body>API endpoint</body></html>" > dist/api/index.html
-          fi
-
-          # (Facoltativo) Copia altri file informativi se esistono
-          [ -f README.md ] && cp README.md dist/
-
+          echo "<html><body>API endpoint</body></html>" > dist/api/index.html
           echo "Contenuto della cartella dist:"
           ls -la dist/
 
