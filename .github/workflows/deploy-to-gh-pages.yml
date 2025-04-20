@@ -31,9 +31,11 @@ jobs:
           npm run build
 
       - name: Create .env file with API token
+        env:
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: |
           cd Deep-AI
-          echo "OPENROUTER_API_KEY=${{ secrets.OPENROUTER_API_KEY }}" > .env
+          echo "OPENROUTER_API_KEY=${OPENROUTER_KEY}" > .env
           cat .env
 
       - name: Install backend dependencies
