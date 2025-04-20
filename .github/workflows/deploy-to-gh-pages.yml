@@ -7,13 +7,13 @@ on:
     branches: [gh-pages]
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+# Imposta i permessi del GITHUB_TOKEN per permettere il deploy su GitHub Pages
 permissions:
   contents: write
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment
+# Consente solo un deploy alla volta
 concurrency:
   group: "pages"
   cancel-in-progress: true
@@ -21,15 +21,16 @@ concurrency:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0 # Fetch all history for proper deployment
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -75,21 +76,21 @@ jobs:
           cp Deep-AI/riformulaDescrizione.js dist/api/
           cp Deep-AI/.env dist/api/
 
-          # Crea un file index.html di base nella cartella api se non esiste
+          # Crea un file index.html placeholder per evitare errori di rendering directory
           if [ ! -f dist/api/index.html ]; then
             echo "<html><body>API endpoint</body></html>" > dist/api/index.html
           fi
 
-          # Crea o copia altri file necessari
-          cp README.md dist/ || true
+          # (Facoltativo) Copia altri file informativi se esistono
+          [ -f README.md ] && cp README.md dist/
 
-          echo "Contenuto della cartella di distribuzione:"
+          echo "Contenuto della cartella dist:"
           ls -la dist/
 
-      - name: Upload artifact
+      - name: Upload artifact to GitHub Pages
         uses: actions/upload-pages-artifact@v2
         with:
-          path: "./dist"
+          path: ./dist
 
       - name: Deploy to GitHub Pages
         id: deployment
