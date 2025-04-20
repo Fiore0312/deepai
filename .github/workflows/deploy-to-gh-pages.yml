@@ -16,12 +16,7 @@ concurrency:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
+    runs-on: ubuntu-late
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -30,6 +25,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "18"
+          cache: "npm"
 
       - name: Install frontend dependencies
         run: |
@@ -55,6 +51,8 @@ jobs:
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
+        with:
+          enablement: true
 
       - name: Prepare deployment files
         run: |
