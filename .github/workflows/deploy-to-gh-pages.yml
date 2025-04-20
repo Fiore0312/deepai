@@ -7,18 +7,35 @@ on:
     branches: [gh-pages]
   workflow_dispatch:
 
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Fetch all history for proper deployment
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "18"
+          cache: "npm"
 
       - name: Install frontend dependencies
         run: |
@@ -36,23 +53,44 @@ jobs:
         run: |
           cd Deep-AI
           echo "OPENROUTER_API_KEY=${OPENROUTER_KEY}" > .env
-          cat .env
 
       - name: Install backend dependencies
         run: |
           cd Deep-AI
           npm ci
 
-      - name: Setup application for GitHub Pages
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+
+      - name: Prepare deployment files
         run: |
-          # Copia i file compilati del frontend nella cartella principale
-          cp -r frontend-riformula/dist/* .
+          # Crea una cartella di distribuzione pulita
+          mkdir -p dist
+
+          # Copia i file compilati del frontend
+          cp -r frontend-riformula/dist/* dist/
+
           # Copia i file necessari del backend
-          cp -r Deep-AI/* .
+          mkdir -p dist/api
+          cp Deep-AI/riformulaDescrizione.js dist/api/
+          cp Deep-AI/.env dist/api/
+
+          # Crea un file index.html di base nella cartella api se non esiste
+          if [ ! -f dist/api/index.html ]; then
+            echo "<html><body>API endpoint</body></html>" > dist/api/index.html
+          fi
+
+          # Crea o copia altri file necessari
+          cp README.md dist/ || true
+
+          echo "Contenuto della cartella di distribuzione:"
+          ls -la dist/
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: "./dist"
 
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4.3.3
-        with:
-          branch: gh-pages
-          folder: .
-          token: ${{ secrets.GITHUB_TOKEN }}
+        id: deployment
+        uses: actions/deploy-pages@v2
