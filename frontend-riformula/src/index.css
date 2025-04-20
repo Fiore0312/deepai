@@ -1,7 +1,11 @@
+/* eslint-disable */
+/* stylelint-disable */
+/* postcss-import directives are recognized by the postcss-import plugin */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Ensure Tailwind CSS is properly configured */
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
