@@ -23,7 +23,7 @@ Thumbs.db
 logs
 *.log
 
-# Dati sensibili
+# Dati sensibili e file CSV
 corrections_db.json
 *.csv
 
