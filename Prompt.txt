@@ -1,0 +1,76 @@
+non accetterò fcommenti con 3 PAROLE E NON VANNO BENBE
+
+
+Cristina Costanzi
+
+Hyosung Europe Srl
+
+Via Del Tecchione, 34
+
+20098 San Giuliano Milanese (MI)
+
+tel. +39 02 98 862 543
+
+cell. +39 345 8362046
+
+
+
+sk-9aa6e8f98d4245e2a6c60d91107cebda
+
+voglio creare una piccola webapp, con un minimo di cura nell'aspetto grafico, modermo ed accattivante. Il contesto è questo: sono un IT Supporto manager ed ho una squadra di 15 tecnici da gestire, assegnare ticket e seguire che non si perdano le cose e le attività vengano svolte regolarmente e puntualmente. Devo risolvere alcune lacune, e ce n'è una molto importante, che è la prima che devo mettere a posto. 
+Ho pensato di copiarti la mail che gli sto preparando così capisci meglio di cosa sto parlando:
+
+"Ciao ragazzi, questa è una comunicazione importante che vi prego di leggere attentamente e di rispettare d’ora in avanti, io e Marco ci siamo confrontati per migliorare ulteriormente il nostro flusso di lavoro e abbiamo individuato un aspetto molto importante per le comunicazioni, anzi fondamentale.
+Parlo delle descrizioni che riportate nelle attività di lavoro, non possiamo più utilizzare questo modo molto “spiccio” per chiudere i ticket, in fase di controllo e soprattutto di fatturazione si fa molta fatica a volte ricostruire le situazioni per gli scali, per le ore di attività, ecc…
+
+ATTENZIONE: gli esempi che sono a riportarvi li ho presi totalmente a caso, non stiamo puntando il dito contro nessuno e questo non è un rimprovero e nemmeno una cazziata, anzi… se io e Marco siamo arrivati ad ottimizzare questo tema significa che altre cose prioritarie che c’erano in precedenza sono state messe in linea con gli obbiettivi che avevamo messo a fuoco quando sono arrivato qui.
+
+Tornando al dunque, non sono valide frasi del tipo:
+•	“Inoltri aggiunti come richiesto”
+•	“Aggiornamenti Windows server + installazione ruoli + update firmware “
+•	“Creazione utente richiesto + settaggio impostazioni rds”
+•	“disinstallato e reinstallato Teams”
+
+Sono invece conformi e valide descrizioni del tipo:
+•	“manutenzione sul notebook del Professore, update database di Office + lanciato upgrade all'ultima build di Win11, in fase d'aggiornamento”
+•	“Controllato e sistemato PC Artlantis3D, tolto utente locale Artlantis_3D da local admin e attivato utente Bait, installato Kaspersky, messo a dominio, creato utente di dominio Artlantis3D, fatto accesso con utente di dominio, migrato i dati e testato con utente”
+•	“mandata email a Betty per farle fare delle verifiche comunicate dall'assistenza Deda, in attesa di risposta”
+
+
+Abbiamo quindi preso la decisione di NON ritenere valide le descrizioni non conformi, sarà un po' dura all’inizio ma ho pensato ad uno stratagemma per venirvi incontro"
+
+Lo stratagemma che ho pensato è quello di mettergli a disposizione una piccola app dove partendo dall'inserimento di alcuni dati obbligatori (che definiamo insieme io e te) l'app genererà una descrizione che andrà semplicemente copiata ed incollata. Per uniformare le cose pensavi di mettere alcuni campi obbligatori, non il cliente perchè è già nel ticket, nemmeno le ore, ma le attività vanno scritte tutte nello stesso stile. 
+Nella mail che gli sto preparando vedi già alcune descrizioni che non sono accettabili, mentre altre sì, ma vanno uniformate in uno standard che sia valido per tutti. 
+L'app deve prendere una descrizione fatta male, e scriverne una fatta bene, in qualche modo "obbligando" il tecnico  asdcriverla bene compilando i campi che andrai a definire. 
+Mi piacerebbe che fosse pubblicata per poter dare loro un link, ma se non si può fare trova tu un modo per condividerla con altri.
+Una volta generata la descrizione fatta bene ci sarà il tasto "copia" ed incolleremo sulla piattaforma di ticketing.
+</task>
+
+<environment_details>
+# VSCode Visible Files
+attivita_170425.CSV
+
+# VSCode Open Tabs
+attivita_170425.CSV
+
+# Current Time
+4/18/2025, 4:24:01 PM (Europe/Rome, UTC+2:00)
+
+# Current Working Directory (c:/Users/ffiorellino/Documents/Procedure Interne/Web App compilazione rapportini) Files
+attivita_170425.CSV
+
+# Context Window Usage
+0 / 200K tokens used (0%)
+
+# Current Mode
+PLAN MODE
+In this mode you should focus on information gathering, asking questions, and architecting a solution. Once you have a plan, use the plan_mode_respond tool to engage in a conversational back and forth with the user. Do not use the plan_mode_respond tool until you've gathered all the information you need e.g. with read_file or ask_followup_question.
+(Remember: If it seems the user wants you to use tools only available in Act Mode, you should ask the user to "toggle to Act mode" (use those words) - they will have to manually do this themselves with the Plan/Act toggle button below. You do not have the ability to switch to Act Mode yourself, and must wait for the user to do it themselves once they are satisfied with the plan. You also cannot present an option to toggle to Act mode, as this will be something you need to direct the user to do manually themselves.)
+</environment_details>
+
+token github: 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
+
+vorrei migliorare la grafica di questa mia app creata da poco, si trova qui https://fiore0312.github.io/BAIT/  e in allegato trovi uno screenshot , vorrei che tu apportassi qualche miglioria estetica e poi provvedi a pubblicare di nuovo l'aggiornamento. Devi fare attenzione che non puoi utilizzare i comandi nel terminale con incluse le doppie & perchè non le accetta, e io spreco solo token. chiaro? procedi
+
+api key mistral
+m1X7qyEnHZHYzs9XglMkH81jsAekpi9i

@@ -1,0 +1,14 @@
+{
+  "name": "riformula-descrizione",
+  "version": "1.0.0",
+  "main": "riformulaDescrizione.js",
+  "scripts": {
+    "start": "node riformulaDescrizione.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "axios": "^1.8.4"
+  }
+}
