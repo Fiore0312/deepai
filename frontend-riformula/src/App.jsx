@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
 
+// URL base dell'API: usa un URL di produzione quando è in produzione, altrimenti usa localhost
+const API_BASE_URL = import.meta.env.PROD
+  ? "https://riformulatore-api.onrender.com" // Sostituisci con l'URL del tuo backend in produzione
+  : "http://localhost:3000";
+
 function App() {
   const [rawDescription, setRawDescription] = useState("");
   const [enhancedDescription, setEnhancedDescription] = useState("");
@@ -27,9 +32,7 @@ function App() {
   // Funzione per recuperare le statistiche
   const fetchStats = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:3000/api/correction-stats"
-      );
+      const response = await fetch(`${API_BASE_URL}/api/correction-stats`);
 
       // Verifica se la risposta è OK prima di tentare di estrarre il JSON
       if (!response.ok) {
@@ -80,16 +83,13 @@ function App() {
     setIsLoading(true);
 
     try {
-      console.log(
-        "Inviando richiesta a:",
-        "http://localhost:3000/api/riformula"
-      );
+      console.log("Inviando richiesta a:", `${API_BASE_URL}/api/riformula`);
       console.log("Dati inviati:", {
         input: rawDescription,
         model: "deepseek/deepseek-r1:free",
       });
 
-      const response = await fetch("http://localhost:3000/api/riformula", {
+      const response = await fetch(`${API_BASE_URL}/api/riformula`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -190,20 +190,17 @@ function App() {
     setError("");
 
     try {
-      const response = await fetch(
-        "http://localhost:3000/api/save-correction",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            originalDescription: rawDescription,
-            aiGenerated: originalAIOutput,
-            userCorrected: enhancedDescription,
-          }),
-        }
-      );
+      const response = await fetch(`${API_BASE_URL}/api/save-correction`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          originalDescription: rawDescription,
+          aiGenerated: originalAIOutput,
+          userCorrected: enhancedDescription,
+        }),
+      });
 
       // Verifica se la risposta è OK prima di tentare di estrarre il JSON
       if (!response.ok) {
@@ -507,7 +504,7 @@ function App() {
       {/* Link per testare la connessione */}
       <div className="mt-6 text-center">
         <a
-          href="http://localhost:3000/api/test-openrouter"
+          href={`${API_BASE_URL}/api/test-openrouter`}
           target="_blank"
           rel="noopener noreferrer"
           className="text-sm text-blue-600 hover:underline"

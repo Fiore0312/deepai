@@ -1,0 +1,54 @@
+# GitHub Pages Deployment Workflow
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [gh-pages]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Install frontend dependencies
+        run: |
+          cd frontend-riformula
+          npm ci
+
+      - name: Build frontend
+        run: |
+          cd frontend-riformula
+          npm run build
+
+      - name: Create .env file with API token
+        run: |
+          cd Deep-AI
+          echo "OPENROUTER_API_KEY=${{ secrets.OPENROUTER_API_KEY }}" > .env
+      - name: Install backend dependencies
+        run: |
+          cd Deep-AI
+          npm ci
+
+      - name: Setup application for GitHub Pages
+        run: |
+          # Copia i file compilati del frontend nella cartella principale
+          cp -r frontend-riformula/dist/* .
+          # Copia i file necessari del backend
+          cp -r Deep-AI/* .
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4.3.3
+        with:
+          branch: gh-pages-deploy
+          folder: .
+          token: ${{ secrets.GITHUB_TOKEN }}

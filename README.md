@@ -1,50 +1,86 @@
-# Miglioramento Descrizioni Tecniche
+# Applicazione per il Miglioramento delle Descrizioni Tecniche
 
-Applicazione per migliorare automaticamente le descrizioni tecniche nei rapportini di lavoro utilizzando l'intelligenza artificiale.
+Questa applicazione web permette di migliorare automaticamente descrizioni tecniche grezze, trasformandole in testo professionale utilizzando l'API di OpenRouter con il modello DeepSeek R1.
 
 ## Funzionalità
 
-- Trasforma descrizioni tecniche grezze in testo professionale e dettagliato
-- Interfaccia utente semplice e intuitiva
-- Memorizzazione delle correzioni manuali per miglioramento continuo
-- Riconoscimento automatico di descrizioni simili già elaborate
+- Miglioramento automatico di descrizioni tecniche utilizzando AI
+- Database di correzioni per riutilizzare descrizioni simili
+- Possibilità di correggere manualmente le descrizioni generate
+- Interfaccia utente reattiva e moderna
 
-## Struttura del progetto
+## Struttura del Progetto
 
-- `Deep-AI/`: Backend Node.js che gestisce la comunicazione con l'API di OpenRouter
-- `frontend-riformula/`: Applicazione React con interfaccia utente moderna
+- **frontend-riformula**: Frontend React con Vite e Tailwind CSS
+- **Deep-AI**: Backend Node.js con Express che gestisce le chiamate all'API OpenRouter
 
-## Requisiti
+## Setup Locale
 
-- Node.js 16+
-- API key di OpenRouter (da configurare nel file `.env`)
+### Backend (Deep-AI)
 
-## Installazione
+1. Entra nella cartella Deep-AI:
+
+   ```
+   cd Deep-AI
+   ```
+
+2. Installa le dipendenze:
+
+   ```
+   npm install
+   ```
+
+3. Crea un file `.env` basato su `.env.example` e inserisci la tua chiave API di OpenRouter:
+
+   ```
+   OPENROUTER_API_KEY=your_api_key_here
+   ```
+
+4. Avvia il server:
+   ```
+   npm start
+   ```
+
+### Frontend (frontend-riformula)
+
+1. Entra nella cartella frontend-riformula:
+
+   ```
+   cd frontend-riformula
+   ```
+
+2. Installa le dipendenze:
+
+   ```
+   npm install
+   ```
+
+3. Avvia il server di sviluppo:
+   ```
+   npm run dev
+   ```
+
+## Deployment
+
+L'applicazione è configurata per essere pubblicata su GitHub Pages con un backend ospitato su un servizio come Render o Railway.
 
 ### Backend
 
-```bash
-cd Deep-AI
-npm install
-# Crea un file .env con la tua API key OpenRouter
-echo "OPENROUTER_API_KEY=your_api_key_here" > .env
-node riformulaDescrizione.js
-```
+Il backend è pubblicato su Render.com:
+
+- URL: https://riformulatore-api.onrender.com
 
 ### Frontend
 
-```bash
-cd frontend-riformula
-npm install
-npm run dev
-```
+Il frontend è pubblicato su GitHub Pages:
 
-## Utilizzo
+- Automaticamente tramite GitHub Actions quando viene effettuato un push sul branch `gh-pages`
+- La configurazione del workflow si trova in `.github/workflows/deploy-to-gh-pages.yml`
 
-1. Incolla una descrizione tecnica grezza nel campo di input
-2. Clicca su "Migliora con AI"
-3. Il testo migliorato apparirà nel campo di output
-4. Puoi copiare il testo o apportare correzioni manuali
+## Note per lo Sviluppo
+
+- Per utilizzare l'applicazione in ambiente di sviluppo, assicurati che sia il backend che il frontend siano avviati
+- Per modificare l'URL del backend in produzione, aggiorna la variabile `API_BASE_URL` nel file `frontend-riformula/src/App.jsx`
 
 ## Sviluppato da
 
