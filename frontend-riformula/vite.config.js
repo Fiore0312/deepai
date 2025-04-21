@@ -19,8 +19,8 @@ export default defineConfig({
     port: 5173,
     open: true,
   },
-  // Imposta la base per GitHub Pages (nome-repository)
-  base: "/deepai/", // Usa percorso assoluto al repository per GitHub Pages
+  // Imposta la base per Vercel
+  base: "/",
   build: {
     outDir: "dist",
     assetsDir: "assets",
