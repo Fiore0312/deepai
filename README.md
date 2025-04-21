@@ -74,8 +74,8 @@ Il backend è pubblicato su Render.com:
 
 Il frontend è pubblicato su GitHub Pages:
 
-- Automaticamente tramite GitHub Actions quando viene effettuato un push sul branch `gh-pages`
-- La configurazione del workflow si trova in `.github/workflows/deploy-to-gh-pages.yml`
+- Automaticamente tramite GitHub Actions quando viene effettuato un push sul branch `main`
+- La configurazione del workflow si trova in `.github/workflows/deploy.yml`
 
 ## Note per lo Sviluppo
 
