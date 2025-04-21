@@ -8,7 +8,15 @@ const path = require("path");
 const app = express();
 const port = 3000;
 
-app.use(cors());
+// Configura CORS per accettare richieste da qualsiasi origine
+app.use(
+  cors({
+    origin: "*", // Accetta richieste da qualsiasi dominio
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+    optionsSuccessStatus: 204,
+  })
+);
 app.use(express.json());
 
 // Percorso del file di database delle correzioni
@@ -437,13 +445,22 @@ app.post("/api/riformula", async (req, res) => {
     // URL dell'API OpenRouter
     const url = "https://openrouter.ai/api/v1/chat/completions";
 
+    // Ottieni il referer dalla richiesta, usa un fallback se non disponibile
+    const referer =
+      req.get("HTTP-Referer") ||
+      req.get("Referer") ||
+      req.get("Origin") ||
+      "https://riformulatore-api.onrender.com";
+
     // Headers della richiesta
     const headers = {
       "Content-Type": "application/json",
       Authorization: `Bearer ${apiKey.trim()}`,
-      "HTTP-Referer": "http://localhost:3000", // Il dominio dell'applicazione
-      "X-Title": "Riformulatore Descrizioni Tecniche", // Titolo dell'applicazione
+      "HTTP-Referer": referer, // Usa il referer dalla richiesta
+      "X-Title": "Riformulatore Descrizioni Tecniche",
     };
+
+    console.log("Utilizzando HTTP-Referer:", referer);
 
     // Prompt di sistema con istruzioni più precise e vincolanti
     let systemMessage =
@@ -759,6 +776,14 @@ app.get("/api/test-openrouter", async (req, res) => {
     });
   }
 
+  // Ottieni il referer dalla richiesta, usa un fallback se non disponibile
+  const referer =
+    req.get("HTTP-Referer") ||
+    req.get("Referer") ||
+    req.get("Origin") ||
+    "https://riformulatore-api.onrender.com";
+  console.log("Test OpenRouter - Utilizzando HTTP-Referer:", referer);
+
   try {
     // Testa prima l'endpoint di autenticazione
     console.log("Testando autenticazione OpenRouter...");
@@ -788,7 +813,7 @@ app.get("/api/test-openrouter", async (req, res) => {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${apiKey.trim()}`,
-          "HTTP-Referer": "http://localhost:3000",
+          "HTTP-Referer": referer,
           "X-Title": "Test OpenRouter API",
         },
       }

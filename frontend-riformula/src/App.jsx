@@ -32,7 +32,12 @@ function App() {
   // Funzione per recuperare le statistiche
   const fetchStats = async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/correction-stats`);
+      const response = await fetch(`${API_BASE_URL}/api/correction-stats`, {
+        headers: {
+          "HTTP-Referer": window.location.origin,
+          "X-Requested-With": "XMLHttpRequest",
+        },
+      });
 
       // Verifica se la risposta è OK prima di tentare di estrarre il JSON
       if (!response.ok) {
@@ -93,6 +98,9 @@ function App() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "HTTP-Referer": window.location.origin,
+          "X-Requested-With": "XMLHttpRequest",
+          Origin: window.location.origin,
         },
         body: JSON.stringify({
           input: rawDescription,
@@ -194,6 +202,9 @@ function App() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "HTTP-Referer": window.location.origin,
+          "X-Requested-With": "XMLHttpRequest",
+          Origin: window.location.origin,
         },
         body: JSON.stringify({
           originalDescription: rawDescription,

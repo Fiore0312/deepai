@@ -1,38 +1,13 @@
-# Dipendenze
-node_modules/
-npm-debug.log
-yarn-debug.log
-yarn-error.log
-
-# Ambiente
+# Files da ignorare per Git
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# Build
-/dist
-/build
-
-# File sistema
+node_modules/
 .DS_Store
-Thumbs.db
-
-# Logs
-logs
+npm-debug.log
 *.log
-
-# Dati sensibili e file CSV
-corrections_db.json
-*.csv
-
-# IDE e editor
-.idea/
 .vscode/
+.idea/
 *.swp
 *.swo
-
-# File temporanei di Vite
-.vite/
-**/deps_temp_**/
+Deep-AI/corrections_db.json
+Deep-AI/feedback_db.json
+Deep-AI/.env
