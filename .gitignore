@@ -1,13 +1,40 @@
-# Files da ignorare per Git
+# ⚙️ Config generali
 .env
+.env.*
+*.env
+*.env.local
+
+# 📦 Node.js
 node_modules/
-.DS_Store
-npm-debug.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
 *.log
+
+# 🖥️ Editor e IDE
 .vscode/
 .idea/
 *.swp
 *.swo
+
+# 🍏 MacOS
+.DS_Store
+
+# 📁 Dati generati
 Deep-AI/corrections_db.json
 Deep-AI/feedback_db.json
 Deep-AI/.env
+
+# 📦 Cache GitHub Pages o Vite
+frontend-riformula/node_modules/.cache/
+frontend-riformula/dist/
+
+# 🔐 Backup e file sensibili
+*.bak
+*.old
+*.key
+*.pem
+
+# 🧪 Build
+/build
+/out
