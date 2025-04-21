@@ -1,0 +1,132 @@
+📦 PROGETTO: Web App Compilazione Rapportini (DeepAI)
+
+✅ FRONTEND + BACKEND (con Vite + Express + OpenRouter)
+✅ Deploy automatico su Vercel (frontend) + Render (backend)
+✅ Chiavi API protette, build sicura
+
+────────────────────────────────────────────
+📁 STRUTTURA DEL PROGETTO
+────────────────────────────────────────────
+
+├── Deep-AI/                  → Backend Express (Render)
+│   ├── .env                  → contiene la chiave API OpenRouter (privata)
+│   └── riformulaDescrizione.js  → logica delle API
+│
+├── frontend-riformula/      → Frontend React (Vite + Tailwind)
+│   ├── .env.production       → contiene VITE_API_URL con il link al backend Render
+│   ├── vite.config.js        → configurazione Vite per deploy su Vercel
+│   └── dist/                 → generata automaticamente (build pronta)
+
+────────────────────────────────────────────
+▶️ COME AVVIARE IN LOCALE
+────────────────────────────────────────────
+
+Aprire due terminali separati:
+
+1️⃣ TERMINALE 1 – Backend
+-----------------------------
+cd Deep-AI
+npm install
+npm start
+
+✔️ Avvia il server su http://localhost:3000
+
+2️⃣ TERMINALE 2 – Frontend
+-----------------------------
+cd frontend-riformula
+npm install
+npm run dev
+
+✔️ Avvia React su http://localhost:5173
+✔️ Interfaccia visibile in browser
+
+────────────────────────────────────────────
+🛠️ COME APPORTARE MODIFICHE
+────────────────────────────────────────────
+
+1. Modifica i file nel frontend o backend
+
+2. Se modifichi il **backend**:
+----------------------------------
+📍 Cartella: `Deep-AI/`
+
+Esegui:
+
+    git add .
+    git commit -m "🔧 Modifiche backend: migliorata logica riformulazione"
+    git push origin main
+
+✔️ Render rileva la modifica
+✔️ Esegue automaticamente build + restart del servizio
+✔️ Il backend aggiornato sarà attivo su:
+   https://deepai-weem.onrender.com
+
+📌 Se modifichi solo `.env` → aggiorna manualmente dalla dashboard Render.
+
+3. Se modifichi il **frontend**:
+----------------------------------
+📍 Cartella: `frontend-riformula/`
+
+Ricostruisci la build:
+
+    npm run build
+
+Poi pubblica con:
+
+    git add .
+    git commit -m "✨ Modifiche frontend"
+    git push origin main
+
+✔️ Vercel esegue automaticamente il redeploy
+✔️ Il sito sarà aggiornato su:
+   https://deepai-gamma.vercel.app
+
+────────────────────────────────────────────
+🧪 TEST FUNZIONALITÀ ONLINE
+────────────────────────────────────────────
+
+URL APP: https://deepai-gamma.vercel.app
+
+Per test API separatamente:
+POST → https://deepai-weem.onrender.com/api/riformula
+Header: Content-Type: application/json
+Body:
+{
+  "input": "testo tecnico grezzo"
+}
+
+────────────────────────────────────────────
+🔐 PROTEZIONE CHIAVI API
+────────────────────────────────────────────
+
+✔️ Le chiavi API NON devono mai finire nella build.
+✔️ Usa solo il file `.env` in Deep-AI/
+✔️ Mai includere chiavi nel frontend o nel repo
+
+Script di controllo chiavi (facoltativo ma utile):
+
+    npm run check-secrets
+
+────────────────────────────────────────────
+📦 DEPLOY ONLINE (AUTOMATICO)
+────────────────────────────────────────────
+
+✔️ Backend su Render:
+   https://deepai-weem.onrender.com
+
+✔️ Frontend su Vercel:
+   https://deepai-gamma.vercel.app
+
+────────────────────────────────────────────
+📌 VARIABILI D'AMBIENTE
+────────────────────────────────────────────
+
+➡️ In Deep-AI/.env
+OPENROUTER_API_KEY=sk-...
+
+➡️ In Vercel → Settings → Environment Variables
+VITE_API_URL=https://deepai-weem.onrender.com
+
+────────────────────────────────────────────
+
+🧠 Documentazione generata da ChatGPT per assistenza rapida e deploy sicuro.
