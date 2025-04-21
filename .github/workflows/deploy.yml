@@ -1,0 +1,71 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main] # <--- ora il codice vive nel branch "main"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install frontend dependencies
+        run: |
+          cd frontend-riformula
+          npm ci
+
+      - name: Build frontend
+        run: |
+          cd frontend-riformula
+          npm run build
+
+      - name: Create .env file with API token
+        env:
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          cd Deep-AI
+          echo "OPENROUTER_API_KEY=${OPENROUTER_KEY}" > .env
+
+      - name: Install backend dependencies
+        run: |
+          cd Deep-AI
+          npm ci
+
+      - name: Prepare deployment files
+        run: |
+          mkdir -p _site
+          cp -r frontend-riformula/dist/* _site/
+          mkdir -p _site/api
+          cp Deep-AI/riformulaDescrizione.js _site/api/
+          cp Deep-AI/.env _site/api/
+          if [ ! -f _site/api/index.html ]; then
+            echo "<html><body>API endpoint</body></html>" > _site/api/index.html
+          fi
+          cp README.md _site/ || true
+          echo "Contenuto della cartella di distribuzione:"
+          ls -la _site/
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site
+          publish_branch: gh-pages # branch usato SOLO per i file statici
