@@ -14,6 +14,9 @@ app.use(express.json());
 // Percorso del file di database delle correzioni
 const CORRECTIONS_DB_PATH = path.join(__dirname, "corrections_db.json");
 
+// Percorso del file di database dei feedback
+const FEEDBACK_DB_PATH = path.join(__dirname, "feedback_db.json");
+
 // Inizializza il database delle correzioni se non esiste
 if (!fs.existsSync(CORRECTIONS_DB_PATH)) {
   fs.writeFileSync(
@@ -34,6 +37,30 @@ if (!fs.existsSync(CORRECTIONS_DB_PATH)) {
   console.log(
     "\x1b[32m%s\x1b[0m",
     `Database delle correzioni creato in ${CORRECTIONS_DB_PATH}`
+  );
+}
+
+// Inizializza il database dei feedback se non esiste
+if (!fs.existsSync(FEEDBACK_DB_PATH)) {
+  fs.writeFileSync(
+    FEEDBACK_DB_PATH,
+    JSON.stringify(
+      {
+        positiveFeedbacks: [],
+        negativeFeedbacks: [],
+        statistics: {
+          totalPositiveFeedbacks: 0,
+          totalNegativeFeedbacks: 0,
+          lastUpdated: new Date().toISOString(),
+        },
+      },
+      null,
+      2
+    )
+  );
+  console.log(
+    "\x1b[32m%s\x1b[0m",
+    `Database dei feedback creato in ${FEEDBACK_DB_PATH}`
   );
 }
 
@@ -70,6 +97,40 @@ function saveCorrectionsDB(data) {
   }
 }
 
+// Carica il database dei feedback
+function loadFeedbackDB() {
+  try {
+    const data = fs.readFileSync(FEEDBACK_DB_PATH, "utf8");
+    return JSON.parse(data);
+  } catch (error) {
+    console.error(
+      "\x1b[31m%s\x1b[0m",
+      `Errore nel caricamento del database dei feedback: ${error.message}`
+    );
+    return {
+      positiveFeedbacks: [],
+      negativeFeedbacks: [],
+      statistics: {
+        totalPositiveFeedbacks: 0,
+        totalNegativeFeedbacks: 0,
+        lastUpdated: new Date().toISOString(),
+      },
+    };
+  }
+}
+
+// Salva il database dei feedback
+function saveFeedbackDB(data) {
+  try {
+    fs.writeFileSync(FEEDBACK_DB_PATH, JSON.stringify(data, null, 2));
+  } catch (error) {
+    console.error(
+      "\x1b[31m%s\x1b[0m",
+      `Errore nel salvataggio del database dei feedback: ${error.message}`
+    );
+  }
+}
+
 // Funzione per trovare una descrizione simile nel database
 function findSimilarDescription(input, db) {
   // Algoritmo semplice: cerca corrispondenze parziali
@@ -93,6 +154,53 @@ function findSimilarDescription(input, db) {
   }
 
   return null;
+}
+
+// Funzione per trovare una descrizione simile nel database dei feedback positivi
+function findSimilarPositiveFeedback(input) {
+  const db = loadFeedbackDB();
+  const inputLower = input.toLowerCase();
+
+  for (const feedback of db.positiveFeedbacks) {
+    const originalLower = feedback.original.toLowerCase();
+
+    // Se la descrizione originale è molto simile, restituisci la versione migliorata
+    if (
+      originalLower.includes(inputLower) ||
+      inputLower.includes(originalLower)
+    ) {
+      // Se le stringhe sono simili per più del 70% delle parole
+      const similarityScore = calculateSimilarity(inputLower, originalLower);
+      if (similarityScore > 0.7) {
+        return feedback.enhanced;
+      }
+    }
+  }
+
+  return null;
+}
+
+// Funzione per verificare se una risposta è simile ad un feedback negativo precedente
+function isSimilarToNegativeFeedback(input, output) {
+  const db = loadFeedbackDB();
+
+  for (const feedback of db.negativeFeedbacks) {
+    // Verifica se l'input è simile e l'output proposto è simile a quello già valutato negativamente
+    if (
+      calculateSimilarity(
+        input.toLowerCase(),
+        feedback.original.toLowerCase()
+      ) > 0.7 &&
+      calculateSimilarity(
+        output.toLowerCase(),
+        feedback.enhanced.toLowerCase()
+      ) > 0.7
+    ) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 // Funzione per calcolare la similarità tra due stringhe (algoritmo semplice)
@@ -126,6 +234,80 @@ if (!fs.existsSync(envPath)) {
     "Per favore, inserisci la tua chiave API di OpenRouter nel file .env e riavvia il server"
   );
 }
+
+// Endpoint per salvare un feedback
+app.post("/api/save-feedback", async (req, res) => {
+  const { original, enhanced, isPositive } = req.body;
+
+  if (!original || !enhanced || isPositive === undefined) {
+    return res.status(400).json({
+      error:
+        "Informazioni mancanti. Sono richiesti: testo originale, testo migliorato e indicazione se il feedback è positivo",
+    });
+  }
+
+  try {
+    const db = loadFeedbackDB();
+
+    const feedbackEntry = {
+      original,
+      enhanced,
+      timestamp: new Date().toISOString(),
+    };
+
+    if (isPositive) {
+      // Controlla se esiste già un feedback simile positivo
+      const existingIndex = db.positiveFeedbacks.findIndex(
+        (f) =>
+          calculateSimilarity(
+            f.original.toLowerCase(),
+            original.toLowerCase()
+          ) > 0.9
+      );
+
+      if (existingIndex !== -1) {
+        // Aggiorna un feedback esistente
+        db.positiveFeedbacks[existingIndex] = feedbackEntry;
+      } else {
+        // Aggiungi un nuovo feedback
+        db.positiveFeedbacks.push(feedbackEntry);
+      }
+      db.statistics.totalPositiveFeedbacks++;
+    } else {
+      // Gestione feedback negativo
+      // Controlla se esiste già un feedback simile negativo
+      const existingIndex = db.negativeFeedbacks.findIndex(
+        (f) =>
+          calculateSimilarity(
+            f.original.toLowerCase(),
+            original.toLowerCase()
+          ) > 0.9 &&
+          calculateSimilarity(
+            f.enhanced.toLowerCase(),
+            enhanced.toLowerCase()
+          ) > 0.8
+      );
+
+      if (existingIndex !== -1) {
+        // Aggiorna un feedback esistente
+        db.negativeFeedbacks[existingIndex] = feedbackEntry;
+      } else {
+        // Aggiungi un nuovo feedback
+        db.negativeFeedbacks.push(feedbackEntry);
+      }
+      db.statistics.totalNegativeFeedbacks++;
+    }
+
+    // Aggiorna le statistiche
+    db.statistics.lastUpdated = new Date().toISOString();
+    saveFeedbackDB(db);
+
+    res.json({ success: true, message: "Feedback salvato con successo" });
+  } catch (error) {
+    console.error("Errore nel salvataggio del feedback:", error);
+    res.status(500).json({ error: "Errore nel salvataggio del feedback" });
+  }
+});
 
 app.post("/api/save-correction", async (req, res) => {
   const { originalDescription, aiGenerated, userCorrected } = req.body;
@@ -194,11 +376,26 @@ app.get("/api/correction-stats", (req, res) => {
   }
 });
 
+// Endpoint per ottenere statistiche sui feedback
+app.get("/api/feedback-stats", (req, res) => {
+  try {
+    const db = loadFeedbackDB();
+    res.json({
+      totalPositiveFeedbacks: db.statistics.totalPositiveFeedbacks,
+      totalNegativeFeedbacks: db.statistics.totalNegativeFeedbacks,
+      lastUpdated: db.statistics.lastUpdated,
+    });
+  } catch (error) {
+    console.error("Errore nel recupero delle statistiche:", error);
+    res.status(500).json({ error: "Errore nel recupero delle statistiche" });
+  }
+});
+
 app.post("/api/riformula", async (req, res) => {
   try {
     // Estrai i dati della richiesta
-    const { input } = req.body;
-    const model = req.body.model || "deepseek/deepseek-r1:free";
+    const { input, model, isRegeneration, previousOutput } = req.body;
+    const selectedModel = model || "deepseek/deepseek-r1:free";
 
     // Valida l'input
     if (!input || typeof input !== "string") {
@@ -209,9 +406,24 @@ app.post("/api/riformula", async (req, res) => {
 
     console.log(`Richiesta di riformulazione ricevuta per: "${input}"`);
 
-    // Cerca nel database se esiste già una descrizione simile
-    // Implementazione del confronto delle descrizioni potrebbe essere aggiunta qui
-    // Per ora, procediamo direttamente con la chiamata all'API
+    // Se è una rigenerazione, aggiungiamo un log
+    if (isRegeneration) {
+      console.log("Questa è una rigenerazione a seguito di feedback negativo.");
+      if (previousOutput) {
+        console.log(`Output precedente: "${previousOutput}"`);
+      }
+    }
+
+    // Prima di tutto, proviamo a vedere se abbiamo un feedback positivo simile
+    const similarPositiveFeedback = findSimilarPositiveFeedback(input);
+    if (similarPositiveFeedback) {
+      console.log("Trovato feedback positivo simile nel database.");
+      return res.json({
+        output: similarPositiveFeedback,
+        fromDatabase: true,
+        source: "positive-feedback",
+      });
+    }
 
     // Prepara i dati per la richiesta a OpenRouter
     const apiKey = process.env.OPENROUTER_API_KEY;
@@ -233,13 +445,29 @@ app.post("/api/riformula", async (req, res) => {
       "X-Title": "Riformulatore Descrizioni Tecniche", // Titolo dell'applicazione
     };
 
-    // Prompt di sistema con istruzioni più precise
-    const systemMessage =
-      "Agisci come un redattore tecnico con esperienza nel settore IT e sistemistico. " +
+    // Prompt di sistema con istruzioni più precise e vincolanti
+    let systemMessage =
+      "Sei un esperto sistemista IT con oltre 10 anni di esperienza nella redazione tecnica professionale. " +
       "Il tuo compito è riformulare la descrizione tecnica che riceverai in una versione professionale. " +
-      "Mantieni il significato originale della frase, usa un linguaggio tecnico corretto e formale, " +
-      "elimina abbreviazioni e frasi colloquiali, rendi chiaro cosa è stato fatto, da chi, su cosa e con quale risultato. " +
-      "Rispondi SOLO con la descrizione riformulata, senza introduzioni o commenti aggiuntivi.";
+      "Segui scrupolosamente queste regole:" +
+      "\n1. Mantieni il significato originale della frase" +
+      "\n2. Usa un linguaggio tecnico corretto, formale e conciso" +
+      "\n3. Elimina abbreviazioni e frasi colloquiali" +
+      "\n4. Rendi chiaro cosa è stato fatto, su quale sistema, e con quale risultato" +
+      "\n5. IMPORTANTE: Rispondi ESCLUSIVAMENTE con la descrizione riformulata, senza spiegazioni, commenti o ragionamenti" +
+      "\n6. Non aggiungere mai frasi introduttive o conclusive" +
+      "\n7. Non includere il tuo processo di ragionamento nella risposta" +
+      "\n8. Non iniziare mai con 'Ecco la versione riformulata:' o frasi simili";
+
+    // Se è una rigenerazione, aggiungiamo istruzioni specifiche
+    if (isRegeneration && previousOutput) {
+      systemMessage +=
+        "\n\nIMPORTANTE: La seguente è una rigenerazione. " +
+        'Un utente ha dato un feedback negativo alla risposta precedente: \n\n"' +
+        previousOutput +
+        '"\n\n' +
+        "Genera una risposta DIVERSA e MIGLIORE dalla precedente, evitando gli stessi pattern e formulazioni.";
+    }
 
     // Esempi per migliorare l'output (tecniche few-shot)
     const exampleMessages = [
@@ -267,21 +495,23 @@ app.post("/api/riformula", async (req, res) => {
 
     // Dati della richiesta con esempi few-shot
     const data = {
-      model: model,
+      model: selectedModel,
       messages: [
         { role: "system", content: systemMessage },
         ...exampleMessages,
         { role: "user", content: input },
       ],
-      temperature: 0.3, // Temperatura bassa per risposte più deterministiche
+      temperature: isRegeneration ? 0.7 : 0.3, // Aumenta la temperatura se è una rigenerazione
       max_tokens: 500,
       top_p: 0.9, // Aggiunto per migliorare la qualità della risposta
-      frequency_penalty: 0.1, // Leggera penalità per ripetizione
-      presence_penalty: 0.1, // Leggera penalità per ripetizione
+      frequency_penalty: isRegeneration ? 0.3 : 0.1, // Aumenta la penalità se è una rigenerazione
+      presence_penalty: isRegeneration ? 0.3 : 0.1, // Aumenta la penalità se è una rigenerazione
       stop: ["User:", "System:"], // Evita che continui con altro testo
     };
 
-    console.log(`Invio richiesta a OpenRouter usando il modello: ${model}...`);
+    console.log(
+      `Invio richiesta a OpenRouter usando il modello: ${selectedModel}...`
+    );
     console.log("URL:", url);
     console.log("Headers:", { ...headers, Authorization: "Bearer ***" }); // Nascondi la chiave API nei log
     console.log("Dati richiesta:", {
@@ -362,6 +592,72 @@ app.post("/api/riformula", async (req, res) => {
       });
     }
 
+    // Se è una rigenerazione, verifica che il nuovo output non sia simile
+    // ad altri feedback negativi precedenti
+    if (isRegeneration && previousOutput) {
+      // Se il nuovo output è troppo simile al precedente, rigeneralo
+      const similarityWithPrevious = calculateSimilarity(
+        output.toLowerCase(),
+        previousOutput.toLowerCase()
+      );
+      if (similarityWithPrevious > 0.7) {
+        console.log(
+          "Output rigenerato troppo simile al precedente. Riprovo..."
+        );
+
+        // Aumentiamo ulteriormente la temperatura e la penalità per ottenere più variabilità
+        data.temperature = 0.9;
+        data.frequency_penalty = 0.5;
+        data.presence_penalty = 0.5;
+
+        // Modifichiamo leggermente il prompt
+        data.messages[0].content +=
+          "\n\nÈ CRUCIALE generare una risposta COMPLETAMENTE DIVERSA dalla precedente.";
+
+        // Riprova
+        const retryResponse = await axios.post(url, data, {
+          headers,
+          timeout: 60000,
+        });
+        if (
+          retryResponse.data &&
+          retryResponse.data.choices &&
+          retryResponse.data.choices.length > 0 &&
+          retryResponse.data.choices[0].message &&
+          retryResponse.data.choices[0].message.content
+        ) {
+          output = retryResponse.data.choices[0].message.content.trim();
+        }
+      }
+    }
+
+    // Verifica che l'output generato non sia simile a risposte negative precedenti
+    if (isSimilarToNegativeFeedback(input, output)) {
+      console.log(
+        "Output simile a feedback negativi precedenti. Riprovo con parametri diversi..."
+      );
+
+      // Modifichiamo i parametri per ottenere una risposta più diversificata
+      data.temperature = 0.8;
+      data.frequency_penalty = 0.4;
+      data.presence_penalty = 0.4;
+
+      // Riprova
+      const retryResponse = await axios.post(url, data, {
+        headers,
+        timeout: 60000,
+      });
+      if (
+        retryResponse.data &&
+        retryResponse.data.choices &&
+        retryResponse.data.choices.length > 0 &&
+        retryResponse.data.choices[0].message &&
+        retryResponse.data.choices[0].message.content
+      ) {
+        output = retryResponse.data.choices[0].message.content.trim();
+      }
+    }
+
     // Log dell'output generato
     console.log("Output generato:", output);
 
@@ -373,6 +669,16 @@ app.post("/api/riformula", async (req, res) => {
       saveCorrectionsDB(db);
     } catch (dbError) {
       console.warn("Impossibile aggiornare le statistiche:", dbError);
+    }
+
+    // Assicura che la prima lettera sia maiuscola
+    if (output && output.length > 0) {
+      output = output.charAt(0).toUpperCase() + output.slice(1);
+
+      // Assicura che ci sia un punto alla fine se non c'è già una punteggiatura
+      if (!/[.?!]$/.test(output)) {
+        output += ".";
+      }
     }
 
     return res.json({ output, fromDatabase: false });
