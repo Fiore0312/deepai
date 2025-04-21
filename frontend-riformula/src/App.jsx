@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
 
 // URL base dell'API: usa un URL di produzione quando è in produzione, altrimenti usa localhost
-const API_BASE_URL = import.meta.env.PROD
-  ? "https://riformulatore-api.onrender.com" // Sostituisci con l'URL del tuo backend in produzione
-  : "http://localhost:3000";
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
 function App() {
   const [rawDescription, setRawDescription] = useState("");
