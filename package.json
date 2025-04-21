@@ -9,6 +9,8 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
+    "check-secrets": "node check-secrets.js",
+    "build": "npm run check-secrets && vite build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
