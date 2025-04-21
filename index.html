@@ -2,114 +2,16 @@
 <html lang="it">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Miglioramento Descrizioni Tecniche</title>
-    <link rel="stylesheet" href="style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    <title>Miglioramento Descrizioni Tecniche - BAIT Service</title>
+    <meta
+      name="description"
+      content="Applicazione per migliorare le descrizioni tecniche dei rapportini di lavoro"
     />
   </head>
   <body>
-    <div class="container">
-      <header>
-        <h1>
-          <i class="fas fa-pencil-alt"></i> Miglioramento Descrizioni Tecniche
-        </h1>
-        <p class="subtitle">
-          Trasforma le tue descrizioni tecniche in testo professionale e
-          dettagliato
-        </p>
-      </header>
-
-      <main>
-        <div class="card">
-          <div class="counter">
-            Caratteri: <span id="charCount">0</span>/40 minimi
-          </div>
-
-          <textarea
-            id="description"
-            placeholder="Inserisci qui la descrizione tecnica (minimo 40 caratteri)..."
-          ></textarea>
-
-          <!-- Sostituisco il selettore con un'indicazione statica sul modello utilizzato -->
-          <div class="model-info">
-            <p>
-              <i class="fas fa-microchip"></i> Modello AI:
-              <strong>DeepSeek R1 Free</strong>
-            </p>
-          </div>
-
-          <div class="button-group">
-            <button id="enhanceBtn" disabled>
-              <i class="fas fa-magic"></i> Migliora con AI
-            </button>
-            <button id="copyBtn" disabled>
-              <i class="fas fa-copy"></i> Copia
-            </button>
-            <button id="resetBtn">
-              <i class="fas fa-undo"></i> Ripristina
-            </button>
-          </div>
-
-          <!-- Nuovo: Aggiungo il div per il feedback con attributi title per accessibilità -->
-          <div id="feedbackContainer" class="feedback-container">
-            <p>Ti piace la risposta?</p>
-            <div class="feedback-buttons">
-              <button
-                id="thumbsUpBtn"
-                class="feedback-btn"
-                title="Mi piace questa risposta"
-              >
-                <i class="fas fa-thumbs-up"></i>
-              </button>
-              <button
-                id="thumbsDownBtn"
-                class="feedback-btn"
-                title="Non mi piace questa risposta"
-              >
-                <i class="fas fa-thumbs-down"></i>
-              </button>
-            </div>
-            <div id="feedbackMessage" class="feedback-message"></div>
-          </div>
-
-          <div id="loading">
-            <div class="spinner"></div>
-            <span>Elaborazione in corso...</span>
-          </div>
-
-          <div id="errorMessage" class="error"></div>
-        </div>
-
-        <div class="examples">
-          <h3><i class="fas fa-lightbulb"></i> Esempi di descrizioni</h3>
-          <div class="example-container">
-            <div class="example">
-              <h4>Non valido:</h4>
-              <p>"Inoltri aggiunti come richiesto"</p>
-            </div>
-            <div class="example valid">
-              <h4>Valido:</h4>
-              <p>
-                "Manutenzione sul notebook del Professore, update database di
-                Office + lanciato upgrade all'ultima build di Win11, in fase
-                d'aggiornamento"
-              </p>
-            </div>
-          </div>
-        </div>
-      </main>
-
-      <footer>
-        <p>
-          © 2025 BAIT Service - Strumento per il miglioramento delle descrizioni
-          tecniche
-        </p>
-      </footer>
-    </div>
-
-    <script src="app.js"></script>
+    <div id="root"></div>
+    <script type="module" src="./src/main.jsx"></script>
   </body>
 </html>

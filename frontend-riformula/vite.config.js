@@ -20,7 +20,7 @@ export default defineConfig({
     open: true,
   },
   // Imposta la base per GitHub Pages (nome-repository)
-  base: "./", // Usa percorsi relativi invece di /deepai/
+  base: "/deepai/", // Usa percorso assoluto al repository per GitHub Pages
   build: {
     outDir: "dist",
     assetsDir: "assets",
