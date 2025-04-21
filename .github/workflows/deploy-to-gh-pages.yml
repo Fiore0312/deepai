@@ -10,8 +10,6 @@ on:
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 # Allow only one concurrent deployment
 concurrency:
@@ -26,20 +24,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Fetch all history for proper deployment
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "18"
           cache: "npm"
-
-      # Verifica configurazione Pages
-      - name: Setup Pages
-        id: pages
-        uses: actions/configure-pages@v4
-        with:
-          enablement: true # Abilita esplicitamente GitHub Pages
 
       - name: Install frontend dependencies
         run: |
@@ -65,39 +56,28 @@ jobs:
 
       - name: Prepare deployment files
         run: |
-          # Crea una cartella di distribuzione pulita
           mkdir -p _site
-
-          # Copia i file compilati del frontend
           cp -r frontend-riformula/dist/* _site/
-
-          # Copia i file necessari del backend
           mkdir -p _site/api
           cp Deep-AI/riformulaDescrizione.js _site/api/
           cp Deep-AI/.env _site/api/
-
-          # Crea un file index.html di base nella cartella api se non esiste
           if [ ! -f _site/api/index.html ]; then
             echo "<html><body>API endpoint</body></html>" > _site/api/index.html
           fi
-
-          # Crea o copia altri file necessari
           cp README.md _site/ || true
-
           echo "Contenuto della cartella di distribuzione:"
           ls -la _site/
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: "./_site"
-
-          # Deploy job
+  # Deploy job
   deploy:
     needs: build
     runs-on: ubuntu-latest
-
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site
