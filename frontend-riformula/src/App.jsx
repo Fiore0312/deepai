@@ -16,6 +16,7 @@ function App() {
   const [stats, setStats] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
+  const [likes, setLikes] = useState(0);
 
   // Aggiorna il conteggio caratteri quando cambia la descrizione
   useEffect(() => {
@@ -158,6 +159,7 @@ function App() {
         setEnhancedDescription(data.output);
         setOriginalAIOutput(data.output); // Salva l'output originale dell'AI
         setIsFromDatabase(data.fromDatabase || false);
+        setLikes(data.likes || 0);
 
         // Se la risposta proviene dal database, mostra un messaggio
         if (data.fromDatabase) {
@@ -310,6 +312,26 @@ function App() {
           "Impossibile copiare il testo. Prova a selezionarlo manualmente."
         );
       });
+  };
+
+  const handleLike = async () => {
+    try {
+      await fetch(`${API_BASE_URL}/api/feedback`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          input: rawDescription,
+          output: enhancedDescription,
+        }),
+      });
+
+      // Incrementa il contatore dei like localmente
+      setLikes((prev) => prev + 1);
+    } catch (err) {
+      console.error("Errore nel salvare il feedback:", err);
+    }
   };
 
   return (
@@ -481,6 +503,26 @@ function App() {
               </>
             )}
           </div>
+
+          {enhancedDescription && (
+            <div className="flex items-center gap-2 mt-2">
+              <button
+                onClick={handleLike}
+                className="flex items-center gap-1 text-gray-600 hover:text-blue-500"
+              >
+                <span role="img" aria-label="like">
+                  👍
+                </span>
+                <span>{likes > 0 ? likes : ""}</span>
+              </button>
+
+              {isFromDatabase && (
+                <span className="text-sm text-gray-500">
+                  (Risposta preferita dagli utenti)
+                </span>
+              )}
+            </div>
+          )}
         </div>
       </div>
 
