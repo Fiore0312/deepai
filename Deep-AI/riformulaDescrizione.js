@@ -4,20 +4,77 @@ const cors = require("cors");
 const axios = require("axios");
 const fs = require("fs");
 const path = require("path");
+const { LRUCache } = require("lru-cache");
+const rateLimit = require("express-rate-limit");
 
 const app = express();
 const port = 3000;
 
-// Configura CORS per accettare richieste da qualsiasi origine
+// Configurazione ottimizzata
+const CONFIG = {
+  MIN_INPUT_LENGTH: 5,
+  MAX_INPUT_LENGTH: 500,
+  MAX_OUTPUT_LENGTH: 1000,
+  TIMEOUT: 30000,
+  CACHE_SIZE: 1000,
+};
+
+// Cache LRU ottimizzata
+const responseCache = new LRUCache({
+  max: CONFIG.CACHE_SIZE,
+  maxSize: 5000000, // ~5MB in caratteri
+  ttl: 1000 * 60 * 60 * 24, // 24 ore
+  allowStale: false,
+  updateAgeOnGet: true,
+  sizeCalculation: (value, key) => {
+    return JSON.stringify(value).length + key.length;
+  },
+});
+
+// Rate limiter più permissivo per richieste brevi
+const limiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: (req) => {
+    const inputLength = req.body?.input?.length || 0;
+    return inputLength < 100 ? 50 : 30; // Più richieste permesse per input brevi
+  },
+  message: "Troppe richieste, riprova tra un minuto",
+});
+
+// Applica rate limiting a tutti gli endpoint
+app.use(limiter);
+
+// Configura CORS prima di qualsiasi altro middleware
 app.use(
   cors({
-    origin: "*", // Accetta richieste da qualsiasi dominio
+    origin: "*",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
     optionsSuccessStatus: 204,
   })
 );
+
 app.use(express.json());
+
+// Middleware per logging e monitoraggio
+app.use((req, res, next) => {
+  const start = Date.now();
+
+  console.log(
+    `[${new Date().toISOString()}] ${req.method} ${req.url} - Inizio richiesta`
+  );
+
+  res.on("finish", () => {
+    const duration = Date.now() - start;
+    console.log(
+      `[${new Date().toISOString()}] ${req.method} ${
+        req.url
+      } - Completata in ${duration}ms (Status: ${res.statusCode})`
+    );
+  });
+
+  next();
+});
 
 // Percorso del file di database delle correzioni
 const CORRECTIONS_DB_PATH = path.join(__dirname, "corrections_db.json");
@@ -243,6 +300,269 @@ if (!fs.existsSync(envPath)) {
   );
 }
 
+// Funzione migliorata per pulire l'output dell'API
+function cleanApiResponse(response) {
+  if (!response) return "";
+
+  try {
+    // Se è una stringa, prova a parsarla come JSON
+    if (typeof response === "string") {
+      try {
+        const parsed = JSON.parse(response);
+        return extractContent(parsed);
+      } catch {
+        // Se non è JSON valido, usa la stringa come è
+        return response.trim();
+      }
+    }
+
+    // Se è già un oggetto
+    return extractContent(response);
+  } catch (error) {
+    console.error("Errore nella pulizia della risposta:", error);
+    return String(response).trim();
+  }
+}
+
+// Funzione helper per estrarre il contenuto dalla risposta
+function extractContent(response) {
+  // Controlla vari formati di risposta possibili
+  if (response.choices?.[0]?.message?.content) {
+    return response.choices[0].message.content.trim();
+  }
+  if (response.message?.content) {
+    return response.message.content.trim();
+  }
+  if (response.message?.reasoning) {
+    const match = response.message.reasoning.match(
+      /Risposta:\s*([^"]+?)(?:\.)?$/
+    );
+    if (match) return match[1].trim() + ".";
+  }
+  if (response.output) {
+    return response.output.trim();
+  }
+
+  // Se non troviamo il contenuto nei formati previsti, converti l'oggetto in stringa JSON
+  if (typeof response === "object") {
+    console.warn(
+      "Formato risposta non riconosciuto:",
+      JSON.stringify(response, null, 2)
+    );
+    return JSON.stringify(response);
+  }
+
+  // Ultima risorsa: converti in stringa
+  const output = String(response).trim();
+  return output.endsWith(".") ? output : output + ".";
+}
+
+// Funzione ottimizzata per controllare il database dei feedback
+async function checkFeedbackDB(input) {
+  try {
+    const normalizedInput = input.toLowerCase().trim();
+
+    // Carica il database dei feedback
+    const db = await fs.promises.readFile(FEEDBACK_DB_PATH, "utf8");
+    const feedbackData = JSON.parse(db);
+
+    // Cerca una corrispondenza diretta
+    if (feedbackData[normalizedInput]) {
+      return {
+        output: feedbackData[normalizedInput].output,
+        likes: feedbackData[normalizedInput].likes,
+        fromFeedback: true,
+      };
+    }
+
+    // Cerca corrispondenze simili
+    for (const [key, value] of Object.entries(feedbackData)) {
+      if (typeof value === "object" && value.input && value.output) {
+        if (calculateSimilarity(normalizedInput, key) > 0.8) {
+          return {
+            output: value.output,
+            likes: value.likes,
+            fromFeedback: true,
+          };
+        }
+      }
+    }
+
+    return null;
+  } catch (error) {
+    console.error("Errore nel controllo del database feedback:", error);
+    return null;
+  }
+}
+
+// Configurazione ottimizzata per OpenRouter
+const openRouterConfig = {
+  baseURL: "https://openrouter.ai/api/v1",
+  timeout: CONFIG.TIMEOUT,
+  headers: {
+    "Content-Type": "application/json",
+    "X-Title": "Riformulatore Descrizioni Tecniche",
+  },
+};
+
+// Modifica della funzione principale
+app.post("/api/riformula", async (req, res) => {
+  const startTime = Date.now();
+  try {
+    const { input } = req.body;
+
+    // Forza sempre il modello corretto, ignorando quello passato dal client
+    const model = "deepseek/deepseek-chat-v3-0324:free";
+
+    // Validazione input
+    if (!input?.trim()) {
+      return res.status(400).json({
+        error: "Input non valido",
+      });
+    }
+
+    const trimmedInput = input.trim();
+
+    // Log della richiesta
+    console.log(
+      `[${new Date().toISOString()}] Nuova richiesta di riformulazione:`,
+      {
+        input: trimmedInput,
+        model: model,
+      }
+    );
+
+    // Check cache
+    const cacheKey = trimmedInput.toLowerCase();
+    const cachedResponse = responseCache.get(cacheKey);
+    if (cachedResponse) {
+      console.log(`[${new Date().toISOString()}] Risposta trovata in cache`);
+      return res.json({
+        output: cachedResponse,
+        fromCache: true,
+        duration: Date.now() - startTime,
+      });
+    }
+
+    console.log(`[${new Date().toISOString()}] Chiamata API OpenRouter...`);
+
+    // Prompt aggiornato: consenti fino a 4 frasi se necessario
+    const response = await axios.post(
+      `${openRouterConfig.baseURL}/chat/completions`,
+      {
+        model,
+        messages: [
+          {
+            role: "system",
+            content:
+              "Sei un tecnico IT e devi scrivere un breve rapportino di attività per un cliente. Riformula l'input come una relazione tecnica professionale, in italiano formale e corretto. Non usare mai la prima persona singolare o plurale (es: 'ho fatto', 'abbiamo eseguito'). Usa sempre una forma impersonale, passiva o tecnica, come da prassi nei rapportini IT. Puoi mantenere nomi propri solo se già presenti nell'input, ma non aggiungere mai nomi, dettagli tecnici, marche, modelli, software, ambienti o informazioni che non siano già presenti. Non inventare nulla. La risposta deve essere priva di errori ortografici e di battitura. Limita la risposta a massimo 4 frasi, chiare, professionali e concise, senza elenchi, titoli o punti elenco. Usa più frasi solo se necessario per descrivere tutte le attività svolte. Scrivi solo la relazione, senza commenti aggiuntivi.",
+          },
+          {
+            role: "user",
+            content: `Riformula in modo professionale, impersonale e conciso, mantenendo eventuali nomi propri presenti nell'input e senza aggiungere dettagli non forniti: ${trimmedInput}`,
+          },
+        ],
+        temperature: 0.1,
+        max_tokens: 180,
+        top_p: 0.7,
+        frequency_penalty: 0.4,
+        presence_penalty: 0.1,
+        stream: false,
+      },
+      {
+        ...openRouterConfig,
+        headers: {
+          ...openRouterConfig.headers,
+          Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+          "HTTP-Referer": "https://riformulatore-api.onrender.com",
+        },
+      }
+    );
+
+    // Validazione iniziale della risposta
+    if (!response.data) {
+      throw new Error("Nessuna risposta dall'API");
+    }
+
+    // Estrazione e validazione del contenuto
+    const choices = response.data.choices;
+    if (!Array.isArray(choices) || choices.length === 0) {
+      throw new Error("Nessuna scelta disponibile nella risposta");
+    }
+
+    const firstChoice = choices[0];
+    if (
+      !firstChoice.message ||
+      typeof firstChoice.message.content !== "string"
+    ) {
+      throw new Error("Formato messaggio non valido nella risposta");
+    }
+
+    let output = firstChoice.message.content.trim();
+
+    // Pulizia output: rimuovi elenchi, numeri, punti elenco, titoli
+    output = output
+      .replace(/[#\-*\d\.]+/g, "")
+      .replace(/\s{2,}/g, " ")
+      .trim();
+
+    // Tronca a una sola frase (fino al primo punto)
+    const punto = output.indexOf(".");
+    if (punto > 0) output = output.slice(0, punto + 1);
+
+    // Tronca la risposta al quarto punto fermo per evitare prolissità
+    let punti = 0;
+    let idx = 0;
+    for (let i = 0; i < output.length; i++) {
+      if (output[i] === ".") {
+        punti++;
+        if (punti === 4) {
+          idx = i + 1;
+          break;
+        }
+      }
+    }
+    if (punti >= 4) {
+      output = output.slice(0, idx).trim();
+    }
+
+    // Formattazione finale
+    output = output.charAt(0).toUpperCase() + output.slice(1);
+    if (!/[.!?]$/.test(output)) {
+      output += ".";
+    }
+
+    // Log dell'output finale
+    console.log("Output finale:", output);
+
+    // Salva in cache
+    responseCache.set(cacheKey, output);
+
+    return res.json({
+      output,
+      fromCache: false,
+      duration: Date.now() - startTime,
+    });
+  } catch (error) {
+    console.error(`[${new Date().toISOString()}] Errore:`, error);
+    console.error("Stack trace:", error.stack);
+
+    // Log dettagliato dell'errore API
+    if (error.response) {
+      console.error("Dettagli errore API:", {
+        status: error.response.status,
+        statusText: error.response.statusText,
+        data: error.response.data,
+      });
+    }
+
+    return res.status(500).json({
+      error: "Errore durante l'elaborazione della richiesta",
+      details: error.message,
+    });
+  }
+});
+
 // Endpoint per salvare un feedback
 app.post("/api/save-feedback", async (req, res) => {
   const { original, enhanced, isPositive } = req.body;
@@ -399,372 +719,6 @@ app.get("/api/feedback-stats", (req, res) => {
   }
 });
 
-app.post("/api/riformula", async (req, res) => {
-  try {
-    // Estrai i dati della richiesta
-    const { input, model, isRegeneration, previousOutput } = req.body;
-    const selectedModel = model || "deepseek/deepseek-r1:free";
-
-    // Valida l'input
-    if (!input || typeof input !== "string") {
-      return res.status(400).json({
-        error: "Input non valido. Fornire una descrizione da riformulare.",
-      });
-    }
-
-    console.log(`Richiesta di riformulazione ricevuta per: "${input}"`);
-
-    // Se è una rigenerazione, aggiungiamo un log
-    if (isRegeneration) {
-      console.log("Questa è una rigenerazione a seguito di feedback negativo.");
-      if (previousOutput) {
-        console.log(`Output precedente: "${previousOutput}"`);
-      }
-    }
-
-    // Prima di tutto, proviamo a vedere se abbiamo un feedback positivo simile
-    const similarPositiveFeedback = findSimilarPositiveFeedback(input);
-    if (similarPositiveFeedback) {
-      console.log("Trovato feedback positivo simile nel database.");
-      return res.json({
-        output: similarPositiveFeedback,
-        fromDatabase: true,
-        source: "positive-feedback",
-      });
-    }
-
-    // Prepara i dati per la richiesta a OpenRouter
-    const apiKey = process.env.OPENROUTER_API_KEY;
-
-    if (!apiKey) {
-      return res.status(500).json({
-        error: "Chiave API non configurata. Controlla il file .env",
-      });
-    }
-
-    // URL dell'API OpenRouter
-    const url = "https://openrouter.ai/api/v1/chat/completions";
-
-    // Ottieni il referer dalla richiesta, usa un fallback se non disponibile
-    const referer =
-      req.get("HTTP-Referer") ||
-      req.get("Referer") ||
-      req.get("Origin") ||
-      "https://riformulatore-api.onrender.com";
-
-    // Headers della richiesta
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${apiKey.trim()}`,
-      "HTTP-Referer": referer, // Usa il referer dalla richiesta
-      "X-Title": "Riformulatore Descrizioni Tecniche",
-    };
-
-    console.log("Utilizzando HTTP-Referer:", referer);
-
-    // Prompt di sistema con istruzioni più precise e vincolanti
-    let systemMessage =
-      "Sei un esperto sistemista IT con oltre 10 anni di esperienza nella redazione tecnica professionale. " +
-      "Il tuo compito è riformulare la descrizione tecnica che riceverai in una versione professionale. " +
-      "Segui scrupolosamente queste regole:" +
-      "\n1. Mantieni il significato originale della frase" +
-      "\n2. Usa un linguaggio tecnico corretto, formale e conciso" +
-      "\n3. Elimina abbreviazioni e frasi colloquiali" +
-      "\n4. Rendi chiaro cosa è stato fatto, su quale sistema, e con quale risultato" +
-      "\n5. IMPORTANTE: Rispondi ESCLUSIVAMENTE con la descrizione riformulata, senza spiegazioni, commenti o ragionamenti" +
-      "\n6. Non aggiungere mai frasi introduttive o conclusive" +
-      "\n7. Non includere il tuo processo di ragionamento nella risposta" +
-      "\n8. Non iniziare mai con 'Ecco la versione riformulata:' o frasi simili";
-
-    // Se è una rigenerazione, aggiungiamo istruzioni specifiche
-    if (isRegeneration && previousOutput) {
-      systemMessage +=
-        "\n\nIMPORTANTE: La seguente è una rigenerazione. " +
-        'Un utente ha dato un feedback negativo alla risposta precedente: \n\n"' +
-        previousOutput +
-        '"\n\n' +
-        "Genera una risposta DIVERSA e MIGLIORE dalla precedente, evitando gli stessi pattern e formulazioni.";
-    }
-
-    // Esempi per migliorare l'output (tecniche few-shot)
-    const exampleMessages = [
-      {
-        role: "user",
-        content: "creazione utente richiesto + settaggio impostazioni rds",
-      },
-      {
-        role: "assistant",
-        content:
-          "Creazione dell'utenza richiesta con configurazione dei parametri RDS.",
-      },
-      { role: "user", content: "presidio zara" },
-      {
-        role: "assistant",
-        content: "Presidio tecnico presso il punto vendita Zara.",
-      },
-      { role: "user", content: "supporto outlook + ticket aperto" },
-      {
-        role: "assistant",
-        content:
-          "Fornito supporto per Outlook e apertura del ticket di assistenza.",
-      },
-    ];
-
-    // Dati della richiesta con esempi few-shot
-    const data = {
-      model: selectedModel,
-      messages: [
-        { role: "system", content: systemMessage },
-        ...exampleMessages,
-        { role: "user", content: input },
-      ],
-      temperature: isRegeneration ? 0.7 : 0.3, // Aumenta la temperatura se è una rigenerazione
-      max_tokens: 500,
-      top_p: 0.9, // Aggiunto per migliorare la qualità della risposta
-      frequency_penalty: isRegeneration ? 0.3 : 0.1, // Aumenta la penalità se è una rigenerazione
-      presence_penalty: isRegeneration ? 0.3 : 0.1, // Aumenta la penalità se è una rigenerazione
-      stop: ["User:", "System:"], // Evita che continui con altro testo
-    };
-
-    console.log(
-      `Invio richiesta a OpenRouter usando il modello: ${selectedModel}...`
-    );
-    console.log("URL:", url);
-    console.log("Headers:", { ...headers, Authorization: "Bearer ***" }); // Nascondi la chiave API nei log
-    console.log("Dati richiesta:", {
-      model: data.model,
-      temperature: data.temperature,
-      max_tokens: data.max_tokens,
-    });
-
-    // Invia la richiesta a OpenRouter
-    const response = await axios.post(url, data, { headers, timeout: 60000 }); // Aumentato timeout a 60 secondi
-
-    console.log("Risposta ricevuta da OpenRouter");
-    console.log("Status:", response.status);
-
-    // Debug della risposta completa (opzionale, per diagnostica)
-    console.log("Struttura risposta:", JSON.stringify(response.data, null, 2));
-
-    // Estrai il testo dalla risposta con una gestione errori migliorata
-    let output = "";
-
-    try {
-      // Verifica se la risposta ha la struttura attesa
-      if (
-        response.data &&
-        response.data.choices &&
-        response.data.choices.length > 0
-      ) {
-        const firstChoice = response.data.choices[0];
-
-        // Controlla i vari formati possibili della risposta
-        if (firstChoice.message && firstChoice.message.content) {
-          output = firstChoice.message.content.trim();
-        } else if (firstChoice.text) {
-          output = firstChoice.text.trim();
-        } else if (firstChoice.content) {
-          output = firstChoice.content.trim();
-        } else if (typeof firstChoice === "string") {
-          output = firstChoice.trim();
-        } else {
-          // Fallback se la struttura è completamente diversa - debug
-          output = JSON.stringify(firstChoice);
-          console.log("Struttura di risposta non standard:", output);
-        }
-      } else {
-        console.error("Struttura di risposta non valida:", response.data);
-        // Se non riusciamo a trovare il contenuto nella risposta standard
-        if (response.data && typeof response.data === "object") {
-          output = JSON.stringify(response.data);
-        }
-      }
-    } catch (parseError) {
-      console.error("Errore nell'elaborazione della risposta:", parseError);
-    }
-
-    // Verifica che l'output non sia vuoto e sia una risposta sensata
-    if (
-      !output ||
-      output.trim() === "" ||
-      output.includes("undefined") ||
-      output.length < 5
-    ) {
-      console.error(
-        "Output vuoto o non valido ricevuto da OpenRouter:",
-        output
-      );
-
-      // Fallback: utilizzare l'input originale con miglioramenti minimi
-      let fallbackOutput = input.charAt(0).toUpperCase() + input.slice(1);
-      if (!fallbackOutput.endsWith(".")) {
-        fallbackOutput += ".";
-      }
-
-      return res.json({
-        output: fallbackOutput,
-        fromDatabase: false,
-        warning:
-          "Si è verificato un problema con la risposta dell'AI. È stata applicata una formattazione di base.",
-      });
-    }
-
-    // Se è una rigenerazione, verifica che il nuovo output non sia simile
-    // ad altri feedback negativi precedenti
-    if (isRegeneration && previousOutput) {
-      // Se il nuovo output è troppo simile al precedente, rigeneralo
-      const similarityWithPrevious = calculateSimilarity(
-        output.toLowerCase(),
-        previousOutput.toLowerCase()
-      );
-      if (similarityWithPrevious > 0.7) {
-        console.log(
-          "Output rigenerato troppo simile al precedente. Riprovo..."
-        );
-
-        // Aumentiamo ulteriormente la temperatura e la penalità per ottenere più variabilità
-        data.temperature = 0.9;
-        data.frequency_penalty = 0.5;
-        data.presence_penalty = 0.5;
-
-        // Modifichiamo leggermente il prompt
-        data.messages[0].content +=
-          "\n\nÈ CRUCIALE generare una risposta COMPLETAMENTE DIVERSA dalla precedente.";
-
-        // Riprova
-        const retryResponse = await axios.post(url, data, {
-          headers,
-          timeout: 60000,
-        });
-        if (
-          retryResponse.data &&
-          retryResponse.data.choices &&
-          retryResponse.data.choices.length > 0 &&
-          retryResponse.data.choices[0].message &&
-          retryResponse.data.choices[0].message.content
-        ) {
-          output = retryResponse.data.choices[0].message.content.trim();
-        }
-      }
-    }
-
-    // Verifica che l'output generato non sia simile a risposte negative precedenti
-    if (isSimilarToNegativeFeedback(input, output)) {
-      console.log(
-        "Output simile a feedback negativi precedenti. Riprovo con parametri diversi..."
-      );
-
-      // Modifichiamo i parametri per ottenere una risposta più diversificata
-      data.temperature = 0.8;
-      data.frequency_penalty = 0.4;
-      data.presence_penalty = 0.4;
-
-      // Riprova
-      const retryResponse = await axios.post(url, data, {
-        headers,
-        timeout: 60000,
-      });
-      if (
-        retryResponse.data &&
-        retryResponse.data.choices &&
-        retryResponse.data.choices.length > 0 &&
-        retryResponse.data.choices[0].message &&
-        retryResponse.data.choices[0].message.content
-      ) {
-        output = retryResponse.data.choices[0].message.content.trim();
-      }
-    }
-
-    // Log dell'output generato
-    console.log("Output generato:", output);
-
-    // Aggiorna le statistiche (opzionale)
-    try {
-      const db = loadCorrectionsDB();
-      db.statistics.totalRequests++;
-      db.statistics.lastUpdated = new Date().toISOString();
-      saveCorrectionsDB(db);
-    } catch (dbError) {
-      console.warn("Impossibile aggiornare le statistiche:", dbError);
-    }
-
-    // Assicura che la prima lettera sia maiuscola
-    if (output && output.length > 0) {
-      output = output.charAt(0).toUpperCase() + output.slice(1);
-
-      // Assicura che ci sia un punto alla fine se non c'è già una punteggiatura
-      if (!/[.?!]$/.test(output)) {
-        output += ".";
-      }
-    }
-
-    return res.json({ output, fromDatabase: false });
-  } catch (error) {
-    console.error("\x1b[31m%s\x1b[0m", "Errore OpenRouter:", error.message);
-
-    // Log dettagliato dell'errore
-    if (error.response) {
-      // La richiesta è stata effettuata e il server ha risposto con un codice di stato
-      // che esce dall'intervallo 2xx
-      console.error(
-        "\x1b[31m%s\x1b[0m",
-        "Dati errore:",
-        JSON.stringify(error.response.data, null, 2)
-      );
-
-      console.error(
-        "\x1b[31m%s\x1b[0m",
-        "Status errore:",
-        error.response.status
-      );
-
-      // Messaggio di errore specifico in base al codice di stato
-      if (error.response.status === 401) {
-        return res.status(500).json({
-          error: "Chiave API di OpenRouter non valida. Controlla il file .env",
-          details: error.response.data?.error?.message || error.message,
-        });
-      } else if (error.response.status === 404) {
-        return res.status(500).json({
-          error: `Il modello specificato non è stato trovato o non è disponibile`,
-          details: error.response.data?.error?.message || error.message,
-        });
-      } else if (error.response.status === 429) {
-        return res.status(500).json({
-          error: "Limite di richieste OpenRouter raggiunto. Riprova più tardi",
-          details: error.response.data?.error?.message || error.message,
-        });
-      }
-    } else if (error.request) {
-      // La richiesta è stata effettuata ma non è stata ricevuta alcuna risposta
-      console.error(
-        "\x1b[31m%s\x1b[0m",
-        "Richiesta senza risposta:",
-        error.request
-      );
-      return res.status(500).json({
-        error:
-          "Nessuna risposta dal server OpenRouter. Controlla la tua connessione internet",
-        details: error.message,
-      });
-    } else {
-      // Si è verificato un errore durante l'impostazione della richiesta
-      console.error(
-        "\x1b[31m%s\x1b[0m",
-        "Errore di configurazione richiesta:",
-        error.message
-      );
-    }
-
-    res.status(500).json({
-      error: "Errore nella richiesta all'API di OpenRouter",
-      details: error.response?.data?.error?.message || error.message,
-      output:
-        "Si è verificato un errore nel miglioramento della descrizione. Riprova più tardi.",
-    });
-  }
-});
-
 // Endpoint per testare la connessione a OpenRouter
 app.get("/api/test-openrouter", async (req, res) => {
   const apiKey = process.env.OPENROUTER_API_KEY;
@@ -903,6 +857,40 @@ app.get("/api/models", (req, res) => {
   ];
 
   res.json({ models });
+});
+
+// Endpoint per gestire i like
+app.post("/api/feedback", (req, res) => {
+  try {
+    const { input, output } = req.body;
+
+    if (!input || !output) {
+      return res.status(400).json({ error: "Input e output sono richiesti" });
+    }
+
+    const db = loadFeedbackDB();
+    const normalizedInput = input.toLowerCase().trim();
+
+    db[normalizedInput] = {
+      input: input.trim(),
+      output: output.trim(),
+      likes: (db[normalizedInput]?.likes || 0) + 1,
+      lastUsed: Date.now(),
+    };
+
+    saveFeedbackDB(db);
+
+    return res.json({ success: true });
+  } catch (error) {
+    console.error("Errore nella gestione del feedback:", error);
+    return res
+      .status(500)
+      .json({ error: "Errore nel salvataggio del feedback" });
+  }
+});
+
+app.get("/ping", (req, res) => {
+  res.status(200).json({ status: "ok", timestamp: Date.now() });
 });
 
 app.listen(port, () => {

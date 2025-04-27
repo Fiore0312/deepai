@@ -5,5 +5,35 @@
     "totalPositiveFeedbacks": 0,
     "totalNegativeFeedbacks": 0,
     "lastUpdated": "2025-04-21T11:07:51.960Z"
+  },
+  "presidio zara": {
+    "input": "Presidio Zara",
+    "output": "Servizio di assistenza tecnica e supporto IT presso il punto vendita Zara, con verifica dei sistemi informatici e risoluzione delle problematiche riscontrate.",
+    "likes": 5,
+    "lastUsed": 1714147671960
+  },
+  "presidio maxmoda": {
+    "input": "Presidio MaxModa",
+    "output": "Erogazione del servizio di presidio tecnico presso il punto vendita MaxModa, con supervisione dei sistemi IT e gestione delle richieste di supporto.",
+    "likes": 3,
+    "lastUsed": 1714147671960
+  },
+  "manutenzione programmata": {
+    "input": "Manutenzione programmata",
+    "output": "Esecuzione delle attività di manutenzione programmata sui sistemi informatici, comprensive di aggiornamenti software, verifiche di sicurezza e ottimizzazione delle prestazioni.",
+    "likes": 4,
+    "lastUsed": 1714147671960
+  },
+  "contatto con il supporto tecnico irideos per segnalare un malfunzionamento sulla linea dedicata hyosung.": {
+    "input": "Contatto con il supporto tecnico Irideos per segnalare un malfunzionamento sulla linea dedicata Hyosung.",
+    "output": "Per segnalare un problema sulla linea dedicata Hyosung, è stato necessario contattare il supporto tecnico di Irideos.",
+    "likes": 1,
+    "lastUsed": 1745787820805
+  },
+  "installazione pc installazione programmi configurazion e in rete": {
+    "input": "installazione pc installazione programmi configurazion e in rete",
+    "output": "È stata completata l'installazione di un nuovo computer dotato di sistema operativo Windows , con configurazione della rete aziendale e installazione dei software necessari per le attività operative Tutti i dispositivi sono stati testati e risultano perfettamente funzionanti nell'ambiente di lavoro.",
+    "likes": 1,
+    "lastUsed": 1745789513988
   }
 }

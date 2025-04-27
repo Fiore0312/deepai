@@ -1,0 +1,6 @@
+{"timestamp":"2025-04-27T19:06:55.839Z","description":"API Error","duration":110,"error":""}
+{"timestamp":"2025-04-27T19:06:55.868Z","description":"API Error","duration":7,"error":""}
+{"timestamp":"2025-04-27T19:06:55.873Z","description":"API Error","duration":3,"error":""}
+{"timestamp":"2025-04-27T19:08:13.062Z","description":"API Call","duration":36249,"status":200}
+{"timestamp":"2025-04-27T19:08:41.757Z","description":"API Call","duration":28679,"status":200}
+{"timestamp":"2025-04-27T19:08:52.686Z","description":"API Call","duration":10924,"status":200}
