@@ -1,7 +1,7 @@
 # 🧠 Web App Compilazione Rapportini – DeepAI
 
-Un'app React + Express per migliorare automaticamente descrizioni tecniche.  
-Utilizza OpenRouter per la riformulazione con AI.
+Un'app React + Express per migliorare automaticamente descrizioni tecniche e generare rapportini professionali.
+Utilizza OpenRouter con modello AI gratuito ottimizzato per l'italiano.
 
 > ✅ Frontend con Vite + Tailwind  
 > ✅ Backend Node.js + Express su Render  
@@ -18,6 +18,19 @@ Utilizza OpenRouter per la riformulazione con AI.
 
 - **App online** 👉 [https://deepai-gamma.vercel.app](https://deepai-gamma.vercel.app)
 - **API backend** 👉 [https://deepai-weem.onrender.com/api/riformula](https://deepai-weem.onrender.com/api/riformula)
+
+---
+
+## 🧠 Come funziona la riformulazione
+
+- Il backend usa il modello **deepseek/deepseek-chat-v3-0324:free** tramite OpenRouter.
+- Il prompt è ottimizzato per:
+  - Risposte in italiano formale, tecnico e senza errori di battitura.
+  - Forma impersonale/passiva (mai la prima persona).
+  - Nomi propri solo se presenti nell'input.
+  - Nessuna aggiunta di dettagli tecnici, marche, software o ambienti non forniti.
+  - Massimo 2 frasi, concise e professionali, senza elenchi o titoli.
+- Ideale per rapportini IT, ticket, note di intervento.
 
 ---
 
@@ -65,11 +78,11 @@ npm run dev
 
 ```bash
 git add .
-git commit -m "fix: logica riformulazione"
+git commit -m "fix: logica riformulazione professionale"
 git push origin main
 ```
 
-Render ricompila e riavvia il server automaticamente ✅
+- Render ricompila e riavvia il server automaticamente ✅
 
 ---
 
@@ -82,7 +95,7 @@ git commit -m "update: UI migliorata"
 git push origin main
 ```
 
-Vercel redeploya automaticamente ✅
+- Vercel redeploya automaticamente ✅
 
 ---
 
@@ -108,7 +121,7 @@ Body:
 
 ```json
 {
-  "input": "supporto outlook + ticket aperto"
+  "input": "installazione computer Mario Rossi, test e collaudo ok"
 }
 ```
 
@@ -116,7 +129,7 @@ Risposta:
 
 ```json
 {
-  "output": "Fornito supporto per Outlook e apertura del ticket di assistenza."
+  "output": "È stato installato il computer di Mario Rossi, eseguiti test e collaudo con esito positivo."
 }
 ```
 
@@ -125,7 +138,7 @@ Risposta:
 ## ✍️ Autore
 
 🧑‍💻 Fiore0312  
-📦 Progetto assistito da [ChatGPT - GitHub Actions Guru]
+📦 Progetto assistito da [GitHub Copilot]
 
 ---
 

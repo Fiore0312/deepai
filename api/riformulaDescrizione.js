@@ -6,6 +6,7 @@ const fs = require("fs");
 const path = require("path");
 const { LRUCache } = require("lru-cache");
 const rateLimit = require("express-rate-limit");
+const learningSystem = require('./learning-system');
 
 const app = express();
 const port = 3000;
@@ -172,6 +173,17 @@ app.post("/api/riformula", async (req, res) => {
       return res.json({ output: cachedResponse, fromCache: true, duration: Date.now() - startTime });
     }
 
+    // Controlla se esiste un esempio simile nel sistema di apprendimento
+    const similarPattern = learningSystem.findSimilar(trimmedInput);
+    if (similarPattern) {
+      return res.json({ 
+        output: similarPattern.output, 
+        fromLearning: true,
+        similarity: similarPattern.similarity,
+        duration: Date.now() - startTime 
+      });
+    }
+
     const response = await axios.post(
       `${openRouterConfig.baseURL}/chat/completions`,
       {
@@ -244,7 +256,16 @@ app.post("/api/riformula", async (req, res) => {
     }
 
     responseCache.set(cacheKey, output);
-    return res.json({ output, fromCache: false, duration: Date.now() - startTime });
+    
+    // Salva l'esempio nel sistema di apprendimento (in background)
+    learningSystem.addExample(trimmedInput, output)
+      .catch(err => console.error('Errore salvataggio esempio:', err));
+    
+    return res.json({ 
+      output, 
+      fromCache: false, 
+      duration: Date.now() - startTime 
+    });
 
   } catch (error) {
     console.error(`[${new Date().toISOString()}] Errore critico:`, error);
