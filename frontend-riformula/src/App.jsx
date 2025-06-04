@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import TemplateSelector from './components/TemplateSelector';
+import HistoryPanel from './components/HistoryPanel';
 
 // URL base dell'API: usa un URL di produzione quando è in produzione, altrimenti usa localhost
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
@@ -17,16 +19,66 @@ function App() {
   const [isSaving, setIsSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [likes, setLikes] = useState(0);
+  const [validation, setValidation] = useState({ 
+    isValid: true, 
+    activityType: '', 
+    suggestions: [] 
+  });
 
-  // Aggiorna il conteggio caratteri quando cambia la descrizione
+  // Nuovi stati per Task 4 - Miglioramenti UX/UI
+  const [history, setHistory] = useState([]);
+  const [selectedTemplate, setSelectedTemplate] = useState('installazione');
+  const [livePreview, setLivePreview] = useState('');
+
+  // Aggiorna il conteggio caratteri e la validazione quando cambia la descrizione
   useEffect(() => {
     setCharCount(rawDescription.length);
+    
+    // Effettua la validazione in tempo reale solo se l'input è abbastanza lungo
+    if (rawDescription.length > 3) {
+      const validate = async () => {
+        try {
+          const response = await fetch(`${API_BASE_URL}/api/validate-input`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ input: rawDescription }),
+          });
+          
+          if (response.ok) {
+            const data = await response.json();
+            setValidation(data);
+          }
+        } catch (error) {
+          console.error("Errore nella validazione:", error);
+        }
+      };
+      
+      // Debounce per evitare troppe richieste
+      const timeoutId = setTimeout(validate, 500);
+      return () => clearTimeout(timeoutId);
+    } else {
+      // Reset della validazione per input troppo corti
+      setValidation({ isValid: true, activityType: '', suggestions: [] });
+    }
   }, [rawDescription]);
 
   // Carica le statistiche all'avvio
   useEffect(() => {
     fetchStats();
   }, []);
+
+  // Aggiorna l'anteprima in tempo reale
+  useEffect(() => {
+    if (rawDescription.length > 5) {
+      // Simulazione anteprima basata sul template selezionato
+      const preview = `Anteprima per ${selectedTemplate}: ${rawDescription.substring(0, 50)}...`;
+      setLivePreview(preview);
+    } else {
+      setLivePreview('');
+    }
+  }, [rawDescription, selectedTemplate]);
 
   // Funzione per recuperare le statistiche
   const fetchStats = async () => {
@@ -58,8 +110,6 @@ function App() {
       setStats(data);
     } catch (error) {
       console.error("Errore nel recupero delle statistiche:", error);
-      // Non mostrare l'errore all'utente all'avvio per non disturbarlo
-      // ma loggarlo nella console per debug
     }
   };
 
@@ -87,12 +137,6 @@ function App() {
     setIsLoading(true);
 
     try {
-      console.log("Inviando richiesta a:", `${API_BASE_URL}/api/riformula`);
-      console.log("Dati inviati:", {
-        input: rawDescription,
-        model: "deepseek/deepseek-r1:free",
-      });
-
       const response = await fetch(`${API_BASE_URL}/api/riformula`, {
         method: "POST",
         headers: {
@@ -103,27 +147,18 @@ function App() {
         },
         body: JSON.stringify({
           input: rawDescription,
-          model: "deepseek/deepseek-r1:free", // Usiamo il modello gratuito di default
+          model: "deepseek/deepseek-r1:free",
         }),
       });
 
-      console.log(
-        "Risposta HTTP ricevuta:",
-        response.status,
-        response.statusText
-      );
-
-      // Verifica se la risposta è OK prima di tentare di estrarre il JSON
       if (!response.ok) {
         const errorText = await response.text();
         console.error("Risposta di errore dal server:", errorText);
 
-        // Prova a convertire in JSON se possibile
         let errorData = {};
         try {
           errorData = JSON.parse(errorText);
         } catch (e) {
-          // Se non è JSON, crea un oggetto con il testo
           errorData = { errorDetail: errorText.substring(0, 200) + "..." };
         }
 
@@ -138,7 +173,6 @@ function App() {
         );
       }
 
-      // Controllo del Content-Type
       const contentType = response.headers.get("content-type");
       if (!contentType || !contentType.includes("application/json")) {
         const text = await response.text();
@@ -157,24 +191,25 @@ function App() {
 
       if (data.output) {
         setEnhancedDescription(data.output);
-        setOriginalAIOutput(data.output); // Salva l'output originale dell'AI
+        setOriginalAIOutput(data.output);
         setIsFromDatabase(data.fromDatabase || false);
         setLikes(data.likes || 0);
 
-        // Se la risposta proviene dal database, mostra un messaggio
+        // Aggiungi alla cronologia
+        setHistory(prev => [
+          { input: rawDescription, output: data.output },
+          ...prev.slice(0, 9)
+        ]);
+
         if (data.fromDatabase) {
           setSaveSuccess(true);
           setTimeout(() => setSaveSuccess(false), 5000);
         }
-
-        console.log("Output impostato:", data.output);
       } else {
-        console.error('Risposta API mancante di "output":', data);
         setError('Risposta API non valida: manca il campo "output"');
         setDebugInfo({ responseData: data });
       }
     } catch (err) {
-      console.error("Errore completo:", err);
       setError(
         `Errore: ${
           err.message ||
@@ -213,17 +248,12 @@ function App() {
         }),
       });
 
-      // Verifica se la risposta è OK prima di tentare di estrarre il JSON
       if (!response.ok) {
         const errorText = await response.text();
-        console.error("Risposta di errore dal server:", errorText);
-
-        // Prova a convertire in JSON se possibile
         let errorData = {};
         try {
           errorData = JSON.parse(errorText);
         } catch (e) {
-          // Se non è JSON, crea un oggetto con il testo
           errorData = { errorDetail: errorText.substring(0, 200) + "..." };
         }
 
@@ -238,11 +268,9 @@ function App() {
         );
       }
 
-      // Controllo del Content-Type
       const contentType = response.headers.get("content-type");
       if (!contentType || !contentType.includes("application/json")) {
         const text = await response.text();
-        console.error("Risposta non è in formato JSON:", contentType);
         setDebugInfo({
           contentType,
           responseText: text.substring(0, 200) + "...",
@@ -256,17 +284,12 @@ function App() {
 
       if (response.ok) {
         setSaveSuccess(true);
-        fetchStats(); // Aggiorna le statistiche
-
-        // Reset dopo 5 secondi
-        setTimeout(() => {
-          setSaveSuccess(false);
-        }, 5000);
+        fetchStats();
+        setTimeout(() => setSaveSuccess(false), 5000);
       } else {
         setError(data.error || "Errore nel salvataggio della correzione");
       }
     } catch (err) {
-      console.error("Errore completo:", err);
       setError(
         `Errore: ${
           err.message ||
@@ -295,19 +318,16 @@ function App() {
     navigator.clipboard
       .writeText(enhancedDescription)
       .then(() => {
-        // Feedback visivo temporaneo che è stato copiato
         const copyButton = document.getElementById("copyButton");
         if (copyButton) {
           const originalText = copyButton.innerText;
           copyButton.innerText = "✓ Copiato!";
-
           setTimeout(() => {
             copyButton.innerText = originalText;
           }, 2000);
         }
       })
       .catch((err) => {
-        console.error("Errore durante la copia:", err);
         setError(
           "Impossibile copiare il testo. Prova a selezionarlo manualmente."
         );
@@ -327,7 +347,6 @@ function App() {
         }),
       });
 
-      // Incrementa il contatore dei like localmente
       setLikes((prev) => prev + 1);
     } catch (err) {
       console.error("Errore nel salvare il feedback:", err);
@@ -335,9 +354,9 @@ function App() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
+    <div className="container max-w-4xl px-4 py-8 mx-auto">
       <header className="mb-8 text-center">
-        <h1 className="text-3xl font-bold text-blue-700 mb-2">
+        <h1 className="mb-2 text-3xl font-bold text-blue-700">
           Miglioramento Descrizioni Tecniche
         </h1>
         <p className="text-gray-600">
@@ -355,13 +374,28 @@ function App() {
         )}
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Template selector - Task 4 */}
+      <div className="mb-6">
+        <TemplateSelector 
+          selectedTemplate={selectedTemplate} 
+          onTemplateChange={setSelectedTemplate} 
+        />
+      </div>
+
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         {/* Colonna descrizione grezza */}
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <div className="flex justify-between items-center mb-3">
-            <h2 className="text-xl font-semibold text-gray-800">
-              Descrizione Grezza
-            </h2>
+        <div className="p-6 bg-white rounded-lg shadow-md">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex flex-col">
+              <h2 className="text-xl font-semibold text-gray-800">
+                Descrizione Grezza
+              </h2>
+              {validation.activityType && (
+                <span className="px-2 py-1 text-xs text-blue-800 bg-blue-100 rounded">
+                  Tipo: {validation.activityType}
+                </span>
+              )}
+            </div>
             <span
               className={`text-sm ${
                 charCount < 40 ? "text-red-500" : "text-green-600"
@@ -398,7 +432,7 @@ function App() {
             {isLoading ? (
               <span className="flex items-center justify-center">
                 <svg
-                  className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                  className="w-4 h-4 mr-2 -ml-1 text-white animate-spin"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -423,11 +457,22 @@ function App() {
               "Migliora con AI"
             )}
           </button>
+          
+          {validation.suggestions.length > 0 && (
+            <div className="p-3 mt-4 text-sm border-l-4 border-yellow-400 bg-yellow-50">
+              <p className="font-medium text-yellow-800">Suggerimenti:</p>
+              <ul className="pl-5 mt-1 list-disc">
+                {validation.suggestions.map((suggestion, index) => (
+                  <li key={index} className="text-yellow-700">{suggestion}</li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
 
         {/* Colonna descrizione migliorata */}
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <div className="flex justify-between items-center mb-3">
+        <div className="p-6 bg-white rounded-lg shadow-md">
+          <div className="flex items-center justify-between mb-3">
             <h2 className="text-xl font-semibold text-gray-800">
               Descrizione Migliorata
             </h2>
@@ -441,7 +486,7 @@ function App() {
 
           {isCorrectionMode ? (
             <textarea
-              className="w-full h-48 p-3 border border-blue-400 rounded-md overflow-auto bg-white"
+              className="w-full h-48 p-3 overflow-auto bg-white border border-blue-400 rounded-md"
               value={enhancedDescription}
               onChange={(e) => setEnhancedDescription(e.target.value)}
               placeholder="Modifica la descrizione migliorata qui..."
@@ -464,14 +509,14 @@ function App() {
                 <button
                   onClick={handleCopy}
                   id="copyButton"
-                  className="flex-1 py-2 px-4 bg-green-600 text-white rounded-md font-medium hover:bg-green-700 transition duration-200"
+                  className="flex-1 px-4 py-2 font-medium text-white transition duration-200 bg-green-600 rounded-md hover:bg-green-700"
                 >
                   Copia testo
                 </button>
 
                 <button
                   onClick={enableCorrectionMode}
-                  className="flex-1 py-2 px-4 bg-yellow-500 text-white rounded-md font-medium hover:bg-yellow-600 transition duration-200"
+                  className="flex-1 px-4 py-2 font-medium text-white transition duration-200 bg-yellow-500 rounded-md hover:bg-yellow-600"
                 >
                   Correggi
                 </button>
@@ -496,7 +541,7 @@ function App() {
 
                 <button
                   onClick={resetCorrection}
-                  className="flex-1 py-2 px-4 bg-gray-500 text-white rounded-md font-medium hover:bg-gray-600 transition duration-200"
+                  className="flex-1 px-4 py-2 font-medium text-white transition duration-200 bg-gray-500 rounded-md hover:bg-gray-600"
                 >
                   Annulla
                 </button>
@@ -524,11 +569,32 @@ function App() {
             </div>
           )}
         </div>
+
+        {/* Nuova colonna: Anteprima in tempo reale - Task 4 */}
+        <div className="p-6 bg-white rounded-lg shadow-md">
+          <h2 className="mb-3 text-xl font-semibold text-gray-800">
+            Anteprima in tempo reale
+          </h2>
+          <div className="w-full h-48 p-3 overflow-auto border border-gray-300 rounded-md bg-gray-50">
+            {livePreview || "L'anteprima apparirà qui mentre digiti..."}
+          </div>
+        </div>
+      </div>
+
+      {/* History panel - Task 4 */}
+      <div className="mt-6">
+        <HistoryPanel 
+          history={history} 
+          onSelectHistoryItem={(item) => {
+            setRawDescription(item.input);
+            setEnhancedDescription(item.output);
+          }} 
+        />
       </div>
 
       {/* Messaggio di successo */}
       {saveSuccess && (
-        <div className="mt-6 p-3 bg-green-100 text-green-700 border-l-4 border-green-500 rounded">
+        <div className="p-3 mt-6 text-green-700 bg-green-100 border-l-4 border-green-500 rounded">
           {isFromDatabase
             ? "Questa descrizione è stata recuperata dal database delle correzioni grazie alla sua somiglianza con descrizioni precedenti."
             : "Correzione salvata con successo! Questa versione sarà utilizzata automaticamente per descrizioni simili in futuro."}
@@ -537,14 +603,14 @@ function App() {
 
       {/* Messaggio di errore */}
       {error && (
-        <div className="mt-6 p-3 bg-red-100 text-red-700 border-l-4 border-red-500 rounded">
+        <div className="p-3 mt-6 text-red-700 bg-red-100 border-l-4 border-red-500 rounded">
           <p className="font-semibold">{error}</p>
           {debugInfo && (
             <details className="mt-2 text-sm">
-              <summary className="cursor-pointer font-medium">
+              <summary className="font-medium cursor-pointer">
                 Dettagli tecnici (per debug)
               </summary>
-              <pre className="mt-2 p-2 bg-gray-100 overflow-auto rounded text-xs">
+              <pre className="p-2 mt-2 overflow-auto text-xs bg-gray-100 rounded">
                 {JSON.stringify(debugInfo, null, 2)}
               </pre>
             </details>
