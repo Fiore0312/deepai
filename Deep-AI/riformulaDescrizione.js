@@ -6,7 +6,7 @@ const fs = require("fs");
 const path = require("path");
 const { LRUCache } = require("lru-cache");
 const rateLimit = require("express-rate-limit");
-// const learningSystem = require('./learning-system');
+const learningSystem = require('./learning-system');
 const inputValidator = require('./input-validator');
 
 const app = express();
@@ -248,15 +248,25 @@ app.post("/api/riformula", async (req, res) => {
       });
     }
 
+    // Controlla se esiste un esempio simile nel learning system
+    let similarExample = null;
+    try {
+      similarExample = learningSystem.findSimilar(processedInput);
+    } catch (e) {
+      console.error("Errore ricerca esempio simile:", e);
+    }
+    
+    if (similarExample) {
+      const output = similarExample.output;
+      responseCache.set(cacheKey, output);
+      return res.json({ output, fromCache: false, fromLearning: true, duration: Date.now() - startTime });
+    }
+
     const cacheKey = processedInput.toLowerCase();
     const cachedResponse = responseCache.get(cacheKey);
     if (cachedResponse) {
       return res.json({ output: cachedResponse, fromCache: true, duration: Date.now() - startTime });
     }
-
-    // Learning system disabilitato temporaneamente per risolvere crash di avvio
-    // Verrà riattivato in una versione successiva dopo correzioni
-
     const response = await axios.post(
       `${openRouterConfig.baseURL}/chat/completions`,
       {
@@ -330,8 +340,11 @@ app.post("/api/riformula", async (req, res) => {
 
     responseCache.set(cacheKey, output);
     
-    // Salvataggio esempio disabilitato temporaneamente
-    // (learning system non disponibile in questa versione)
+    try {
+      learningSystem.addExample(processedInput, output);
+    } catch (e) {
+      console.error("Errore salvataggio esempio nel learning system:", e);
+    }
     
     return res.json({ 
       output, 
