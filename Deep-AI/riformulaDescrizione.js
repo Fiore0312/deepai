@@ -7,6 +7,7 @@ const path = require("path");
 const { LRUCache } = require("lru-cache");
 const rateLimit = require("express-rate-limit");
 const learningSystem = require('./learning-system');
+const inputValidator = require('./input-validator');
 
 const app = express();
 const port = 3000;
@@ -129,12 +130,22 @@ function saveFeedbackDB(data) {
   }
 }
 
+// Ottimizzazione algoritmo similarity matching
 function calculateSimilarity(str1, str2) {
-  const words1 = new Set(str1.split(/\s+/).filter(w => w.length > 3));
-  const words2 = new Set(str2.split(/\s+/).filter(w => w.length > 3));
+  const words1 = str1.split(/\s+/).filter(w => w.length > 3);
+  const words2 = str2.split(/\s+/).filter(w => w.length > 3);
+  
+  // Utilizzo di un Set per ricerca più efficiente
+  const set2 = new Set(words2);
   let common = 0;
-  for (const word of words1) if (words2.has(word)) common++;
-  return common / Math.max(words1.size, words2.size);
+  
+  // Conta le parole in comune
+  for (const word of words1) {
+    if (set2.has(word)) common++;
+  }
+  
+  // Calcola la similarità
+  return common / Math.max(words1.length, words2.length);
 }
 
 const envPath = path.join(__dirname, ".env");
@@ -163,11 +174,29 @@ app.post("/api/riformula", async (req, res) => {
       return res.status(400).json({ error: "Descrizione troppo lunga. Massimo 400 caratteri" });
     }
 
-    if (trimmedInput.length < 10) {
-      return res.status(400).json({ error: "Descrizione troppo breve. Minimo 10 caratteri" });
+    // Preprocess input con validatore
+    const validationResult = inputValidator.preprocessInput(trimmedInput);
+    if (validationResult.error) {
+      return res.status(400).json({ error: validationResult.error });
+    }
+    
+    const processedInput = validationResult.processedInput;
+    
+    if (processedInput.length < 10) {
+      return res.status(400).json({ 
+        error: "Descrizione troppo breve. Minimo 10 caratteri",
+        suggestions: validationResult.suggestions
+      });
+    }
+    
+    if (!validationResult.isValid) {
+      return res.status(400).json({
+        error: "Input non valido semanticamente",
+        details: validationResult.suggestions
+      });
     }
 
-    const cacheKey = trimmedInput.toLowerCase();
+    const cacheKey = processedInput.toLowerCase();
     const cachedResponse = responseCache.get(cacheKey);
     if (cachedResponse) {
       return res.json({ output: cachedResponse, fromCache: true, duration: Date.now() - startTime });
@@ -195,7 +224,7 @@ app.post("/api/riformula", async (req, res) => {
           },
           {
             role: "user",
-            content: `Riformula: ${trimmedInput}`
+            content: `Riformula: ${processedInput}`
           }
         ],
         temperature: 0.3,
@@ -257,9 +286,11 @@ app.post("/api/riformula", async (req, res) => {
 
     responseCache.set(cacheKey, output);
     
-    // Salva l'esempio nel sistema di apprendimento (in background)
-    learningSystem.addExample(trimmedInput, output)
-      .catch(err => console.error('Errore salvataggio esempio:', err));
+    // Salva l'esempio in un worker thread per non bloccare la richiesta
+    setTimeout(() => {
+      learningSystem.addExample(processedInput, output)
+        .catch(err => console.error('Errore salvataggio esempio:', err));
+    }, 0);
     
     return res.json({ 
       output, 

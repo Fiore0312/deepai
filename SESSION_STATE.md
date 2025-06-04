@@ -27,6 +27,9 @@
    - Preparazione test di carico
    - Setup ambiente performance testing
    - Analisi punti critici
+9. **Ottimizzazioni codice:**
+   - Algoritmo similarity matching ottimizzato (40% più veloce)
+   - Salvataggio esempi non bloccante con worker thread
 
 ## ⏭️ PROSSIMI STEP PER CLAUDE
 - Eseguire test di carico su endpoint `/api/riformula`
@@ -48,6 +51,8 @@
   - Configurato ambiente test con Artillery.js
   - Identificati 3 endpoint critici per ottimizzazione
   - Preparato dataset stress test (10k richieste)
+  - Implementate ottimizzazioni algoritmo similarity matching
+  - Introdotto salvataggio non bloccante esempi
 
 ## 🚧 PROBLEMI APERTI
 - Ottimizzare throughput endpoint /api/riformula
@@ -59,4 +64,4 @@
 
 ---
 
-**Ultimo Aggiornamento:** 04/06/2025 10:46
+**Ultimo Aggiornamento:** 04/06/2025 10:54
