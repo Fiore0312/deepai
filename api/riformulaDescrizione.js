@@ -254,16 +254,8 @@ app.post("/api/riformula", async (req, res) => {
       return res.json({ output: cachedResponse, fromCache: true, duration: Date.now() - startTime });
     }
 
-    // Controlla se esiste un esempio simile nel sistema di apprendimento
-    const similarPattern = learningSystem.findSimilar(trimmedInput);
-    if (similarPattern) {
-      return res.json({ 
-        output: similarPattern.output, 
-        fromLearning: true,
-        similarity: similarPattern.similarity,
-        duration: Date.now() - startTime 
-      });
-    }
+    // Learning system disabilitato temporaneamente per risolvere crash di avvio
+    // Verrà riattivato in una versione successiva dopo correzioni
 
     const response = await axios.post(
       `${openRouterConfig.baseURL}/chat/completions`,
@@ -338,11 +330,8 @@ app.post("/api/riformula", async (req, res) => {
 
     responseCache.set(cacheKey, output);
     
-    // Salva l'esempio in un worker thread per non bloccare la richiesta
-    setTimeout(() => {
-      learningSystem.addExample(processedInput, output)
-        .catch(err => console.error('Errore salvataggio esempio:', err));
-    }, 0);
+    // Salvataggio esempio disabilitato temporaneamente
+    // (learning system non disponibile in questa versione)
     
     return res.json({ 
       output, 
