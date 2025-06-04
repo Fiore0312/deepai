@@ -1,7 +1,7 @@
-import { riformulaDescrizione } from './riformulaDescrizione.js';
-import { validateInput } from './input-validator.js';
+const { riformulaDescrizione } = require('./riformulaDescrizione');
+const { validateInput } = require('./input-validator');
 
-export async function processBatch(descriptions) {
+async function processBatch(descriptions) {
   // Validiamo tutti gli input prima di elaborarli
   const validatedDescriptions = descriptions.map(desc => {
     const validation = validateInput(desc);
@@ -28,3 +28,5 @@ export async function processBatch(descriptions) {
     }
   };
 }
+
+module.exports = { processBatch };
