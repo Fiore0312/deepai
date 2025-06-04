@@ -1,4 +1,4 @@
-require("dotenv").config();
+requireequire("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
@@ -6,7 +6,7 @@ const fs = require("fs");
 const path = require("path");
 const { LRUCache } = require("lru-cache");
 const rateLimit = require("express-rate-limit");
-const learningSystem = require('./learning-system');
+// const learningSystem = require('./learning-system');
 const inputValidator = require('./input-validator');
 
 const app = express();
