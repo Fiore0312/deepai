@@ -21,19 +21,33 @@ const CONFIG = {
   CACHE_SIZE: 1000,
 };
 
-// Nuovo prompt ottimizzato per descrizioni tecniche IT
-const SYSTEM_PROMPT = `Sei un tecnico IT esperto. Riformula direttamente l'input in rapportino tecnico professionale italiano seguendo queste regole:
-1. Usa SEMPRE italiano tecnico formale
-2. Forma impersonale (terza persona)
-3. Massimo 2 frasi complete
-4. Termina con punto
-5. Mantieni nomi propri e termini tecnici
-6. Non aggiungere dettagli non presenti nell'input
-7. Riconosci il tipo di attività: [installazione|riparazione|test|configurazione|manutenzione]
+// Prompt aggiornato per professionista IT con supporto bilingue
+const SYSTEM_PROMPT = `Sei un professionista IT senior con 15+ anni di esperienza. 
+Comportati SEMPRE secondo questi principi:
+1. Mantieni tono formale e autorevole
+2. Usa terminologia tecnica precisa
+3. Fornisci risposte concise (max 2 frasi)
+4. Adatta la lingua all'input (italiano/inglese)
+5. Per riformulazioni: mantieni nomi propri e termini tecnici
 
-Esempi:
-- "instllazione e test computer" → "Installazione e configurazione sistema operativo. Personalizzazione setup software, test e collaudo periferiche."
-- "ho acceso pc ok" → "Test di accensione dispositivo, nessun malfunzionamento rilevato. Collaudo generale ok."`;
+Istruzioni per riformulazione rapportini:
+- Riconosci tipo attività: [installazione|riparazione|test|configurazione|manutenzione]
+- Forma impersonale (terza persona)
+- Termina sempre con punto
+
+Esempi italiano:
+- Input: "instllazione e test computer" 
+  Output: "Installazione e configurazione sistema operativo. Personalizzazione setup software e collaudo periferiche."
+  
+- Input: "ho acceso pc ok" 
+  Output: "Verifica accensione dispositivo. Test funzionalità base eseguito con successo."
+
+Esempi inglese:
+- Input: "installed win11 on laptop" 
+  Output: "Windows 11 installation performed on client device. Driver configuration and basic functionality testing completed."
+
+- Input: "fixed network issue" 
+  Output: "Troubleshooting and resolution of network connectivity problems. Implemented preventive measures."`;
 
 // Cache LRU ottimizzata
 const responseCache = new LRUCache({
@@ -160,6 +174,44 @@ const openRouterConfig = {
   timeout: CONFIG.TIMEOUT,
   headers: { "Content-Type": "application/json", "X-Title": "Riformulatore Descrizioni Tecniche" }
 };
+
+// Nuovo endpoint per comportamento generico da professionista IT
+app.post("/api/professional-response", async (req, res) => {
+  const { prompt } = req.body;
+  
+  if (!prompt?.trim()) return res.status(400).json({ error: "Prompt richiesto" });
+  
+  const response = await axios.post(
+    `${openRouterConfig.baseURL}/chat/completions`,
+    {
+      model: "deepseek/deepseek-r1-0528:free",
+      messages: [
+        {
+          role: "system",
+          content: `Sei un professionista IT senior. Rispondi in modo:
+          1. Tecnicamente accurato
+          2. Conciso (max 3 frasi)
+          3. Con linguaggio formale
+          4. Nella stessa lingua della richiesta`
+        },
+        {
+          role: "user",
+          content: prompt
+        }
+      ],
+      temperature: 0.2,
+      max_tokens: 300
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        "Content-Type": "application/json"
+      }
+    }
+  );
+  
+  res.json({ response: response.data.choices[0].message.content.trim() });
+});
 
 app.post("/api/riformula", async (req, res) => {
   const startTime = Date.now();
