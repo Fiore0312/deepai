@@ -22,32 +22,25 @@ const CONFIG = {
 };
 
 // Prompt aggiornato per professionista IT con supporto bilingue
-const SYSTEM_PROMPT = `Sei un professionista IT senior con 15+ anni di esperienza. 
-Comportati SEMPRE secondo questi principi:
-1. Mantieni tono formale e autorevole
-2. Usa terminologia tecnica precisa
-3. Fornisci risposte concise (max 2 frasi)
-4. Adatta la lingua all'input (italiano/inglese)
-5. Per riformulazioni: mantieni nomi propri e termini tecnici
+const SYSTEM_PROMPT = `Sei un redattore tecnico IT esperto. Trasforma descrizioni informali di attività IT in rapporti professionali italiani.
 
-Istruzioni per riformulazione rapportini:
-- Riconosci tipo attività: [installazione|riparazione|test|configurazione|manutenzione]
-- Forma impersonale (terza persona)
-- Termina sempre con punto
+REGOLE PRECISE:
+- Italiano formale e tecnico
+- Terza persona impersonale ("È stata eseguita l'installazione" non "Ho installato")
+- Mantieni nomi propri, software e marche esatti
+- Massimo 2-3 frasi complete, termina con punto
+- Non inventare dettagli non presenti nell'input
+- Correggi errori di battitura automaticamente
 
-Esempi italiano:
-- Input: "instllazione e test computer" 
-  Output: "Installazione e configurazione sistema operativo. Personalizzazione setup software e collaudo periferiche."
-  
-- Input: "ho acceso pc ok" 
-  Output: "Verifica accensione dispositivo. Test funzionalità base eseguito con successo."
+ESEMPI CONVERSIONE:
+Input: "Presidio zara"
+Output: "Eseguito presidio tecnico presso il punto vendita Zara. Monitoraggio sistemi e verifica funzionalità."
 
-Esempi inglese:
-- Input: "installed win11 on laptop" 
-  Output: "Windows 11 installation performed on client device. Driver configuration and basic functionality testing completed."
+Input: "ho fatto installazione ok" 
+Output: "Completata l'installazione del software richiesto. Test di funzionamento eseguiti con esito positivo."
 
-- Input: "fixed network issue" 
-  Output: "Troubleshooting and resolution of network connectivity problems. Implemented preventive measures."`;
+Input: "test email tutto ok"
+Output: "Eseguiti test di configurazione email. Verifica invio e ricezione completata con successo."`;
 
 // Cache LRU ottimizzata
 const responseCache = new LRUCache({
@@ -216,11 +209,13 @@ app.post("/api/professional-response", async (req, res) => {
 app.post("/api/riformula", async (req, res) => {
   const startTime = Date.now();
   try {
-    const { input } = req.body;
+    // Supporto sia 'input' che 'descrizione' per compatibilità
+    const { input, descrizione } = req.body;
+    const rawInput = input || descrizione;
     const model = "deepseek/deepseek-r1-0528:free";
 
-    if (!input?.trim()) return res.status(400).json({ error: "Input non valido" });
-    const trimmedInput = input.trim();
+    if (!rawInput?.trim()) return res.status(400).json({ error: "Input non valido" });
+    const trimmedInput = rawInput.trim();
 
     if (trimmedInput.length > 400) {
       return res.status(400).json({ error: "Descrizione troppo lunga. Massimo 400 caratteri" });
@@ -256,45 +251,50 @@ app.post("/api/riformula", async (req, res) => {
       console.error("Errore ricerca esempio simile:", e);
     }
     
+    const cacheKey = processedInput.toLowerCase();
+    
     if (similarExample) {
       const output = similarExample.output;
       responseCache.set(cacheKey, output);
       return res.json({ output, fromCache: false, fromLearning: true, duration: Date.now() - startTime });
     }
-
-    const cacheKey = processedInput.toLowerCase();
     const cachedResponse = responseCache.get(cacheKey);
     if (cachedResponse) {
       return res.json({ output: cachedResponse, fromCache: true, duration: Date.now() - startTime });
     }
+    const requestData = {
+      model: "deepseek/deepseek-r1:free",
+      messages: [
+        {
+          role: "system",
+          content: SYSTEM_PROMPT
+        },
+        {
+          role: "user",
+          content: `Riformula: ${processedInput}`
+        }
+      ],
+      temperature: 0.3,
+      max_tokens: 1200,
+      top_p: 0.9,
+      frequency_penalty: 0.2,
+      presence_penalty: 0.1
+    };
+
+    const requestConfig = {
+      timeout: 30000,
+      headers: {
+        ...openRouterConfig.headers,
+        Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        "HTTP-Referer": "https://deepai-gamma.vercel.app",
+        "X-Title": "DeepAI-Rapportini"
+      }
+    };
+
     const response = await axios.post(
       `${openRouterConfig.baseURL}/chat/completions`,
-      {
-        model,
-        messages: [
-          {
-            role: "system",
-            content: SYSTEM_PROMPT
-          },
-          {
-            role: "user",
-            content: `Riformula: ${processedInput}`
-          }
-        ],
-        temperature: 0.3,
-        max_tokens: 250,
-        top_p: 0.9,
-        frequency_penalty: 0.6,
-        presence_penalty: 0.2
-      },
-      {
-        ...openRouterConfig,
-        headers: {
-          ...openRouterConfig.headers,
-          Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
-          "HTTP-Referer": "https://riformulatore-api.onrender.com"
-        }
-      }
+      requestData,
+      requestConfig
     );
 
     // Gestione robusta delle risposte API
@@ -353,10 +353,22 @@ app.post("/api/riformula", async (req, res) => {
     });
 
   } catch (error) {
-    console.error(`[${new Date().toISOString()}] Errore critico:`, error);
+    console.error('Errore dettagliato:', {
+      message: error.message,
+      status: error.response?.status,
+      data: error.response?.data,
+      timestamp: new Date().toISOString()
+    });
+    
+    // Messaggio di fallback più utile
+    if (error.response?.status === 429) {
+      return res.status(429).json({ 
+        error: 'Rate limit raggiunto. Riprova tra qualche minuto.' 
+      });
+    }
+    
     return res.status(500).json({ 
-      error: "Errore nel servizio di riformulazione",
-      details: "Si prega di riprovare più tardi o contattare il supporto tecnico"
+      error: 'Errore durante la riformulazione. Controlla i log del server.' 
     });
   }
 });
