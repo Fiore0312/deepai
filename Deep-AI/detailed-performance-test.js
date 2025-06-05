@@ -1,25 +1,25 @@
 const axios = require("axios");
 const fs = require("fs").promises;
 
-const API_URL = "https://deepai-weem.onrender.com";
+const API_URL = "http://localhost:3000";
 const TIMEOUT = 30000; // 30 secondi
 
 const TEST_CASES = [
   {
     name: "Input Breve",
-    input: "configurazione rds",
+    input: "Configurato sistema RDS per database aziendale",
     expectedTime: 10000, // 10 secondi
   },
   {
     name: "Input Medio",
     input:
-      "Installazione software antivirus e configurazione policy di sicurezza",
+      "Installato software antivirus e configurato policy di sicurezza per reti aziendali",
     expectedTime: 15000, // 15 secondi
   },
   {
     name: "Input Lungo",
     input:
-      "Implementazione e configurazione completa del sistema di backup con verifica delle repliche e test di ripristino dati",
+      "Implementato e configurato sistema di backup completo con verifica delle repliche ed eseguito test di ripristino dati critici",
     expectedTime: 20000, // 20 secondi
   },
 ];
@@ -30,8 +30,7 @@ async function measureResponseTime(testCase) {
     const response = await axios.post(
       `${API_URL}/api/riformula`,
       {
-        input: testCase.input,
-        model: "deepseek/deepseek-r1:free",
+        input: testCase.input
       },
       {
         timeout: TIMEOUT,

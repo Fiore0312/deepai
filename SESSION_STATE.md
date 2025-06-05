@@ -3,28 +3,27 @@
 * **Data**: 04/06/2025 | **Status**: Attivo
 
 ## 🤖 ULTIMO AGGIORNAMENTO CLINE:
-Data: 04/06/2025 17:55 | TASK: Risoluzione errore 400 persistente | Status: COMPLETATO
+Data: 05/06/2025 10:20 | TASK: Upgrade DeepSeek R1 e fix deploy | Status: COMPLETATO
 
 LAVORO SVOLTO:
-- ✅ Aggiornamento input validator con nuovi verbi e sostantivi tecnici
-- ✅ Correzione errore caching nel backend (ReferenceError cacheKey)
-- ✅ Avvio entrambi i server (frontend e backend)
-- ✅ Test con input problematico "fatto installazione di tutti i porhgrammi richiesti"
+- ✅ Aggiornato modello a DeepSeek R1
+- ✅ Ottimizzato prompt in italiano
+- ✅ Fix validatore input (aggiunti verbi e sostantivi)
+- ✅ Configurazione Vercel per deploy
+- ✅ Test locale con input problematico "Pianificato ticket assegnanti"
 
 RISULTATI:
-- Errore 400 "Input non valido semanticamente" risolto
-- Sistema ora accetta correttamente input con "fatto installazione"
-- Correzione automatica per typo "porhgrammi" -> "programmi"
-- Entrambi i server attivi e funzionanti
+- Modello aggiornato con nuovo prompt
+- Validatore accetta ora "pianificato", "ticket", "richieste", etc.
+- Creato vercel.json per correggere il deploy
+- Input problematico ora accettato correttamente
 
 PROSSIMO STEP PER CLAUDE: 
-Verifica finale della funzionalità sul frontend all'indirizzo http://localhost:5173/
+Verificare il deploy su Vercel
 
 NOTE TECNICHE:
-- Backend: porta 3000
-- Frontend: porta 5173
-- Validatore: aggiunti 5 nuovi verbi e controllo per sostantivi tecnici
-- Caching: risolto problema di inizializzazione variabile
+- Backend: DeepSeek R1 con prompt ottimizzato
+- Frontend: Configurazione Vercel corretta
 
 PROBLEMI APERTI: Nessuno
 

@@ -1,92 +1,73 @@
 {
-  "timestamp": "2025-04-27T19:28:29.050Z",
+  "timestamp": "2025-06-04T14:41:16.957Z",
   "results": [
     {
       "name": "Input Breve",
-      "input": "configurazione rds",
+      "input": "Configurato sistema RDS per database aziendale",
       "expectedTime": 10000,
-      "duration": 12081,
-      "success": true,
-      "output": "Per configurare RDS, procedere con i seguenti passaggi:  \n1. Installare il **ruolo RDS** tramite Server Manager (Gestione server).  \n2. Configurare la distribuzione selezionando i componenti necessari: **Session Host**, **Web Access** e **Connection Broker**.  \n3. Configurare il **licensing server** per evitare errori di attivazione.  \n4. Creare una **collection** per organizzare le risorse RDS.  \n5. Assegnare le autorizzazioni agli utenti/gruppi tramite Active Directory.  \n6. Verificare la connettività client tramite **RDP** o **Web Client**.  \nAssicurarsi che firewall e politiche di rete consentano il traffico RDS (porte 3389/TCP, 443/TCP).",
-      "isSlowerThanExpected": true,
-      "statusCode": 200,
-      "headers": {
-        "date": "Sun, 27 Apr 2025 19:28:13 GMT",
-        "content-type": "application/json; charset=utf-8",
-        "content-length": "437",
-        "connection": "keep-alive",
-        "access-control-allow-credentials": "true",
-        "access-control-allow-origin": "*",
-        "etag": "W/\"2b4-NuJil1jUWnjJwl8Yhk/r2Hlnzas\"",
-        "rndr-id": "41f97d64-af59-4fd6",
-        "vary": "Accept-Encoding",
-        "x-powered-by": "Express",
-        "x-render-origin-server": "Render",
-        "cf-cache-status": "DYNAMIC",
-        "server": "cloudflare",
-        "cf-ray": "9370b879fa05badc-MXP",
-        "alt-svc": "h3=\":443\"; ma=86400"
+      "duration": 11,
+      "success": false,
+      "error": "Request failed with status code 400",
+      "errorDetail": {
+        "error": "Input non valido semanticamente",
+        "details": [
+          "Aggiungi verbi d'azione (es: installato, configurato)"
+        ]
       }
     },
     {
       "name": "Input Medio",
-      "input": "Installazione software antivirus e configurazione policy di sicurezza",
+      "input": "Installato software antivirus e configurato policy di sicurezza per reti aziendali",
       "expectedTime": 15000,
-      "duration": 8843,
+      "duration": 7134,
       "success": true,
-      "output": "Implementazione del software antivirus centralizzato e configurazione delle policy di sicurezza sull'infrastruttura aziendale per garantire la protezione dei sistemi.",
+      "output": "Second part: Configuration of security policies for corporate networks -> Configurazione delle policy di sicurezza per le reti aziendali.",
       "isSlowerThanExpected": false,
       "statusCode": 200,
       "headers": {
-        "date": "Sun, 27 Apr 2025 19:28:22 GMT",
-        "content-type": "application/json; charset=utf-8",
-        "content-length": "145",
-        "connection": "keep-alive",
-        "access-control-allow-credentials": "true",
-        "access-control-allow-origin": "*",
-        "etag": "W/\"c8-gb6loOODr01+y3bd3pwOIFLkN+4\"",
-        "rndr-id": "b9997a79-dd54-4986",
-        "vary": "Accept-Encoding",
         "x-powered-by": "Express",
-        "x-render-origin-server": "Render",
-        "cf-cache-status": "DYNAMIC",
-        "server": "cloudflare",
-        "cf-ray": "9370b8c57cddbadc-MXP",
-        "alt-svc": "h3=\":443\"; ma=86400"
+        "x-ratelimit-limit": "50",
+        "x-ratelimit-remaining": "47",
+        "date": "Wed, 04 Jun 2025 14:40:47 GMT",
+        "x-ratelimit-reset": "1749048106",
+        "access-control-allow-origin": "*",
+        "access-control-allow-credentials": "true",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "184",
+        "etag": "W/\"b8-UteyNIu2YO9ZEhqGyKq0EjiuW8o\"",
+        "connection": "keep-alive",
+        "keep-alive": "timeout=5"
       }
     },
     {
       "name": "Input Lungo",
-      "input": "Implementazione e configurazione completa del sistema di backup con verifica delle repliche e test di ripristino dati",
+      "input": "Implementato e configurato sistema di backup completo con verifica delle repliche ed eseguito test di ripristino dati critici",
       "expectedTime": 20000,
-      "duration": 9195,
+      "duration": 21998,
       "success": true,
-      "output": "Implementazione e configurazione del sistema di backup enterprise con verifica dell'integrità delle repliche ed esecuzione di test di ripristino dati completati con successo.",
-      "isSlowerThanExpected": false,
+      "output": "Rephrased in Italian: Implementazione e configurazione di un sistema di backup completo con verifica delle repliche.",
+      "isSlowerThanExpected": true,
       "statusCode": 200,
       "headers": {
-        "date": "Sun, 27 Apr 2025 19:28:31 GMT",
-        "content-type": "application/json; charset=utf-8",
-        "content-length": "160",
-        "connection": "keep-alive",
-        "access-control-allow-credentials": "true",
-        "access-control-allow-origin": "*",
-        "etag": "W/\"d1-5lEfcBCBedyU+MHquSHF8lJZI+4\"",
-        "rndr-id": "b774c7c7-6cf3-4325",
-        "vary": "Accept-Encoding",
         "x-powered-by": "Express",
-        "x-render-origin-server": "Render",
-        "cf-cache-status": "DYNAMIC",
-        "server": "cloudflare",
-        "cf-ray": "9370b8fcbc96badc-MXP",
-        "alt-svc": "h3=\":443\"; ma=86400"
+        "x-ratelimit-limit": "50",
+        "x-ratelimit-remaining": "46",
+        "date": "Wed, 04 Jun 2025 14:40:54 GMT",
+        "x-ratelimit-reset": "1749048106",
+        "access-control-allow-origin": "*",
+        "access-control-allow-credentials": "true",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "164",
+        "etag": "W/\"a4-2zq7jTm5+kCRxufGNGk5HwoByoE\"",
+        "connection": "keep-alive",
+        "keep-alive": "timeout=5"
       }
     }
   ],
   "summary": {
     "totalTests": 3,
-    "successfulTests": 3,
-    "averageTime": 10039.666666666666,
+    "successfulTests": 2,
+    "averageTime": 14566,
     "slowTests": 1
   }
 }

@@ -6,7 +6,8 @@ const typoCorrections = {
   "sw": "software",
   "hw": "hardware",
   "ripristin": "ripristino",
-  "aggiorn": "aggiornamento"
+  "aggiorn": "aggiornamento",
+  "porhgrammi": "programmi"  // Nuova correzione
 };
 
 const activityTypes = {
@@ -69,8 +70,25 @@ function detectActivityType(input) {
  * @returns {boolean}
  */
 function validateSemantics(input) {
-  const verbs = ["installato", "riparato", "configurato", "testato", "sostituito"];
-  return verbs.some(verb => input.includes(verb));
+  // Lista estesa di verbi tecnici e loro radici
+  const verbPatterns = [
+    "install", "configur", "ripar", "test", "sostitu", "aggiorn", 
+    "verific", "controll", "monitor", "esegu", "implement", "ottimizz", 
+    "rimuov", "backup", "ripristin", "analizz", "diagnostic", "risolv",
+    "miglior", "colleg", "scansion", "progett", "cre", "ottien",
+    "fatto", "complet", "effettu", "eseguit", "realizz", "pianific"
+  ];
+
+  // Controlla se l'input contiene almeno una radice verbale
+  const hasVerb = verbPatterns.some(verb => {
+    const regex = new RegExp(`\\b${verb}\\w*\\b`, 'i');
+    return regex.test(input);
+  });
+
+  // Esteso con nuovi termini tecnici
+  const hasTechNoun = /installazione|configurazione|riparazione|manutenzione|test|ticket|richiesta|prenotazione|auto/i.test(input);
+
+  return hasVerb || hasTechNoun;
 }
 
 /**
@@ -94,6 +112,6 @@ module.exports.preprocessInput = function(rawInput) {
     originalInput: rawInput,
     activityType,
     isValid,
-    suggestions: isValid ? [] : ["Aggiungi verbi d'azione (es: installato, configurato)"]
+    suggestions: isValid ? [] : ["Aggiungi verbi d'azione (es: installato, configurato) o termini tecnici (es: installazione)"]
   };
 };

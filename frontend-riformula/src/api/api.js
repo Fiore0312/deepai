@@ -6,7 +6,7 @@ export const riformulaDescrizione = async (descrizione, apiBaseUrl) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ descrizione }),
+      body: JSON.stringify({ input: descrizione }),
     });
 
     if (!response.ok) {

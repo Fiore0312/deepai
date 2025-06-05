@@ -1,0 +1,18 @@
+{
+  "builds": [
+    {
+      "src": "frontend-riformula/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/.*",
+      "dest": "frontend-riformula/dist"
+    }
+  ],
+  "framework": "vite"
+}
