@@ -68,6 +68,7 @@ app.use(limiter);
 const allowedOrigins = [
   "https://fiore0312.github.io",           // Frontend GitHub Pages
   "https://deepai-weem.onrender.com",      // Backend Render
+  "https://deepai-gamma.vercel.app",       // Frontend Vercel
   "http://localhost:3000",                 // Sviluppo locale backend
   "http://localhost:5173",                 // Sviluppo locale Vite
   "http://127.0.0.1:5173",                 // Sviluppo locale alternativo
