@@ -89,7 +89,7 @@ app.use(
       }
     },
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "Origin", "Accept"],
     credentials: true,
     optionsSuccessStatus: 200,
   })
@@ -632,7 +632,54 @@ app.post("/api/save-correction", async (req, res) => {
   }
 });
 
-// Altri endpoint semplificati
+// Endpoint per validazione input (richiesto dal frontend)
+app.post("/api/validate-input", async (req, res) => {
+  try {
+    const { input } = req.body;
+    
+    if (!input) {
+      return res.status(400).json({ 
+        valid: false, 
+        error: "Input richiesto",
+        code: "MISSING_INPUT"
+      });
+    }
+    
+    // Validazione lunghezza
+    if (input.length < 5) {
+      return res.json({ 
+        valid: false, 
+        error: "Descrizione troppo breve. Minimo 5 caratteri",
+        suggestions: ["Aggiungi più dettagli", "Specifica l'attività svolta"]
+      });
+    }
+    
+    if (input.length > 500) {
+      return res.json({ 
+        valid: false, 
+        error: "Descrizione troppo lunga. Massimo 500 caratteri",
+        suggestions: ["Riassumi il contenuto", "Rimuovi dettagli non necessari"]
+      });
+    }
+    
+    // Input valido
+    res.json({ 
+      valid: true, 
+      message: "Input valido",
+      characterCount: input.length,
+      timestamp: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    console.error('Errore validate-input:', error);
+    res.status(500).json({ 
+      valid: false,
+      error: "Errore interno del server",
+      code: "VALIDATION_ERROR",
+      timestamp: new Date().toISOString()
+    });
+  }
+});
 
 app.listen(port, () => {
   console.log("\x1b[32m%s\x1b[0m", `Server in ascolto su porta ${port}`);
