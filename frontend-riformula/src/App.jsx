@@ -3,8 +3,11 @@ import TemplateSelector from './components/TemplateSelector';
 import HistoryPanel from './components/HistoryPanel';
 import BatchProcessor from './components/BatchProcessor';
 
-// URL base dell'API: usa un URL di produzione quando è in produzione, altrimenti usa localhost
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+// URL base dell'API: auto-detect environment
+const API_BASE_URL = import.meta.env.VITE_API_URL || 
+  (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+    ? "http://localhost:3000" 
+    : "https://deepai-weem.onrender.com");
 
 function App() {
   const [rawDescription, setRawDescription] = useState("");
