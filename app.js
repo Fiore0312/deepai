@@ -102,20 +102,46 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Funzione copia negli appunti
-  copyBtn.addEventListener("click", function () {
+  // Funzione copia negli appunti moderna
+  copyBtn.addEventListener("click", async function () {
     if (descriptionField.value.length === 0) return;
 
-    descriptionField.select();
-    document.execCommand("copy");
+    try {
+      // Usa la moderna Clipboard API
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(descriptionField.value);
+      } else {
+        // Fallback per browser non supportati
+        descriptionField.select();
+        document.execCommand("copy");
+      }
 
-    // Feedback visivo
-    const originalText = copyBtn.innerHTML;
-    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copiato!';
+      // Feedback visivo
+      const originalText = copyBtn.innerHTML;
+      copyBtn.innerHTML = '<i class="fas fa-check"></i> Copiato!';
+      copyBtn.style.backgroundColor = '#28a745';
 
-    setTimeout(() => {
-      copyBtn.innerHTML = originalText;
-    }, 2000);
+      setTimeout(() => {
+        copyBtn.innerHTML = originalText;
+        copyBtn.style.backgroundColor = '';
+      }, 2000);
+
+    } catch (error) {
+      console.error('Errore copia:', error);
+      // Fallback in caso di errore
+      try {
+        descriptionField.select();
+        document.execCommand("copy");
+        
+        const originalText = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<i class="fas fa-check"></i> Copiato!';
+        setTimeout(() => {
+          copyBtn.innerHTML = originalText;
+        }, 2000);
+      } catch (fallbackError) {
+        alert('Impossibile copiare automaticamente. Seleziona il testo manualmente.');
+      }
+    }
   });
 
   // Funzione reset campo
@@ -173,7 +199,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
       console.log("Inviando richiesta al server:", currentDescription);
 
-      const response = await fetch("http://localhost:3000/api/riformula", {
+      // Determina URL API basato sull'ambiente
+      const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+        ? 'http://localhost:3000' 
+        : 'https://deepai-weem.onrender.com';
+        
+      const response = await fetch(`${API_BASE_URL}/api/riformula`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -227,7 +258,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   async function saveFeedback(originalText, enhancedText, isPositive) {
     try {
-      await fetch("http://localhost:3000/api/save-feedback", {
+      await fetch(`${API_BASE_URL}/api/save-feedback`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

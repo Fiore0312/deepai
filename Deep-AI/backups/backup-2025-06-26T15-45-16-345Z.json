@@ -1,0 +1,18 @@
+[
+  {
+    "input": "installazione e configurazione sistema opertivo",
+    "output": "Second sentence: Configuration of the installed operating system.",
+    "count": 1,
+    "score": 0.7699379976851852,
+    "createdAt": "2025-06-04T15:51:48.995Z",
+    "lastUpdated": "2025-06-04T15:51:48.995Z"
+  },
+  {
+    "input": "installazione e copnfigurazine sistema operitvo",
+    "output": "However, looking at the examples, they often break into two parts even if the input is short.",
+    "count": 1,
+    "score": 0.799999999074074,
+    "createdAt": "2025-06-04T15:58:30.764Z",
+    "lastUpdated": "2025-06-04T15:58:30.764Z"
+  }
+]

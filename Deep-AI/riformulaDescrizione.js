@@ -64,12 +64,33 @@ const limiter = rateLimit({
 });
 
 app.use(limiter);
+// Configurazione CORS sicura
+const allowedOrigins = [
+  "https://fiore0312.github.io",           // Frontend GitHub Pages
+  "https://deepai-weem.onrender.com",      // Backend Render
+  "http://localhost:3000",                 // Sviluppo locale backend
+  "http://localhost:5173",                 // Sviluppo locale Vite
+  "http://127.0.0.1:5173",                 // Sviluppo locale alternativo
+  "https://localhost:3000",                // HTTPS locale
+];
+
 app.use(
   cors({
-    origin: "*",
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    origin: function (origin, callback) {
+      // Consenti richieste senza origin (es. Postman, app mobile)
+      if (!origin) return callback(null, true);
+      
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        console.warn(`🚫 CORS bloccato per origine: ${origin}`);
+        callback(new Error('CORS: Origine non autorizzata'), false);
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
     credentials: true,
-    optionsSuccessStatus: 204,
+    optionsSuccessStatus: 200,
   })
 );
 app.use(express.json());
@@ -165,45 +186,72 @@ if (!fs.existsSync(envPath)) {
 const openRouterConfig = {
   baseURL: "https://openrouter.ai/api/v1",
   timeout: CONFIG.TIMEOUT,
-  headers: { "Content-Type": "application/json", "X-Title": "Riformulatore Descrizioni Tecniche" }
+  headers: { 
+    "Content-Type": "application/json", 
+    "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
+    "HTTP-Referer": "https://github.com/Fiore0312/deepai",
+    "X-Title": "Riformulatore Descrizioni Tecniche" 
+  }
 };
 
 // Nuovo endpoint per comportamento generico da professionista IT
 app.post("/api/professional-response", async (req, res) => {
-  const { prompt } = req.body;
-  
-  if (!prompt?.trim()) return res.status(400).json({ error: "Prompt richiesto" });
-  
-  const response = await axios.post(
-    `${openRouterConfig.baseURL}/chat/completions`,
-    {
-      model: "deepseek/deepseek-r1-0528:free",
-      messages: [
-        {
-          role: "system",
-          content: `Sei un professionista IT senior. Rispondi in modo:
-          1. Tecnicamente accurato
-          2. Conciso (max 3 frasi)
-          3. Con linguaggio formale
-          4. Nella stessa lingua della richiesta`
-        },
-        {
-          role: "user",
-          content: prompt
-        }
-      ],
-      temperature: 0.2,
-      max_tokens: 300
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
-        "Content-Type": "application/json"
-      }
+  try {
+    const { prompt } = req.body;
+    
+    if (!prompt?.trim()) {
+      return res.status(400).json({ 
+        error: "Prompt richiesto", 
+        code: "MISSING_PROMPT",
+        timestamp: new Date().toISOString() 
+      });
     }
-  );
-  
-  res.json({ response: response.data.choices[0].message.content.trim() });
+    
+    const response = await axios.post(
+      `${openRouterConfig.baseURL}/chat/completions`,
+      {
+        model: "google/gemini-pro-1.5",
+        messages: [
+          {
+            role: "system",
+            content: `Sei un professionista IT senior. Rispondi in modo:
+            1. Tecnicamente accurato
+            2. Conciso (max 3 frasi)
+            3. Con linguaggio formale
+            4. Nella stessa lingua della richiesta`
+          },
+          {
+            role: "user",
+            content: prompt
+          }
+        ],
+        temperature: 0.2,
+        max_tokens: 300
+      },
+      {
+        headers: openRouterConfig.headers,
+        timeout: openRouterConfig.timeout
+      }
+    );
+    
+    if (!response.data?.choices?.[0]?.message?.content) {
+      throw new Error("Risposta API non valida");
+    }
+    
+    res.json({ 
+      response: response.data.choices[0].message.content.trim(),
+      timestamp: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    console.error("Errore API professional-response:", error.message);
+    res.status(500).json({ 
+      error: "Errore durante l'elaborazione della richiesta", 
+      code: "API_ERROR",
+      details: error.response?.data?.error || error.message,
+      timestamp: new Date().toISOString()
+    });
+  }
 });
 
 app.post("/api/riformula", async (req, res) => {
@@ -212,7 +260,7 @@ app.post("/api/riformula", async (req, res) => {
     // Supporto sia 'input' che 'descrizione' per compatibilità
     const { input, descrizione } = req.body;
     const rawInput = input || descrizione;
-    const model = "deepseek/deepseek-r1-0528:free";
+    const model = "google/gemini-pro-1.5";
 
     if (!rawInput?.trim()) return res.status(400).json({ error: "Input non valido" });
     const trimmedInput = rawInput.trim();
@@ -263,7 +311,7 @@ app.post("/api/riformula", async (req, res) => {
       return res.json({ output: cachedResponse, fromCache: true, duration: Date.now() - startTime });
     }
     const requestData = {
-      model: "deepseek/deepseek-r1:free",
+      model: "google/gemini-pro-1.5",
       messages: [
         {
           role: "system",
@@ -353,22 +401,44 @@ app.post("/api/riformula", async (req, res) => {
     });
 
   } catch (error) {
-    console.error('Errore dettagliato:', {
+    console.error('Errore API riformula:', {
       message: error.message,
       status: error.response?.status,
       data: error.response?.data,
       timestamp: new Date().toISOString()
     });
     
-    // Messaggio di fallback più utile
+    // Gestione errori specifici
     if (error.response?.status === 429) {
       return res.status(429).json({ 
-        error: 'Rate limit raggiunto. Riprova tra qualche minuto.' 
+        error: 'Rate limit raggiunto. Riprova tra qualche minuto.',
+        code: 'RATE_LIMIT',
+        retryAfter: 60,
+        timestamp: new Date().toISOString()
+      });
+    }
+    
+    if (error.response?.status === 401) {
+      return res.status(401).json({ 
+        error: 'Chiave API non valida o scaduta.',
+        code: 'INVALID_API_KEY',
+        timestamp: new Date().toISOString()
+      });
+    }
+    
+    if (error.code === 'ECONNABORTED' || error.message.includes('timeout')) {
+      return res.status(408).json({ 
+        error: 'Timeout della richiesta. Riprova.',
+        code: 'TIMEOUT',
+        timestamp: new Date().toISOString()
       });
     }
     
     return res.status(500).json({ 
-      error: 'Errore durante la riformulazione. Controlla i log del server.' 
+      error: 'Errore durante la riformulazione.',
+      code: 'INTERNAL_ERROR',
+      details: error.response?.data?.error || error.message,
+      timestamp: new Date().toISOString()
     });
   }
 });
@@ -376,10 +446,12 @@ app.post("/api/riformula", async (req, res) => {
 // Funzione di fallback al modello precedente
 async function callFallbackModel(input) {
   try {
+    console.log('Utilizzando modello fallback:', 'anthropic/claude-3-haiku:beta');
+    
     const fallbackResponse = await axios.post(
       `${openRouterConfig.baseURL}/chat/completions`,
       {
-        model: "deepseek/deepseek-chat-v3-0324:free",
+        model: "anthropic/claude-3-haiku:beta",
         messages: [
           {
             role: "system",
@@ -394,18 +466,23 @@ async function callFallbackModel(input) {
         max_tokens: 100
       },
       {
-        ...openRouterConfig,
-        headers: {
-          ...openRouterConfig.headers,
-          Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`
-        }
+        headers: openRouterConfig.headers,
+        timeout: openRouterConfig.timeout
       }
     );
     
+    if (!fallbackResponse.data?.choices?.[0]?.message?.content) {
+      throw new Error('Risposta fallback non valida');
+    }
+    
     return fallbackResponse.data.choices[0].message.content.trim();
   } catch (e) {
-    console.error("Errore nel fallback model:", e);
-    return "Descrizione non disponibile";
+    console.error("Errore nel fallback model:", {
+      message: e.message,
+      status: e.response?.status,
+      timestamp: new Date().toISOString()
+    });
+    return "Descrizione non disponibile a causa di errore tecnico";
   }
 }
 
@@ -415,7 +492,7 @@ app.get("/api/test-openrouter", async (req, res) => {
     const testResponse = await axios.post(
       `${openRouterConfig.baseURL}/chat/completions`,
       {
-        model: "deepseek/deepseek-r1-0528:free",
+        model: "google/gemini-pro-1.5",
         messages: [
           {
             role: "system",
@@ -430,32 +507,128 @@ app.get("/api/test-openrouter", async (req, res) => {
         max_tokens: 50
       },
       {
-        ...openRouterConfig,
-        headers: {
-          ...openRouterConfig.headers,
-          Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`
-        }
+        headers: openRouterConfig.headers,
+        timeout: openRouterConfig.timeout
       }
     );
 
+    if (!testResponse.data?.choices?.[0]?.message?.content) {
+      throw new Error('Risposta test API non valida');
+    }
+
     const output = testResponse.data.choices[0].message.content.trim();
-    res.json({ status: "success", message: output });
+    res.json({ 
+      status: "success", 
+      message: output,
+      timestamp: new Date().toISOString(),
+      model: "google/gemini-pro-1.5"
+    });
+    
   } catch (error) {
-    console.error("Errore test API OpenRouter:", error);
+    console.error("Errore test API OpenRouter:", {
+      message: error.message,
+      status: error.response?.status,
+      data: error.response?.data,
+      timestamp: new Date().toISOString()
+    });
+    
     res.status(500).json({ 
       status: "error",
       message: "Connessione API OpenRouter fallita",
-      details: error.message 
+      code: error.response?.status || 'UNKNOWN_ERROR',
+      details: error.response?.data?.error || error.message,
+      timestamp: new Date().toISOString()
     });
   }
 });
 
 app.post("/api/save-feedback", async (req, res) => {
-  // Implementazione semplificata
+  try {
+    const { input, output, feedback, timestamp } = req.body;
+    
+    if (!feedback || !['positive', 'negative'].includes(feedback)) {
+      return res.status(400).json({ 
+        error: "Feedback richiesto (positive/negative)",
+        code: "INVALID_FEEDBACK"
+      });
+    }
+    
+    const feedbackData = {
+      input: input || '',
+      output: output || '',
+      feedback,
+      timestamp: timestamp || new Date().toISOString(),
+      userAgent: req.headers['user-agent'] || 'unknown'
+    };
+    
+    // Salva in database (implementazione semplificata)
+    const db = loadFeedbackDB();
+    if (feedback === 'positive') {
+      db.positiveFeedbacks.push(feedbackData);
+      db.statistics.totalPositiveFeedbacks++;
+    } else {
+      db.negativeFeedbacks.push(feedbackData);
+      db.statistics.totalNegativeFeedbacks++;
+    }
+    db.statistics.lastUpdated = new Date().toISOString();
+    saveFeedbackDB(db);
+    
+    res.json({ 
+      success: true, 
+      message: "Feedback salvato",
+      timestamp: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    console.error('Errore save-feedback:', error);
+    res.status(500).json({ 
+      error: "Errore nel salvataggio del feedback",
+      code: "SAVE_ERROR",
+      timestamp: new Date().toISOString()
+    });
+  }
 });
 
 app.post("/api/save-correction", async (req, res) => {
-  // Implementazione semplificata
+  try {
+    const { originalInput, originalOutput, correctedOutput, timestamp } = req.body;
+    
+    if (!originalInput || !correctedOutput) {
+      return res.status(400).json({ 
+        error: "Input originale e correzione richiesti",
+        code: "MISSING_DATA"
+      });
+    }
+    
+    const correctionData = {
+      originalInput,
+      originalOutput: originalOutput || '',
+      correctedOutput,
+      timestamp: timestamp || new Date().toISOString(),
+      userAgent: req.headers['user-agent'] || 'unknown'
+    };
+    
+    // Salva in database
+    const db = loadCorrectionsDB();
+    db.corrections.push(correctionData);
+    db.statistics.totalCorrections++;
+    db.statistics.lastUpdated = new Date().toISOString();
+    saveCorrectionsDB(db);
+    
+    res.json({ 
+      success: true, 
+      message: "Correzione salvata",
+      timestamp: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    console.error('Errore save-correction:', error);
+    res.status(500).json({ 
+      error: "Errore nel salvataggio della correzione",
+      code: "SAVE_ERROR",
+      timestamp: new Date().toISOString()
+    });
+  }
 });
 
 // Altri endpoint semplificati

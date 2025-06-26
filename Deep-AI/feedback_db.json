@@ -1,10 +1,18 @@
 {
-  "positiveFeedbacks": [],
+  "positiveFeedbacks": [
+    {
+      "input": "test",
+      "output": "output",
+      "feedback": "positive",
+      "timestamp": "2025-06-26T19:03:15.077Z",
+      "userAgent": "curl/8.5.0"
+    }
+  ],
   "negativeFeedbacks": [],
   "statistics": {
-    "totalPositiveFeedbacks": 0,
+    "totalPositiveFeedbacks": 1,
     "totalNegativeFeedbacks": 0,
-    "lastUpdated": "2025-04-21T11:07:51.960Z"
+    "lastUpdated": "2025-06-26T19:03:15.078Z"
   },
   "presidio zara": {
     "input": "Presidio Zara",
