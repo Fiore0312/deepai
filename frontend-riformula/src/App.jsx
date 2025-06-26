@@ -37,10 +37,10 @@ function App() {
 
   // Aggiorna il conteggio caratteri e la validazione quando cambia la descrizione
   useEffect(() => {
-    setCharCount(rawDescription.length);
+    setCharCount(rawDescription?.length || 0);
     
     // Effettua la validazione in tempo reale solo se l'input è abbastanza lungo
-    if (rawDescription.length > 3) {
+    if ((rawDescription?.length || 0) > 3) {
       const validate = async () => {
         try {
           const response = await fetch(`${API_BASE_URL}/api/validate-input`, {
@@ -76,7 +76,7 @@ function App() {
 
   // Aggiorna l'anteprima in tempo reale
   useEffect(() => {
-    if (rawDescription.length > 5) {
+    if ((rawDescription?.length || 0) > 5) {
       // Simulazione anteprima basata sul template selezionato
       const preview = `Anteprima per ${selectedTemplate}: ${rawDescription.substring(0, 50)}...`;
       setLivePreview(preview);
@@ -132,7 +132,7 @@ function App() {
     }
 
     // Verifica lunghezza minima
-    if (rawDescription.trim().length < 40) {
+    if ((rawDescription?.trim()?.length || 0) < 40) {
       setError(
         "La descrizione deve essere di almeno 40 caratteri per essere elaborata correttamente."
       );
@@ -480,11 +480,11 @@ function App() {
                 )}
               </button>
               
-              {validation.suggestions.length > 0 && (
+              {validation?.suggestions?.length > 0 && (
                 <div className="p-3 mt-4 text-sm border-l-4 border-yellow-400 bg-yellow-50">
                   <p className="font-medium text-yellow-800">Suggerimenti:</p>
                   <ul className="pl-5 mt-1 list-disc">
-                    {validation.suggestions.map((suggestion, index) => (
+                    {validation?.suggestions?.map((suggestion, index) => (
                       <li key={index} className="text-yellow-700">{suggestion}</li>
                     ))}
                   </ul>
