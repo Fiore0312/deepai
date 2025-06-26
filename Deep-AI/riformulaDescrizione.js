@@ -82,17 +82,20 @@ app.use(
       // Consenti richieste senza origin (es. Postman, app mobile)
       if (!origin) return callback(null, true);
       
-      if (allowedOrigins.includes(origin)) {
+      // Permetti tutti i domini .vercel.app temporaneamente
+      if (origin.includes('.vercel.app') || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
         console.warn(`🚫 CORS bloccato per origine: ${origin}`);
         callback(new Error('CORS: Origine non autorizzata'), false);
       }
     },
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "Origin", "Accept"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"],
+    allowedHeaders: ["*"],
+    exposedHeaders: ["*"],
     credentials: true,
     optionsSuccessStatus: 200,
+    preflightContinue: false
   })
 );
 app.use(express.json());
