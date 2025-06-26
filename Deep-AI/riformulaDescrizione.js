@@ -181,11 +181,11 @@ function calculateSimilarity(str1, str2) {
   return common / Math.max(words1.length, words2.length);
 }
 
-const envPath = path.join(__dirname, ".env");
-if (!fs.existsSync(envPath)) {
-  console.error("\x1b[31m%s\x1b[0m", "ERRORE: File .env non trovato!");
-  console.log("\x1b[33m%s\x1b[0m", "Creazione file .env di esempio...");
-  fs.writeFileSync(envPath, "OPENROUTER_API_KEY=inserisci_qui_la_tua_chiave_api\n");
+// Controllo presenza chiave API (da environment variables o .env)
+if (!process.env.OPENROUTER_API_KEY) {
+  console.error("\x1b[31m%s\x1b[0m", "ERRORE: OPENROUTER_API_KEY non trovata!");
+  console.log("\x1b[33m%s\x1b[0m", "Configura la variabile ambiente OPENROUTER_API_KEY su Render");
+  process.exit(1);
 }
 
 const openRouterConfig = {
