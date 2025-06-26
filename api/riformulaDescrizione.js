@@ -66,13 +66,14 @@ const limiter = rateLimit({
 app.use(limiter);
 // Configurazione CORS sicura
 const allowedOrigins = [
-  "https://fiore0312.github.io",           // Frontend GitHub Pages
-  "https://deepai-weem.onrender.com",      // Backend Render
-  "https://deepai-gamma.vercel.app",       // Frontend Vercel
-  "http://localhost:3000",                 // Sviluppo locale backend
-  "http://localhost:5173",                 // Sviluppo locale Vite
-  "http://127.0.0.1:5173",                 // Sviluppo locale alternativo
-  "https://localhost:3000",                // HTTPS locale
+  "https://fiore0312.github.io",                               // Frontend GitHub Pages
+  "https://deepai-weem.onrender.com",                          // Backend Render
+  "https://deepai-gamma.vercel.app",                           // Frontend Vercel (vecchio)
+  "https://deepai-234mstsng-francos-projects-03fe5f9f.vercel.app", // Frontend Vercel (nuovo)
+  "http://localhost:3000",                                     // Sviluppo locale backend
+  "http://localhost:5173",                                     // Sviluppo locale Vite
+  "http://127.0.0.1:5173",                                     // Sviluppo locale alternativo
+  "https://localhost:3000",                                    // HTTPS locale
 ];
 
 app.use(
@@ -627,6 +628,34 @@ app.post("/api/save-correction", async (req, res) => {
     res.status(500).json({ 
       error: "Errore nel salvataggio della correzione",
       code: "SAVE_ERROR",
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
+// Endpoint per statistiche correzioni (richiesto dal frontend)
+app.get("/api/correction-stats", async (req, res) => {
+  try {
+    const correctionsDB = loadCorrectionsDB();
+    const feedbackDB = loadFeedbackDB();
+    
+    res.json({
+      corrections: {
+        total: correctionsDB.statistics.totalCorrections || 0,
+        lastUpdated: correctionsDB.statistics.lastUpdated
+      },
+      feedback: {
+        positive: feedbackDB.statistics.totalPositiveFeedbacks || 0,
+        negative: feedbackDB.statistics.totalNegativeFeedbacks || 0,
+        lastUpdated: feedbackDB.statistics.lastUpdated
+      },
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Errore correction-stats:', error);
+    res.status(500).json({ 
+      error: "Errore nel recupero delle statistiche",
+      code: "STATS_ERROR",
       timestamp: new Date().toISOString()
     });
   }
