@@ -55,7 +55,7 @@ function App() {
       }
 
       const data = await response.json();
-      setEnhancedDescription(data.reformulatedDescription || data.result || "");
+      setEnhancedDescription(data.output || data.reformulatedDescription || data.result || "");
     } catch (err) {
       console.error("Errore:", err);
       setError(err.message || "Errore durante l'elaborazione della richiesta");
