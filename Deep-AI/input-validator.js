@@ -111,7 +111,7 @@ module.exports.preprocessInput = function(rawInput) {
     processedInput: normalized,
     originalInput: rawInput,
     activityType,
-    isValid,
-    suggestions: isValid ? [] : ["Aggiungi verbi d'azione (es: installato, configurato) o termini tecnici (es: installazione)"]
+    isValid: true, // Sempre valido - rimuove validazione semantica restrittiva
+    suggestions: []
   };
 };

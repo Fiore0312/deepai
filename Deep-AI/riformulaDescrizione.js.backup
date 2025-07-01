@@ -270,11 +270,11 @@ app.post("/api/riformula", async (req, res) => {
     if (!rawInput?.trim()) return res.status(400).json({ error: "Input non valido" });
     const trimmedInput = rawInput.trim();
 
-    if (trimmedInput.length > 500) {
-      return res.status(400).json({ error: "Descrizione troppo lunga. Massimo 500 caratteri" });
+    if (trimmedInput.length > 400) {
+      return res.status(400).json({ error: "Descrizione troppo lunga. Massimo 400 caratteri" });
     }
 
-    // Preprocess input con validatore (solo correzioni, no validazione semantica)
+    // Preprocess input con validatore
     const validationResult = inputValidator.preprocessInput(trimmedInput);
     if (validationResult.error) {
       return res.status(400).json({ error: validationResult.error });
@@ -282,9 +282,17 @@ app.post("/api/riformula", async (req, res) => {
     
     const processedInput = validationResult.processedInput;
     
-    if (processedInput.length < 5) {
+    if (processedInput.length < 10) {
       return res.status(400).json({ 
-        error: "Descrizione troppo breve. Minimo 5 caratteri"
+        error: "Descrizione troppo breve. Minimo 10 caratteri",
+        suggestions: validationResult.suggestions
+      });
+    }
+    
+    if (!validationResult.isValid) {
+      return res.status(400).json({
+        error: "Input non valido semanticamente",
+        details: validationResult.suggestions
       });
     }
 
