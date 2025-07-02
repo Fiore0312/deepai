@@ -539,6 +539,59 @@ app.get("/api/test-openrouter", async (req, res) => {
   }
 });
 
+// Endpoint per feedback (nuovo - richiesto dal frontend React)
+app.post("/api/feedback", async (req, res) => {
+  try {
+    const { input, output, isPositive, timestamp } = req.body;
+    
+    if (typeof isPositive !== 'boolean') {
+      return res.status(400).json({ 
+        error: "isPositive deve essere boolean",
+        code: "INVALID_FEEDBACK_TYPE"
+      });
+    }
+    
+    const feedbackData = {
+      input: input || '',
+      output: output || '',
+      feedback: isPositive ? 'positive' : 'negative',
+      timestamp: timestamp || new Date().toISOString(),
+      userAgent: req.headers['user-agent'] || 'unknown',
+      source: 'react-frontend'
+    };
+    
+    // Salva in database
+    const db = loadFeedbackDB();
+    if (isPositive) {
+      db.positiveFeedbacks.push(feedbackData);
+      db.statistics.totalPositiveFeedbacks++;
+    } else {
+      db.negativeFeedbacks.push(feedbackData);
+      db.statistics.totalNegativeFeedbacks++;
+    }
+    db.statistics.lastUpdated = new Date().toISOString();
+    saveFeedbackDB(db);
+    
+    console.log(`Feedback ${isPositive ? 'positivo' : 'negativo'} salvato da React frontend`);
+    
+    res.json({ 
+      success: true, 
+      message: "Feedback salvato con successo",
+      feedbackType: isPositive ? 'positive' : 'negative',
+      timestamp: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    console.error('Errore /api/feedback:', error);
+    res.status(500).json({ 
+      error: "Errore nel salvataggio del feedback",
+      code: "FEEDBACK_SAVE_ERROR",
+      details: error.message,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
 app.post("/api/save-feedback", async (req, res) => {
   try {
     const { input, output, feedback, timestamp } = req.body;
@@ -705,6 +758,40 @@ app.post("/api/validate-input", async (req, res) => {
   }
 });
 
+// Middleware di gestione errori globale
+app.use((err, req, res, next) => {
+  console.error('Errore globale:', {
+    message: err.message,
+    stack: err.stack,
+    url: req.url,
+    method: req.method,
+    timestamp: new Date().toISOString()
+  });
+  
+  // Non esporre dettagli dell'errore in produzione
+  const isProduction = process.env.NODE_ENV === 'production';
+  
+  res.status(err.status || 500).json({
+    error: isProduction ? 'Errore interno del server' : err.message,
+    code: err.code || 'INTERNAL_ERROR',
+    timestamp: new Date().toISOString(),
+    ...(isProduction ? {} : { details: err.stack })
+  });
+});
+
+// Gestione 404 per endpoint non trovati
+app.use((req, res) => {
+  res.status(404).json({
+    error: 'Endpoint non trovato',
+    code: 'NOT_FOUND',
+    path: req.originalUrl,
+    method: req.method,
+    timestamp: new Date().toISOString()
+  });
+});
+
 app.listen(port, () => {
   console.log("\x1b[32m%s\x1b[0m", `Server in ascolto su porta ${port}`);
+  console.log("\x1b[36m%s\x1b[0m", "✅ Endpoint /api/feedback aggiunto per frontend React");
+  console.log("\x1b[36m%s\x1b[0m", "✅ Middleware gestione errori globale attivo");
 });

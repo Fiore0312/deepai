@@ -1,0 +1,50 @@
+[
+  {
+    "input": "installazione e configurazione sistema opertivo",
+    "output": "Second sentence: Configuration of the installed operating system.",
+    "count": 1,
+    "score": 0.41357412608024696,
+    "createdAt": "2025-06-04T15:51:48.995Z",
+    "lastUpdated": "2025-06-04T15:51:48.995Z"
+  },
+  {
+    "input": "installazione e copnfigurazine sistema operitvo",
+    "output": "However, looking at the examples, they often break into two parts even if the input is short.",
+    "count": 1,
+    "score": 0.44363612746913583,
+    "createdAt": "2025-06-04T15:58:30.764Z",
+    "lastUpdated": "2025-06-04T15:58:30.764Z"
+  },
+  {
+    "input": "ho installato windowundefinedgi",
+    "output": "Completata l'installazione del sistema operativo Windows. Verifica del corretto funzionamento in corso.",
+    "count": 1,
+    "score": 0.738497686265432,
+    "createdAt": "2025-06-26T18:43:33.665Z",
+    "lastUpdated": "2025-06-26T18:43:33.665Z"
+  },
+  {
+    "input": "ho fatto test email",
+    "output": "Eseguiti test di configurazione email. Verifica di invio e ricezione completata.",
+    "count": 1,
+    "score": 0.7385606396604938,
+    "createdAt": "2025-06-26T18:50:21.603Z",
+    "lastUpdated": "2025-06-26T18:50:21.603Z"
+  },
+  {
+    "input": "test cors con teundefinedpiù lungo",
+    "output": "Eseguiti test CORS (Cross-Origin Resource Sharing). Verifica del funzionamento completata con esito positivo.",
+    "count": 1,
+    "score": 0.7386192456790124,
+    "createdAt": "2025-06-26T18:56:41.370Z",
+    "lastUpdated": "2025-06-26T18:56:41.370Z"
+  },
+  {
+    "input": "installazione software",
+    "output": "Eseguita l'installazione del software. Verifica del corretto funzionamento completata.",
+    "count": 1,
+    "score": 0.799999999382716,
+    "createdAt": "2025-07-01T09:25:48.654Z",
+    "lastUpdated": "2025-07-01T09:25:48.654Z"
+  }
+]

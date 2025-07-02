@@ -14,6 +14,8 @@ function App() {
   const [error, setError] = useState("");
   const [charCount, setCharCount] = useState(0);
   const [feedback, setFeedback] = useState(null);
+  const [retryAttempt, setRetryAttempt] = useState(0);
+  const [loadingMessage, setLoadingMessage] = useState("");
 
   // Esempi di input/output per mostrare agli utenti
   const examples = [
@@ -39,36 +41,88 @@ function App() {
     setError("");
     setEnhancedDescription("");
     setFeedback(null);
+    setRetryAttempt(0);
+    setLoadingMessage("Elaborazione in corso...");
+
+    const makeRequest = async (retryCount = 0) => {
+      try {
+        if (retryCount > 0) {
+          setRetryAttempt(retryCount);
+          setLoadingMessage(`Tentativo ${retryCount + 1}/3...`);
+        }
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 30000); // 30s timeout
+
+        const response = await fetch(`${API_BASE_URL}/api/riformula`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ input: rawDescription.trim() }),
+          signal: controller.signal,
+        });
+
+        clearTimeout(timeoutId);
+
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => ({}));
+          
+          // Retry automatico per errori di rete o server temporanei
+          if ((response.status >= 500 || response.status === 429) && retryCount < 2) {
+            console.log(`Retry ${retryCount + 1}/2 dopo errore ${response.status}`);
+            await new Promise(resolve => setTimeout(resolve, 2000 * (retryCount + 1)));
+            return makeRequest(retryCount + 1);
+          }
+          
+          throw new Error(errorData.error || `Errore HTTP: ${response.status}`);
+        }
+
+        const data = await response.json();
+        const result = data.output || data.reformulatedDescription || data.result || "";
+        
+        if (!result.trim()) {
+          throw new Error("Risposta vuota dal server");
+        }
+        
+        setEnhancedDescription(result);
+        
+      } catch (err) {
+        console.error("Errore richiesta:", err);
+        
+        if (err.name === 'AbortError') {
+          throw new Error("Richiesta scaduta. Riprova con un input più breve.");
+        }
+        
+        if (err.message.includes('fetch')) {
+          throw new Error("Errore di connessione. Verifica la tua connessione internet.");
+        }
+        
+        throw err;
+      }
+    };
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/riformula`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ input: rawDescription.trim() }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || `Errore HTTP: ${response.status}`);
-      }
-
-      const data = await response.json();
-      setEnhancedDescription(data.output || data.reformulatedDescription || data.result || "");
+      await makeRequest();
     } catch (err) {
-      console.error("Errore:", err);
       setError(err.message || "Errore durante l'elaborazione della richiesta");
     } finally {
       setIsLoading(false);
+      setLoadingMessage("");
+      setRetryAttempt(0);
     }
   };
 
   const handleFeedback = async (isPositive) => {
     if (!enhancedDescription.trim() || feedback !== null) return;
 
+    // Imposta immediatamente il feedback per migliorare UX
+    setFeedback(isPositive ? 'positive' : 'negative');
+
     try {
-      await fetch(`${API_BASE_URL}/api/feedback`, {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout per feedback
+
+      const response = await fetch(`${API_BASE_URL}/api/feedback`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -79,14 +133,24 @@ function App() {
           isPositive: isPositive,
           timestamp: new Date().toISOString()
         }),
+        signal: controller.signal,
       });
 
-      setFeedback(isPositive ? 'positive' : 'negative');
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        console.warn(`Feedback non salvato: ${errorData.error || response.status}`);
+        // Non mostriamo errore all'utente per il feedback
+      }
       
       // Reset feedback dopo 3 secondi
       setTimeout(() => setFeedback(null), 3000);
+      
     } catch (err) {
       console.error("Errore invio feedback:", err);
+      // Il feedback rimane visivo anche se il salvataggio fallisce
+      setTimeout(() => setFeedback(null), 3000);
     }
   };
 
@@ -104,6 +168,8 @@ function App() {
     setError("");
     setCharCount(0);
     setFeedback(null);
+    setRetryAttempt(0);
+    setLoadingMessage("");
   };
 
   const useExample = (example) => {
@@ -112,6 +178,8 @@ function App() {
     setEnhancedDescription("");
     setError("");
     setFeedback(null);
+    setRetryAttempt(0);
+    setLoadingMessage("");
   };
 
   return (
@@ -161,7 +229,12 @@ function App() {
                 {isLoading ? (
                   <>
                     <RefreshCw className="w-4 h-4 animate-spin" />
-                    Elaborazione...
+                    {loadingMessage || "Elaborazione..."}
+                    {retryAttempt > 0 && (
+                      <span className="text-xs opacity-75">
+                        (Retry {retryAttempt}/2)
+                      </span>
+                    )}
                   </>
                 ) : (
                   <>

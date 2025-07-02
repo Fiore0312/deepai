@@ -6,13 +6,21 @@
       "feedback": "positive",
       "timestamp": "2025-06-26T19:03:15.077Z",
       "userAgent": "curl/8.5.0"
+    },
+    {
+      "input": "test",
+      "output": "test migliorato",
+      "feedback": "positive",
+      "timestamp": "2025-07-02T20:32:00.000Z",
+      "userAgent": "curl/8.5.0",
+      "source": "react-frontend"
     }
   ],
   "negativeFeedbacks": [],
   "statistics": {
-    "totalPositiveFeedbacks": 1,
+    "totalPositiveFeedbacks": 2,
     "totalNegativeFeedbacks": 0,
-    "lastUpdated": "2025-06-26T19:03:15.078Z"
+    "lastUpdated": "2025-07-02T20:35:15.260Z"
   },
   "presidio zara": {
     "input": "Presidio Zara",
