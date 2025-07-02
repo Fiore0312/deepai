@@ -115,41 +115,65 @@ function App() {
   const handleFeedback = async (isPositive) => {
     if (!enhancedDescription.trim() || feedback !== null) return;
 
-    // Imposta immediatamente il feedback per migliorare UX
-    setFeedback(isPositive ? 'positive' : 'negative');
+    console.log('🔄 Invio feedback:', { isPositive, API_BASE_URL });
 
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout per feedback
+
+      const requestData = {
+        input: rawDescription.trim(),
+        output: enhancedDescription.trim(),
+        isPositive: isPositive,
+        timestamp: new Date().toISOString()
+      };
+
+      console.log('📤 Dati feedback:', requestData);
 
       const response = await fetch(`${API_BASE_URL}/api/feedback`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          input: rawDescription.trim(),
-          output: enhancedDescription.trim(),
-          isPositive: isPositive,
-          timestamp: new Date().toISOString()
-        }),
+        body: JSON.stringify(requestData),
         signal: controller.signal,
       });
 
       clearTimeout(timeoutId);
 
+      console.log('📥 Risposta feedback:', {
+        status: response.status,
+        statusText: response.statusText,
+        ok: response.ok
+      });
+
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        console.warn(`Feedback non salvato: ${errorData.error || response.status}`);
-        // Non mostriamo errore all'utente per il feedback
+        console.error('❌ Errore feedback API:', {
+          status: response.status,
+          error: errorData.error || 'Errore sconosciuto',
+          details: errorData
+        });
+        // Mostra feedback negativo se il salvataggio fallisce
+        setFeedback('error');
+        setTimeout(() => setFeedback(null), 3000);
+        return;
       }
+
+      const responseData = await response.json();
+      console.log('✅ Feedback salvato:', responseData);
       
-      // Reset feedback dopo 3 secondi
+      // Solo ora imposta il feedback visuale positivo
+      setFeedback(isPositive ? 'positive' : 'negative');
       setTimeout(() => setFeedback(null), 3000);
       
     } catch (err) {
-      console.error("Errore invio feedback:", err);
-      // Il feedback rimane visivo anche se il salvataggio fallisce
+      console.error("❌ Errore invio feedback:", err);
+      if (err.name === 'AbortError') {
+        console.error('⏰ Timeout feedback dopo 10s');
+      }
+      // Mostra feedback di errore
+      setFeedback('error');
       setTimeout(() => setFeedback(null), 3000);
     }
   };
@@ -302,6 +326,11 @@ function App() {
                   <ThumbsDown className="w-3 h-3" />
                   No
                 </button>
+                {feedback === 'error' && (
+                  <span className="text-xs text-red-600 ml-2">
+                    ⚠ Errore salvataggio
+                  </span>
+                )}
               </div>
             </div>
           )}

@@ -82,8 +82,11 @@ app.use(
       // Consenti richieste senza origin (es. Postman, app mobile)
       if (!origin) return callback(null, true);
       
-      // Permetti tutti i domini .vercel.app temporaneamente
-      if (origin.includes('.vercel.app') || allowedOrigins.includes(origin)) {
+      // Permetti tutti i domini .vercel.app e GitHub Pages
+      if (origin.includes('.vercel.app') || 
+          origin.includes('fiore0312.github.io') ||
+          allowedOrigins.includes(origin)) {
+        console.log(`✅ CORS autorizzato per: ${origin}`);
         callback(null, true);
       } else {
         console.warn(`🚫 CORS bloccato per origine: ${origin}`);
@@ -99,6 +102,24 @@ app.use(
   })
 );
 app.use(express.json());
+
+// Middleware per header di sicurezza
+app.use((req, res, next) => {
+  // Header di sicurezza raccomandati
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  
+  // Cache control ottimizzato (rimuove must-revalidate deprecato)
+  if (req.path.startsWith('/api/')) {
+    res.setHeader('Cache-Control', 'no-cache, no-store');
+  } else {
+    res.setHeader('Cache-Control', 'public, max-age=300');
+  }
+  
+  next();
+});
 
 app.use((req, res, next) => {
   const start = Date.now();
